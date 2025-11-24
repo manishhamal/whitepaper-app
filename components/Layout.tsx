@@ -171,11 +171,7 @@ const Layout: React.FC = () => {
           <div className="mb-4 md:mb-0 font-medium">
             &copy; {new Date().getFullYear()} {BLOG_NAME}.
           </div>
-          <div className="flex space-x-8">
-            <a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Twitter</a>
-            <a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">GitHub</a>
-            <a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">RSS</a>
-          </div>
+
         </div>
       </footer>
     </div>
