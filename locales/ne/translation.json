@@ -27,27 +27,29 @@
         "tags": "ट्यागहरू"
     },
     "about": {
-        "title": "About Me",
-        "subtitle": "This blog is an open record of my perspective.",
+        "title": "मेरो बारेमा",
+        "subtitle": "यो ब्लग मेरो दृष्टिकोणको खुला अभिलेख हो।",
+        "role": "सिक्ने मान्छे",
+        "bio": "यो ब्लग मेरो दृष्टिकोणको खुला अभिलेख हो।",
         "historyAndTruth": {
-            "title": "History and Truth",
-            "p1": "History doesn't show us the complete truth. It gives us only a partial view of events. What really happened and what was false is impossible to know with absolute certainty.",
-            "p2": "But one thing is clear - whatever happened, happened in reality. Those events were real. People experienced them. Decisions were made. Consequences were faced.",
-            "p3": "My work is to see those events through my lens. I don't claim any ultimate truth. I simply share my perspective."
+            "title": "इतिहास र सत्य",
+            "p1": "इतिहासले हामीलाई पूर्ण सत्य देखाउँदैन। यसले घटनाहरूको आंशिक दृश्य मात्र दिन्छ। वास्तवमा के भयो र के गलत थियो भनेर पूर्ण निश्चितताका साथ थाहा पाउन असम्भव छ।",
+            "p2": "तर एउटा कुरा स्पष्ट छ - जे भयो, वास्तविकतामा भयो। ती घटनाहरू वास्तविक थिए। मानिसहरूले तिनीहरूलाई अनुभव गरे। निर्णयहरू गरिए। परिणामहरू भोगिए।",
+            "p3": "मेरो काम ती घटनाहरूलाई मेरो लेन्सबाट हेर्नु हो। म कुनै अन्तिम सत्यको दाबी गर्दिन। म केवल मेरो दृष्टिकोण साझा गर्छु।"
         },
         "whyIWrite": {
-            "title": "Why I Write",
-            "intro": "Every person sees the world differently. Our background, experience, and values shape our understanding.\n\nI write on this blog because:",
-            "reason1": "First, I believe it's important to hear different perspectives. When we look at the same event from multiple angles, we develop a deeper understanding.",
-            "reason2": "Second, writing is a thinking process for me. When I write, I force myself to be clear. I give structure to my thoughts.",
-            "reason3": "Third, I want dialogue. I see this blog as a conversation. You read, you think, and perhaps you disagree. That's a good thing."
+            "title": "म किन लेख्छु",
+            "intro": "हरेक व्यक्तिले संसारलाई फरक ढंगले देख्छ। हाम्रो पृष्ठभूमि, अनुभव र मूल्यमान्यताले हाम्रो बुझाइलाई आकार दिन्छ।\n\nम यो ब्लगमा लेख्छु किनभने:",
+            "reason1": "पहिलो, मलाई विश्वास छ कि विभिन्न दृष्टिकोणहरू सुन्नु महत्त्वपूर्ण छ। जब हामी एउटै घटनालाई धेरै कोणबाट हेर्छौं, हामी गहिरो बुझाइ विकास गर्छौं।",
+            "reason2": "दोस्रो, लेखन मेरो लागि सोच्ने प्रक्रिया हो। जब म लेख्छु, म आफैलाई स्पष्ट हुन बाध्य पार्छु। म मेरा विचारहरूलाई संरचना दिन्छु।",
+            "reason3": "तेस्रो, म संवाद चाहन्छु। म यो ब्लगलाई कुराकानीको रूपमा देख्छु। तपाईं पढ्नुहुन्छ, सोच्नुहुन्छ, र सायद असहमत हुनुहुन्छ। त्यो राम्रो कुरा हो।"
         },
         "myApproach": {
-            "title": "My Approach",
-            "intro": "I write in three main areas:",
-            "history": "History - Attempting to understand past events in present context. History is not a collection of dead facts. It's a study of patterns, motivations, and human nature.",
-            "technology": "Technology - How technology is shaping our lives, society, and future. Both its possibilities and its dangers.",
-            "politics": "Politics - Analysis of current events. Power, decisions, and their impact. I don't promote any ideology, I simply observe and analyze."
+            "title": "मेरो दृष्टिकोण",
+            "intro": "म तीन मुख्य क्षेत्रहरूमा लेख्छु:",
+            "history": "इतिहास - वर्तमान सन्दर्भमा विगतका घटनाहरू बुझ्ने प्रयास। इतिहास मृत तथ्यहरूको संग्रह होइन। यो ढाँचा, प्रेरणा र मानव प्रकृतिको अध्ययन हो।",
+            "technology": "प्रविधि - कसरी प्रविधिले हाम्रो जीवन, समाज र भविष्यलाई आकार दिइरहेको छ। यसका सम्भावनाहरू र खतराहरू दुवै।",
+            "politics": "राजनीति - समसामयिक घटनाहरूको विश्लेषण। शक्ति, निर्णय र तिनीहरूको प्रभाव। म कुनै विचारधाराको प्रचार गर्दिन, म केवल अवलोकन र विश्लेषण गर्छु।"
         }
     },
     "footer": {

@@ -21,10 +21,10 @@ const About: React.FC = () => {
               <h1 className="text-4xl font-serif font-bold text-slate-900 dark:text-slate-50 mb-2">
                 Hi, I'm {AUTHOR.name}
               </h1>
-              <p className="text-lg text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wide">{AUTHOR.role}</p>
+              <p className="text-lg text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wide">{t('about.role')}</p>
             </div>
             <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
-              {AUTHOR.bio}
+              {t('about.bio')}
             </p>
             <div className="flex gap-4">
               <a href={AUTHOR.socials.twitter} className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors">

@@ -29,6 +29,8 @@
     "about": {
         "title": "About Me",
         "subtitle": "This blog is an open record of my perspective.",
+        "role": "Learner",
+        "bio": "This blog is an open record of my perspective.",
         "historyAndTruth": {
             "title": "History and Truth",
             "p1": "History doesn't show us the complete truth. It gives us only a partial view of events. What really happened and what was false is impossible to know with absolute certainty.",
