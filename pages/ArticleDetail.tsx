@@ -6,7 +6,7 @@ import FadeIn from '../components/FadeIn';
 import { ARTICLES } from '../constants';
 
 const ArticleDetail: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const article = ARTICLES.find((a) => a.id === id);
   const [readingProgress, setReadingProgress] = useState(0);
@@ -34,13 +34,16 @@ const ArticleDetail: React.FC = () => {
   if (!article) {
     return (
       <div className="min-h-[50vh] flex flex-col items-center justify-center text-center">
-        <h2 className="text-3xl font-bold mb-4 font-sans">Article Not Found</h2>
+        <h2 className="text-3xl font-bold mb-4 font-sans">{t('common.error')}</h2>
         <Link to="/articles" className="text-slate-900 hover:underline flex items-center">
-          <ArrowLeft size={16} className="mr-2" /> Back to Articles
+          <ArrowLeft size={16} className="mr-2" /> {t('articleDetail.backToArticles')}
         </Link>
       </div>
     );
   }
+
+  const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
+  const content = i18n.language === 'ne' && article.contentNe ? article.contentNe : article.content;
 
   return (
     <>
@@ -70,7 +73,7 @@ const ArticleDetail: React.FC = () => {
             </div>
 
             <h1 className="text-4xl md:text-6xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-6 leading-tighter tracking-tight">
-              {article.title}
+              {title}
             </h1>
           </header>
         </FadeIn>
@@ -91,13 +94,13 @@ const ArticleDetail: React.FC = () => {
         {/* Content Body */}
         <FadeIn delay={300}>
           <div
-            className="prose prose-lg dark:prose-invert prose-slate max-w-none 
+            className="prose prose-lg dark:prose-invert prose-slate max-w-none
             prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight
             prose-p:font-serif prose-p:leading-loose
             prose-a:font-medium prose-a:text-slate-900 dark:prose-a:text-white prose-a:no-underline prose-a:border-b prose-a:border-slate-300 dark:prose-a:border-slate-600 hover:prose-a:border-slate-900 dark:hover:prose-a:border-white prose-a:transition-colors
             prose-img:rounded-xl prose-img:grayscale hover:prose-img:grayscale-0 prose-img:transition-all
             lead:text-xl lead:font-sans lead:text-slate-600 dark:lead:text-slate-300"
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{ __html: content }}
           />
         </FadeIn>
 

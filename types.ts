@@ -28,4 +28,9 @@ export interface Article {
   tags: string[];
   featuredImage?: string;
   views?: number;
+  // Nepali translations
+  titleNe?: string;
+  excerptNe?: string;
+  contentNe?: string;
+  tagsNe?: string[];
 }

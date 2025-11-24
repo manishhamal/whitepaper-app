@@ -9,15 +9,16 @@ interface ArticleCardProps {
 }
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard' }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Minimal List Style (Timeline View)
   if (variant === 'minimal') {
+    const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
     return (
       <Link to={`/article/${article.id}`} className="group block w-full">
         <article className="flex flex-col justify-center min-h-[3rem]">
           <h3 className="text-2xl md:text-3xl font-sans font-bold text-slate-800 dark:text-slate-200 group-hover:text-black dark:group-hover:text-white transition-colors leading-tight">
-            {article.title}
+            {title}
           </h3>
           {/* Date - Fades out on hover to reveal only title */}
           <span className="text-xs font-mono text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-2 opacity-100 group-hover:opacity-0 transform group-hover:translate-x-2 transition-all duration-300">
@@ -30,13 +31,15 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
 
   // Featured Style (Hero)
   if (variant === 'featured') {
+    const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
+    const excerpt = i18n.language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt;
     return (
       <article className="group relative flex flex-col">
         {article.featuredImage && (
           <Link to={`/article/${article.id}`} className="block overflow-hidden mb-8 rounded-2xl">
             <img
               src={article.featuredImage}
-              alt={article.title}
+              alt={title}
               className="w-full h-auto aspect-[21/9] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
             />
           </Link>
@@ -49,11 +52,11 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
           </div>
           <Link to={`/article/${article.id}`} className="block mb-6">
             <h3 className="text-4xl md:text-6xl font-sans font-extrabold text-slate-900 dark:text-white leading-[1.1] tracking-tighter group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">
-              {article.title}
+              {title}
             </h3>
           </Link>
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-8 font-sans font-light max-w-2xl">
-            {article.excerpt}
+            {excerpt}
           </p>
           <Link
             to={`/article/${article.id}`}
@@ -67,6 +70,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
   }
 
   // Standard Style (Grid/Archive)
+  const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
+  const excerpt = i18n.language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt;
   return (
     <article className="group flex flex-col h-full p-6 bg-slate-50 dark:bg-slate-900/50 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors duration-300">
       <div className="mb-4">
@@ -77,12 +82,12 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
 
       <Link to={`/article/${article.id}`} className="block mb-4">
         <h3 className="text-2xl font-sans font-bold text-slate-900 dark:text-white leading-tight">
-          {article.title}
+          {title}
         </h3>
       </Link>
 
       <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6 line-clamp-3 font-sans text-sm">
-        {article.excerpt}
+        {excerpt}
       </p>
 
       <div className="mt-auto flex items-center justify-between text-xs font-mono text-slate-400">
