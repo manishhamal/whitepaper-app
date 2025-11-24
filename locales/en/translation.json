@@ -5,8 +5,7 @@
         "about": "About"
     },
     "hero": {
-        "title": "Whitepaper",
-        "subtitle": "History hides its truths and lies. But events happen. People witness them. This is how I witnessed mine.",
+        "title": "History hides its truths and lies. But events happen. People witness them.",
         "cta": "Explore Articles"
     },
     "home": {
@@ -21,7 +20,7 @@
         "readMore": "Read More"
     },
     "articleDetail": {
-        "backToArticles": "← Back to Articles",
+        "backToArticles": "Back to Articles",
         "aboutAuthor": "About the Author",
         "relatedArticles": "Related Articles",
         "tags": "Tags"
