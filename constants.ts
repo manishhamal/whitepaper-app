@@ -8,6 +8,7 @@ export const AUTHOR: Author = {
   role: "Learner",
   avatar: "https://picsum.photos/200/200",
   bio: "This blog is an open record of my perspective.",
+  email: "alex@whitepaper.dev",
   socials: {
     twitter: "https://twitter.com",
     linkedin: "https://linkedin.com",

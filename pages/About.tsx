@@ -19,7 +19,7 @@ const About: React.FC = () => {
           <div className="space-y-6">
             <div>
               <h1 className="text-4xl font-serif font-bold text-slate-900 dark:text-slate-50 mb-2">
-                Hi, I'm {AUTHOR.name}
+                {t('about.greeting', { name: AUTHOR.name })}
               </h1>
               <p className="text-lg text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wide">{t('about.role')}</p>
             </div>
@@ -79,10 +79,10 @@ const About: React.FC = () => {
         <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-lg border border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center">
             <Mail size={24} className="text-slate-400 mr-4" />
-            <span className="text-lg font-medium">alex@whitepaper.dev</span>
+            <span className="text-lg font-medium">{AUTHOR.email}</span>
           </div>
           <button className="px-4 py-2 text-sm font-medium text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors">
-            Copy Email
+            {t('about.copyEmail')}
           </button>
         </div>
       </FadeIn>

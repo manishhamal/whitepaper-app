@@ -10,6 +10,7 @@ export interface Author {
   role: string;
   avatar: string;
   bio: string;
+  email: string;
   socials: {
     twitter: string;
     linkedin: string;
