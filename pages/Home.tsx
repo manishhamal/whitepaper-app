@@ -17,7 +17,7 @@ const Home: React.FC = () => {
       <FadeIn>
         <section className="py-12 md:py-20 mb-8 border-b border-slate-100 dark:border-slate-800">
           <h1 className="text-5xl md:text-7xl font-sans font-bold text-slate-900 dark:text-white leading-[0.9] tracking-tighter mb-8">
-            Naarayan ko Girlfriend Joshep le Vagaayo
+            {t('hero.title')}
           </h1>
           <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl font-sans font-light">
             {t('hero.subtitle')}
