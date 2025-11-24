@@ -64,10 +64,10 @@ const Layout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-slate-900">
+    <div className="min-h-screen flex flex-col bg-[#F9F9F3] dark:bg-[#171717] text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-slate-900">
 
       {/* Modern Fixed Header */}
-      <header className="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-100/50 dark:border-slate-800/50 transition-all duration-300">
+      <header className="fixed top-0 w-full z-50 bg-[#F9F9F3]/80 dark:bg-[#171717]/80 backdrop-blur-md border-b border-slate-100/50 dark:border-slate-800/50 transition-all duration-300">
         <div className="max-w-6xl mx-auto px-6 md:px-12 h-16 md:h-20 flex items-center justify-between">
 
           {/* Logo */}
@@ -141,7 +141,7 @@ const Layout: React.FC = () => {
 
       {/* Mobile Nav Dropdown - Placed outside Header to fix stacking context */}
       {isMenuOpen && (
-        <div className="fixed inset-0 top-16 z-40 bg-white dark:bg-slate-950 animate-in slide-in-from-right duration-200 border-t border-slate-100 dark:border-slate-800 md:hidden overflow-y-auto">
+        <div className="fixed inset-0 top-16 z-40 bg-[#F9F9F3] dark:bg-[#171717] animate-in slide-in-from-right duration-200 border-t border-slate-100 dark:border-slate-800 md:hidden overflow-y-auto">
           <div className="p-6 flex flex-col space-y-6 mt-4">
             {navLinks.map((link) => (
               <NavLink
