@@ -57,18 +57,26 @@ const Articles: React.FC = () => {
           {/* Simplified Search & Filter */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pt-4">
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-              {[Category.All, Category.History, Category.Technology, Category.Politics].map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => handleCategoryChange(cat)}
-                  className={`font-bold uppercase tracking-widest transition-colors ${activeCategory === cat
+              {[Category.All, Category.History, Category.Technology, Category.Politics].map((cat) => {
+                // Map category to translation key
+                let translationKey = 'all';
+                if (cat === Category.History) translationKey = 'history';
+                else if (cat === Category.Technology) translationKey = 'technology';
+                else if (cat === Category.Politics) translationKey = 'politics';
+
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => handleCategoryChange(cat)}
+                    className={`font-bold uppercase tracking-widest transition-colors ${activeCategory === cat
                       ? 'text-slate-900 dark:text-white underline underline-offset-4 decoration-2'
                       : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
-                    }`}
-                >
-                  {t(`category.${cat.toLowerCase().replace(' ', '')}`)}
-                </button>
-              ))}
+                      }`}
+                  >
+                    {t(`category.${translationKey}`)}
+                  </button>
+                );
+              })}
             </div>
 
             <div className="relative w-full md:w-56">
