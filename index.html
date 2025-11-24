@@ -16,8 +16,8 @@
             serif: ['Merriweather', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
           },
           colors: {
-            background: '#F5F1E8',
-            foreground: '#28282B',
+            background: '#F3EDE0',
+            foreground: '#1C1C1E',
             muted: '#64748b',
             accent: '#171717', // Neutral dark charcoal
             'accent-foreground': '#ffffff',
@@ -68,6 +68,18 @@
     }
 
     /* Subtle text effect - matte and soft */
+    .hero-gradient {
+      background: linear-gradient(135deg,
+          #F3EDE0 0%,
+          #EFE8D8 25%,
+          #EBE4D0 50%,
+          #EFE8D8 75%,
+          #F3EDE0 100%);
+      background-size: 200% 200%;
+      animation: mesh-gradient 20s ease infinite;
+      position: relative;
+    }
+
     @keyframes subtle-fade {
 
       0%,
@@ -122,7 +134,7 @@
 </head>
 
 <body
-  class="bg-[#F5F1E8] dark:bg-[#282828] text-[#111111] dark:text-[#F5F1E8] transition-colors duration-300 font-sans antialiased selection:bg-slate-900 selection:text-white dark:selection:bg-slate-100 dark:selection:text-slate-900">
+  class="bg-[#F3EDE0] dark:bg-[#1C1C1E] text-[#111111] dark:text-[#F3EDE0] transition-colors duration-300 font-sans antialiased selection:bg-slate-900 selection:text-white dark:selection:bg-slate-100 dark:selection:text-slate-900">
   <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
