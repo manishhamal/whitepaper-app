@@ -167,11 +167,10 @@ const Layout: React.FC = () => {
 
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-slate-100 dark:border-slate-900 mt-auto bg-slate-50/50 dark:bg-slate-950/50">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 dark:text-slate-400">
-          <div className="mb-4 md:mb-0 font-medium">
+        <div className="max-w-6xl mx-auto flex justify-center items-center text-sm text-slate-500 dark:text-slate-400">
+          <div className="font-medium">
             &copy; {new Date().getFullYear()} {BLOG_NAME}.
           </div>
-
         </div>
       </footer>
     </div>
