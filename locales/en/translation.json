@@ -27,26 +27,28 @@
         "tags": "Tags"
     },
     "about": {
-        "title": "About Whitepaper",
-        "subtitle": "Where history, technology, and politics converge.",
-        "missionTitle": "Our Mission",
-        "missionText": "We believe that understanding the past is essential to navigating the future. Technology doesn't exist in a vacuum—it's shaped by historical precedents and political decisions. Our mission is to explore these intersections with clarity and depth.",
-        "whatWeWriteTitle": "What We Write About",
-        "historyTitle": "History",
-        "historyText": "From the fall of empires to the rise of new governance models, we examine the patterns that repeat across time.",
-        "technologyTitle": "Technology",
-        "technologyText": "Cutting-edge developments in software, AI, and infrastructure—analyzed with a critical eye toward their societal impact.",
-        "politicsTitle": "Political Issues",
-        "politicsText": "The frameworks, policies, and power structures that govern our digital and physical worlds.",
-        "valuesTitle": "Our Values",
-        "clarityTitle": "Clarity",
-        "clarityText": "We write to be understood, not to impress. Complex ideas deserve clear explanations.",
-        "depthTitle": "Depth",
-        "depthText": "Surface-level takes are everywhere. We go deeper, connecting dots others miss.",
-        "independenceTitle": "Independence",
-        "independenceText": "No corporate sponsors, no political agendas. Just honest analysis.",
-        "contactTitle": "Get in Touch",
-        "contactText": "Have thoughts on an article? Want to collaborate? Reach out through our social channels."
+        "title": "About Me",
+        "subtitle": "This blog is an open record of my perspective.",
+        "historyAndTruth": {
+            "title": "History and Truth",
+            "p1": "History doesn't show us the complete truth. It gives us only a partial view of events. What really happened and what was false is impossible to know with absolute certainty.",
+            "p2": "But one thing is clear - whatever happened, happened in reality. Those events were real. People experienced them. Decisions were made. Consequences were faced.",
+            "p3": "My work is to see those events through my lens. I don't claim any ultimate truth. I simply share my perspective."
+        },
+        "whyIWrite": {
+            "title": "Why I Write",
+            "intro": "Every person sees the world differently. Our background, experience, and values shape our understanding.\n\nI write on this blog because:",
+            "reason1": "First, I believe it's important to hear different perspectives. When we look at the same event from multiple angles, we develop a deeper understanding.",
+            "reason2": "Second, writing is a thinking process for me. When I write, I force myself to be clear. I give structure to my thoughts.",
+            "reason3": "Third, I want dialogue. I see this blog as a conversation. You read, you think, and perhaps you disagree. That's a good thing."
+        },
+        "myApproach": {
+            "title": "My Approach",
+            "intro": "I write in three main areas:",
+            "history": "History - Attempting to understand past events in present context. History is not a collection of dead facts. It's a study of patterns, motivations, and human nature.",
+            "technology": "Technology - How technology is shaping our lives, society, and future. Both its possibilities and its dangers.",
+            "politics": "Politics - Analysis of current events. Power, decisions, and their impact. I don't promote any ideology, I simply observe and analyze."
+        }
     },
     "footer": {
         "tagline": "Analyzing the intersection of past, present, and future code.",

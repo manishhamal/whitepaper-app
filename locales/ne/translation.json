@@ -27,26 +27,28 @@
         "tags": "ट्यागहरू"
     },
     "about": {
-        "title": "ह्वाइटपेपरको बारेमा",
-        "subtitle": "जहाँ इतिहास, प्रविधि र राजनीति मिल्छन्।",
-        "missionTitle": "हाम्रो उद्देश्य",
-        "missionText": "हामी विश्वास गर्छौं कि भविष्यमा नेभिगेट गर्न विगतलाई बुझ्नु आवश्यक छ। प्रविधि शून्यमा अवस्थित हुँदैन—यो ऐतिहासिक उदाहरण र राजनीतिक निर्णयहरूद्वारा आकारिएको हुन्छ। हाम्रो मिशन यी प्रतिच्छेदनहरूलाई स्पष्टता र गहिराइका साथ अन्वेषण गर्नु हो।",
-        "whatWeWriteTitle": "हामी के लेख्छौं",
-        "historyTitle": "इतिहास",
-        "historyText": "साम्राज्यको पतनदेखि नयाँ शासन मोडेलको उदयसम्म, हामी समयभरि दोहोरिने ढाँचाहरू जाँच गर्छौं।",
-        "technologyTitle": "प्रविधि",
-        "technologyText": "सफ्टवेयर, एआई र पूर्वाधारमा अत्याधुनिक विकासहरू—तिनीहरूको सामाजिक प्रभावतर्फ आलोचनात्मक नजरले विश्लेषण गरिएको।",
-        "politicsTitle": "राजनीतिक मुद्दाहरू",
-        "politicsText": "हाम्रो डिजिटल र भौतिक संसारहरू शासन गर्ने ढाँचा, नीतिहरू र शक्ति संरचनाहरू।",
-        "valuesTitle": "हाम्रा मूल्यहरू",
-        "clarityTitle": "स्पष्टता",
-        "clarityText": "हामी बुझिनको लागि लेख्छौं, प्रभावित गर्नको लागि होइन। जटिल विचारहरू स्पष्ट व्याख्याको योग्य छन्।",
-        "depthTitle": "गहिराइ",
-        "depthText": "सतही विचारहरू जताततै छन्। हामी गहिरो जान्छौं, अरूले छुटाएका बिन्दुहरू जोड्छौं।",
-        "independenceTitle": "स्वतन्त्रता",
-        "independenceText": "कुनै कर्पोरेट प्रायोजक छैन, कुनै राजनीतिक एजेन्डा छैन। केवल इमानदार विश्लेषण।",
-        "contactTitle": "सम्पर्कमा रहनुहोस्",
-        "contactText": "लेखमा विचार छ? सहयोग गर्न चाहनुहुन्छ? हाम्रो सामाजिक च्यानलहरू मार्फत सम्पर्क गर्नुहोस्।"
+        "title": "About Me",
+        "subtitle": "This blog is an open record of my perspective.",
+        "historyAndTruth": {
+            "title": "History and Truth",
+            "p1": "History doesn't show us the complete truth. It gives us only a partial view of events. What really happened and what was false is impossible to know with absolute certainty.",
+            "p2": "But one thing is clear - whatever happened, happened in reality. Those events were real. People experienced them. Decisions were made. Consequences were faced.",
+            "p3": "My work is to see those events through my lens. I don't claim any ultimate truth. I simply share my perspective."
+        },
+        "whyIWrite": {
+            "title": "Why I Write",
+            "intro": "Every person sees the world differently. Our background, experience, and values shape our understanding.\n\nI write on this blog because:",
+            "reason1": "First, I believe it's important to hear different perspectives. When we look at the same event from multiple angles, we develop a deeper understanding.",
+            "reason2": "Second, writing is a thinking process for me. When I write, I force myself to be clear. I give structure to my thoughts.",
+            "reason3": "Third, I want dialogue. I see this blog as a conversation. You read, you think, and perhaps you disagree. That's a good thing."
+        },
+        "myApproach": {
+            "title": "My Approach",
+            "intro": "I write in three main areas:",
+            "history": "History - Attempting to understand past events in present context. History is not a collection of dead facts. It's a study of patterns, motivations, and human nature.",
+            "technology": "Technology - How technology is shaping our lives, society, and future. Both its possibilities and its dangers.",
+            "politics": "Politics - Analysis of current events. Power, decisions, and their impact. I don't promote any ideology, I simply observe and analyze."
+        }
     },
     "footer": {
         "tagline": "विगत, वर्तमान र भविष्यको कोडको प्रतिच्छेदन विश्लेषण।",

@@ -4,10 +4,10 @@ export const BLOG_NAME = "Whitepaper";
 export const BLOG_TAGLINE = "Analyzing the intersection of past, present, and future code.";
 
 export const AUTHOR: Author = {
-  name: "Alex V.",
-  role: "Senior Engineer & Historian",
+  name: "Akshya",
+  role: "Learner",
   avatar: "https://picsum.photos/200/200",
-  bio: "I write about the recursive nature of history, the bleeding edge of technology, and the political frameworks that govern them both. Believing in clarity above all.",
+  bio: "This blog is an open record of my perspective.",
   socials: {
     twitter: "https://twitter.com",
     linkedin: "https://linkedin.com",

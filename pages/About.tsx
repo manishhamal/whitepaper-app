@@ -41,29 +41,38 @@ const About: React.FC = () => {
         </div>
       </FadeIn>
 
-      {/* Manifesto */}
+      {/* History and Truth */}
       <FadeIn delay={200}>
-        <div className="prose prose-lg dark:prose-invert prose-slate max-w-none prose-headings:font-serif">
-          <h2 className="">Why Whitepaper?</h2>
-          <p>
-            In a world of hot takes and algorithmic rage bait, I wanted to create a space for slow thinking.
-            "Whitepaper" denotes authority, research, and clarity. That is the standard I strive for.
-          </p>
-          <p>
-            My writing focuses on three pillars:
-          </p>
-          <ul className="marker:text-slate-900 dark:marker:text-slate-100">
-            <li><strong>History:</strong> Because the past is the only reliable data set we have.</li>
-            <li><strong>Technology:</strong> Because it is the lever moving the world today.</li>
-            <li><strong>Politics:</strong> Because it is the mechanism by which we decide how to use that lever.</li>
-          </ul>
+        <section className="mb-12 prose prose-lg dark:prose-invert prose-slate max-w-none prose-headings:font-serif">
+          <h2>{t('about.historyAndTruth.title')}</h2>
+          <p>{t('about.historyAndTruth.p1')}</p>
+          <p>{t('about.historyAndTruth.p2')}</p>
+          <p>{t('about.historyAndTruth.p3')}</p>
+        </section>
+      </FadeIn>
 
-          <h2 className="">Contact</h2>
-          <p>
-            I am always open to interesting conversations, consulting opportunities, or debate.
-            The best way to reach me is via email.
-          </p>
-        </div>
+      {/* Why I Write */}
+      <FadeIn delay={300}>
+        <section className="mb-12 prose prose-lg dark:prose-invert prose-slate max-w-none prose-headings:font-serif">
+          <h2>{t('about.whyIWrite.title')}</h2>
+          <p className="whitespace-pre-line">{t('about.whyIWrite.intro')}</p>
+          <p>{t('about.whyIWrite.reason1')}</p>
+          <p>{t('about.whyIWrite.reason2')}</p>
+          <p>{t('about.whyIWrite.reason3')}</p>
+        </section>
+      </FadeIn>
+
+      {/* My Approach */}
+      <FadeIn delay={400}>
+        <section className="mb-12 prose prose-lg dark:prose-invert prose-slate max-w-none prose-headings:font-serif">
+          <h2>{t('about.myApproach.title')}</h2>
+          <p>{t('about.myApproach.intro')}</p>
+          <ul className="marker:text-slate-900 dark:marker:text-slate-100">
+            <li>{t('about.myApproach.history')}</li>
+            <li>{t('about.myApproach.technology')}</li>
+            <li>{t('about.myApproach.politics')}</li>
+          </ul>
+        </section>
       </FadeIn>
 
       <FadeIn delay={300}>
