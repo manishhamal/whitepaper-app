@@ -60,15 +60,7 @@ const About: React.FC = () => {
         </section>
       </FadeIn>
 
-      <FadeIn delay={300}>
-        <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-lg border border-slate-100 dark:border-slate-800 flex items-center justify-between">
-          <div className="flex items-center">
-            <Mail size={24} className="text-slate-400 mr-4" />
-            <span className="text-lg font-medium">{AUTHOR.email}</span>
-          </div>
-          <button className="px-4 py-2 text-sm font-medium text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors transform active:scale-95 transition duration-150" onClick={() => navigator.clipboard.writeText(AUTHOR.email)}>{t('about.copyEmail')}</button>
-        </div>
-      </FadeIn>
+
     </div>
   );
 };

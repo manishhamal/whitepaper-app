@@ -1,35 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Eye, BookOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import FadeIn from '../components/FadeIn';
 import { ARTICLES } from '../constants';
+import { trackView, trackRead, getArticleStats } from '../utils/analytics';
 
 const ArticleDetail: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const article = ARTICLES.find((a) => a.id === id);
   const [readingProgress, setReadingProgress] = useState(0);
+  const [stats, setStats] = useState({ views: 0, reads: 0 });
+  const [hasTrackedRead, setHasTrackedRead] = useState(false);
 
+  // Track view on mount
+  useEffect(() => {
+    if (id) {
+      trackView(id);
+      setStats(getArticleStats(id));
+    }
+  }, [id]);
+
+  // Track scroll progress and reads
   useEffect(() => {
     const updateScrollProgress = () => {
       const currentScroll = window.scrollY;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
 
       if (scrollHeight) {
-        setReadingProgress(Number((currentScroll / scrollHeight).toFixed(2)) * 100);
+        const progress = Number((currentScroll / scrollHeight).toFixed(2)) * 100;
+        setReadingProgress(progress);
+
+        // Track as "read" when user scrolls to 80% or more
+        if (progress >= 80 && !hasTrackedRead && id) {
+          trackRead(id);
+          setHasTrackedRead(true);
+          setStats(getArticleStats(id));
+        }
       }
     };
 
     window.addEventListener('scroll', updateScrollProgress);
-
-    // Initial call
     updateScrollProgress();
 
     return () => {
       window.removeEventListener('scroll', updateScrollProgress);
     };
-  }, []);
+  }, [id, hasTrackedRead]);
 
   if (!article) {
     return (
@@ -75,6 +93,18 @@ const ArticleDetail: React.FC = () => {
             <h1 className="text-4xl md:text-6xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-6 leading-tighter tracking-tight">
               {title}
             </h1>
+
+            {/* View and Read Stats */}
+            <div className="flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+              <div className="flex items-center gap-2">
+                <Eye size={16} />
+                <span>{stats.views} views</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <BookOpen size={16} />
+                <span>{stats.reads} reads</span>
+              </div>
+            </div>
           </header>
         </FadeIn>
 
