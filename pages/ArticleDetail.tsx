@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import FadeIn from '../components/FadeIn';
 import { ARTICLES } from '../constants';
 
 const ArticleDetail: React.FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const article = ARTICLES.find((a) => a.id === id);
   const [readingProgress, setReadingProgress] = useState(0);
@@ -13,14 +15,14 @@ const ArticleDetail: React.FC = () => {
     const updateScrollProgress = () => {
       const currentScroll = window.scrollY;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      
+
       if (scrollHeight) {
         setReadingProgress(Number((currentScroll / scrollHeight).toFixed(2)) * 100);
       }
     };
 
     window.addEventListener('scroll', updateScrollProgress);
-    
+
     // Initial call
     updateScrollProgress();
 
@@ -44,7 +46,7 @@ const ArticleDetail: React.FC = () => {
     <>
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-[3px] z-[60] bg-transparent pointer-events-none">
-        <div 
+        <div
           className="h-full bg-slate-900 dark:bg-white transition-all duration-150 ease-out"
           style={{ width: `${readingProgress}%` }}
         />
@@ -54,7 +56,7 @@ const ArticleDetail: React.FC = () => {
         {/* Back Link */}
         <FadeIn>
           <Link to="/articles" className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 mb-12 transition-colors">
-            <ArrowLeft size={16} className="mr-2" /> Back
+            <ArrowLeft size={16} className="mr-2" /> {t('articleDetail.backToArticles')}
           </Link>
         </FadeIn>
 
@@ -66,7 +68,7 @@ const ArticleDetail: React.FC = () => {
                 {article.category}
               </span>
             </div>
-            
+
             <h1 className="text-4xl md:text-6xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-6 leading-tighter tracking-tight">
               {article.title}
             </h1>
@@ -77,9 +79,9 @@ const ArticleDetail: React.FC = () => {
         {article.featuredImage && (
           <FadeIn delay={200}>
             <div className="mb-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900">
-              <img 
-                src={article.featuredImage} 
-                alt={article.title} 
+              <img
+                src={article.featuredImage}
+                alt={article.title}
                 className="w-full h-auto object-cover max-h-[500px]"
               />
             </div>
@@ -88,7 +90,7 @@ const ArticleDetail: React.FC = () => {
 
         {/* Content Body */}
         <FadeIn delay={300}>
-          <div 
+          <div
             className="prose prose-lg dark:prose-invert prose-slate max-w-none 
             prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight
             prose-p:font-serif prose-p:leading-loose
@@ -102,9 +104,9 @@ const ArticleDetail: React.FC = () => {
         {/* Date at the end */}
         <FadeIn delay={400}>
           <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800">
-             <p className="text-sm font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wide">
-               Published on {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-             </p>
+            <p className="text-sm font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wide">
+              Published on {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
           </div>
         </FadeIn>
       </article>

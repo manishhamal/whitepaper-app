@@ -1,17 +1,19 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { AUTHOR } from '../constants';
 import { Mail, Github, Linkedin, Twitter } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
 
 const About: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <div className="max-w-3xl mx-auto space-y-16 pb-12">
       {/* Intro */}
       <FadeIn>
         <div className="flex flex-col md:flex-row gap-10 items-start">
-          <img 
-            src={AUTHOR.avatar} 
-            alt={AUTHOR.name} 
+          <img
+            src={AUTHOR.avatar}
+            alt={AUTHOR.name}
             className="w-32 h-32 md:w-48 md:h-48 rounded-lg object-cover shadow-sm bg-slate-100 grayscale hover:grayscale-0 transition-all duration-500"
           />
           <div className="space-y-6">
@@ -25,15 +27,15 @@ const About: React.FC = () => {
               {AUTHOR.bio}
             </p>
             <div className="flex gap-4">
-               <a href={AUTHOR.socials.twitter} className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors">
-                 <Twitter size={20} />
-               </a>
-               <a href={AUTHOR.socials.github} className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors">
-                 <Github size={20} />
-               </a>
-               <a href={AUTHOR.socials.linkedin} className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors">
-                 <Linkedin size={20} />
-               </a>
+              <a href={AUTHOR.socials.twitter} className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors">
+                <Twitter size={20} />
+              </a>
+              <a href={AUTHOR.socials.github} className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors">
+                <Github size={20} />
+              </a>
+              <a href={AUTHOR.socials.linkedin} className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors">
+                <Linkedin size={20} />
+              </a>
             </div>
           </div>
         </div>
@@ -44,7 +46,7 @@ const About: React.FC = () => {
         <div className="prose prose-lg dark:prose-invert prose-slate max-w-none prose-headings:font-serif">
           <h2 className="">Why Whitepaper?</h2>
           <p>
-            In a world of hot takes and algorithmic rage bait, I wanted to create a space for slow thinking. 
+            In a world of hot takes and algorithmic rage bait, I wanted to create a space for slow thinking.
             "Whitepaper" denotes authority, research, and clarity. That is the standard I strive for.
           </p>
           <p>
@@ -58,7 +60,7 @@ const About: React.FC = () => {
 
           <h2 className="">Contact</h2>
           <p>
-            I am always open to interesting conversations, consulting opportunities, or debate. 
+            I am always open to interesting conversations, consulting opportunities, or debate.
             The best way to reach me is via email.
           </p>
         </div>

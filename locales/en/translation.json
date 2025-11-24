@@ -1,0 +1,66 @@
+{
+    "nav": {
+        "home": "Home",
+        "articles": "Articles",
+        "about": "About"
+    },
+    "hero": {
+        "title": "Insights on History, Tech, & Politics",
+        "subtitle": "Analyzing the intersection of past, present, and future code.",
+        "cta": "Explore Articles"
+    },
+    "home": {
+        "featuredTitle": "Featured Articles",
+        "viewAll": "View All Articles"
+    },
+    "articles": {
+        "title": "All Articles",
+        "subtitle": "Deep dives into history, technology, and political systems.",
+        "filterAll": "All",
+        "noArticles": "No articles found in this category.",
+        "readMore": "Read More"
+    },
+    "articleDetail": {
+        "backToArticles": "← Back to Articles",
+        "aboutAuthor": "About the Author",
+        "relatedArticles": "Related Articles",
+        "tags": "Tags"
+    },
+    "about": {
+        "title": "About Whitepaper",
+        "subtitle": "Where history, technology, and politics converge.",
+        "missionTitle": "Our Mission",
+        "missionText": "We believe that understanding the past is essential to navigating the future. Technology doesn't exist in a vacuum—it's shaped by historical precedents and political decisions. Our mission is to explore these intersections with clarity and depth.",
+        "whatWeWriteTitle": "What We Write About",
+        "historyTitle": "History",
+        "historyText": "From the fall of empires to the rise of new governance models, we examine the patterns that repeat across time.",
+        "technologyTitle": "Technology",
+        "technologyText": "Cutting-edge developments in software, AI, and infrastructure—analyzed with a critical eye toward their societal impact.",
+        "politicsTitle": "Political Issues",
+        "politicsText": "The frameworks, policies, and power structures that govern our digital and physical worlds.",
+        "valuesTitle": "Our Values",
+        "clarityTitle": "Clarity",
+        "clarityText": "We write to be understood, not to impress. Complex ideas deserve clear explanations.",
+        "depthTitle": "Depth",
+        "depthText": "Surface-level takes are everywhere. We go deeper, connecting dots others miss.",
+        "independenceTitle": "Independence",
+        "independenceText": "No corporate sponsors, no political agendas. Just honest analysis.",
+        "contactTitle": "Get in Touch",
+        "contactText": "Have thoughts on an article? Want to collaborate? Reach out through our social channels."
+    },
+    "footer": {
+        "tagline": "Analyzing the intersection of past, present, and future code.",
+        "rights": "All rights reserved."
+    },
+    "category": {
+        "history": "History",
+        "technology": "Technology",
+        "politics": "Political Issues",
+        "all": "All"
+    },
+    "common": {
+        "readTime": "min read",
+        "loading": "Loading...",
+        "error": "Something went wrong"
+    }
+}

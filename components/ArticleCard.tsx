@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Article } from '../types';
 
 interface ArticleCardProps {
@@ -8,7 +9,8 @@ interface ArticleCardProps {
 }
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard' }) => {
-  
+  const { t } = useTranslation();
+
   // Minimal List Style (Timeline View)
   if (variant === 'minimal') {
     return (
@@ -32,9 +34,9 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
       <article className="group relative flex flex-col">
         {article.featuredImage && (
           <Link to={`/article/${article.id}`} className="block overflow-hidden mb-8 rounded-2xl">
-            <img 
-              src={article.featuredImage} 
-              alt={article.title} 
+            <img
+              src={article.featuredImage}
+              alt={article.title}
               className="w-full h-auto aspect-[21/9] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
             />
           </Link>
@@ -53,11 +55,11 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-8 font-sans font-light max-w-2xl">
             {article.excerpt}
           </p>
-          <Link 
-            to={`/article/${article.id}`} 
+          <Link
+            to={`/article/${article.id}`}
             className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white border-b-2 border-slate-200 dark:border-slate-700 pb-1 hover:border-slate-900 dark:hover:border-white transition-colors w-max"
           >
-            Read Article
+            {t('articles.readMore')}
           </Link>
         </div>
       </article>

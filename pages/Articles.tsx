@@ -1,15 +1,17 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import ArticleCard from '../components/ArticleCard';
 import FadeIn from '../components/FadeIn';
 import { ARTICLES } from '../constants';
 import { Category } from '../types';
 
 const Articles: React.FC = () => {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get('category');
-  
+
   const [activeCategory, setActiveCategory] = useState<string>(categoryParam || Category.All);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -25,8 +27,8 @@ const Articles: React.FC = () => {
   const filteredArticles = useMemo(() => {
     return ARTICLES.filter((article) => {
       const matchesCategory = activeCategory === Category.All || article.category === activeCategory;
-      const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, searchQuery]);
@@ -46,9 +48,12 @@ const Articles: React.FC = () => {
       <FadeIn>
         <div className="space-y-6 mb-16">
           <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-slate-50">
-            Archive
+            {t('articles.title')}
           </h1>
-          
+          <p className="text-slate-600 dark:text-slate-400">
+            {t('articles.subtitle')}
+          </p>
+
           {/* Simplified Search & Filter */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pt-4">
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
@@ -56,13 +61,12 @@ const Articles: React.FC = () => {
                 <button
                   key={cat}
                   onClick={() => handleCategoryChange(cat)}
-                  className={`font-bold uppercase tracking-widest transition-colors ${
-                    activeCategory === cat
+                  className={`font-bold uppercase tracking-widest transition-colors ${activeCategory === cat
                       ? 'text-slate-900 dark:text-white underline underline-offset-4 decoration-2'
                       : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
-                  }`}
+                    }`}
                 >
-                  {cat}
+                  {t(`category.${cat.toLowerCase().replace(' ', '')}`)}
                 </button>
               ))}
             </div>
@@ -93,7 +97,7 @@ const Articles: React.FC = () => {
                 <div className="relative pl-12 group">
                   {/* Timeline Node */}
                   <span className="absolute left-[3px] top-3 w-3.5 h-3.5 rounded-full border-[3px] border-white dark:border-slate-950 bg-slate-300 dark:bg-slate-700 group-hover:bg-slate-900 dark:group-hover:bg-white group-hover:scale-125 transition-all duration-300 z-10 shadow-sm"></span>
-                  
+
                   {/* Connecting Line Highlight */}
                   <span className="absolute left-[9px] top-3 bottom-[-48px] w-px bg-slate-900 dark:bg-white origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-in-out z-0"></span>
 
@@ -105,9 +109,9 @@ const Articles: React.FC = () => {
         </div>
       ) : (
         <div className="py-20 text-center text-slate-500 font-mono text-sm">
-          <p>No entries found.</p>
-          <button 
-            onClick={() => {setSearchQuery(''); setActiveCategory(Category.All)}}
+          <p>{t('articles.noArticles')}</p>
+          <button
+            onClick={() => { setSearchQuery(''); setActiveCategory(Category.All) }}
             className="mt-4 text-slate-900 dark:text-slate-100 hover:underline"
           >
             Clear filters
