@@ -7,8 +7,7 @@ import { ARTICLES } from '../constants';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
-  const featuredArticle = ARTICLES[0];
-  const recentArticles = ARTICLES.slice(1);
+  const recentArticles = ARTICLES;
 
   return (
     <div className="max-w-4xl mx-auto pb-12">
