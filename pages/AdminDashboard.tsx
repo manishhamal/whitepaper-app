@@ -247,21 +247,23 @@ const AdminDashboard: React.FC = () => {
                                 <div className="space-y-4">
                                     <div>
                                         <label className="block text-sm font-medium mb-1">Featured Image</label>
-                                        <div className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-4 text-center relative">
+                                        <div className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-4 text-center relative group/container">
                                             {currentArticle.featuredImage || imageFile ? (
-                                                <div className="relative inline-block group">
+                                                <div className="relative inline-block z-20">
                                                     <img
                                                         src={imageFile ? URL.createObjectURL(imageFile) : currentArticle.featuredImage || ''}
                                                         alt="Preview"
-                                                        className="h-32 mx-auto mb-2 object-cover rounded"
+                                                        className="h-32 mx-auto mb-2 object-cover rounded shadow-sm"
                                                     />
                                                     <button
                                                         type="button"
-                                                        onClick={() => {
+                                                        onClick={(e) => {
+                                                            e.stopPropagation(); // Prevent triggering file input if it overlaps
+                                                            e.preventDefault();
                                                             setCurrentArticle({ ...currentArticle, featuredImage: null });
                                                             setImageFile(null);
                                                         }}
-                                                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1.5 hover:bg-red-600 shadow-md z-10"
+                                                        className="absolute top-2 right-2 bg-white text-red-600 rounded-full p-1.5 hover:bg-red-50 shadow-md transition-transform hover:scale-110 z-30"
                                                         title="Remove Image"
                                                     >
                                                         <X size={16} />
@@ -277,8 +279,8 @@ const AdminDashboard: React.FC = () => {
                                                 type="file"
                                                 accept="image/*"
                                                 onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                key={imageFile ? 'has-file' : 'no-file'} // Reset input when file is cleared
+                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                                key={imageFile ? 'has-file' : 'no-file'}
                                             />
                                         </div>
                                         {(currentArticle.featuredImage || imageFile) && (
