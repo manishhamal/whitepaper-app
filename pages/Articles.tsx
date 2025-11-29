@@ -1,11 +1,11 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ArticleCard from '../components/ArticleCard';
 import FadeIn from '../components/FadeIn';
-import { ARTICLES } from '../constants';
-import { Category } from '../types';
+import { Category, Article } from '../types';
+import { articleService } from '../src/services/articleService';
 
 const Articles: React.FC = () => {
   const { t } = useTranslation();
@@ -14,6 +14,24 @@ const Articles: React.FC = () => {
 
   const [activeCategory, setActiveCategory] = useState<string>(categoryParam || Category.All);
   const [searchQuery, setSearchQuery] = useState('');
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch articles on mount
+  useEffect(() => {
+    const fetchArticles = async () => {
+      setLoading(true);
+      try {
+        const data = await articleService.getArticles();
+        setArticles(data);
+      } catch (error) {
+        console.error("Failed to fetch articles", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArticles();
+  }, []);
 
   // Sync state with URL param if it changes externally
   useEffect(() => {
@@ -25,13 +43,13 @@ const Articles: React.FC = () => {
   }, [categoryParam]);
 
   const filteredArticles = useMemo(() => {
-    return ARTICLES.filter((article) => {
+    return articles.filter((article) => {
       const matchesCategory = activeCategory === Category.All || article.category === activeCategory;
       const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, articles]);
 
   const handleCategoryChange = (cat: string) => {
     setActiveCategory(cat);
@@ -92,7 +110,11 @@ const Articles: React.FC = () => {
       </FadeIn>
 
       {/* Timeline List */}
-      {filteredArticles.length > 0 ? (
+      {loading ? (
+        <div className="flex justify-center py-20">
+          <Loader2 className="animate-spin text-slate-400" size={32} />
+        </div>
+      ) : filteredArticles.length > 0 ? (
         <div className="relative">
           {/* Continuous Vertical Line */}
           <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200 dark:bg-slate-800"></div>

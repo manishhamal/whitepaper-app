@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ArticleCard from '../components/ArticleCard';
 import FadeIn from '../components/FadeIn';
-import { ARTICLES } from '../constants';
+import { Article } from '../types';
+import { articleService } from '../src/services/articleService';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
-  const recentArticles = ARTICLES;
+  const [recentArticles, setRecentArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const data = await articleService.getArticles();
+      // Just taking the first 5 for "recent"
+      setRecentArticles(data.slice(0, 5));
+    };
+    fetchArticles();
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto pb-12">

@@ -6,6 +6,8 @@ import Articles from './pages/Articles';
 import ArticleDetail from './pages/ArticleDetail';
 import About from './pages/About';
 
+import AdminDashboard from './pages/AdminDashboard';
+
 const App: React.FC = () => {
   return (
     <Router>
@@ -16,6 +18,7 @@ const App: React.FC = () => {
           <Route path="article/:id" element={<ArticleDetail />} />
           <Route path="about" element={<About />} />
         </Route>
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

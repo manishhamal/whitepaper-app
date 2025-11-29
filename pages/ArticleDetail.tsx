@@ -1,26 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Eye, BookOpen } from 'lucide-react';
+import { ArrowLeft, Eye, BookOpen, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import FadeIn from '../components/FadeIn';
-import { ARTICLES } from '../constants';
+import { Article } from '../types';
+import { articleService } from '../src/services/articleService';
 import { trackView, trackRead, getArticleStats } from '../utils/analytics';
 
 const ArticleDetail: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const article = ARTICLES.find((a) => a.id === id);
+  const [article, setArticle] = useState<Article | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
   const [readingProgress, setReadingProgress] = useState(0);
   const [stats, setStats] = useState({ views: 0, reads: 0 });
   const [hasTrackedRead, setHasTrackedRead] = useState(false);
 
-  // Track view on mount
+  // Fetch article
   useEffect(() => {
-    if (id) {
+    const fetchArticle = async () => {
+      if (!id) return;
+      setLoading(true);
+      try {
+        const data = await articleService.getArticleById(id);
+        setArticle(data);
+      } catch (error) {
+        console.error("Failed to fetch article", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArticle();
+  }, [id]);
+
+  // Track view on mount (only if article loaded)
+  useEffect(() => {
+    if (id && article) {
       trackView(id);
       setStats(getArticleStats(id));
     }
-  }, [id]);
+  }, [id, article]);
 
   // Track scroll progress and reads
   useEffect(() => {
@@ -33,7 +52,7 @@ const ArticleDetail: React.FC = () => {
         setReadingProgress(progress);
 
         // Track as "read" when user scrolls to 80% or more
-        if (progress >= 80 && !hasTrackedRead && id) {
+        if (progress >= 80 && !hasTrackedRead && id && article) {
           trackRead(id);
           setHasTrackedRead(true);
           setStats(getArticleStats(id));
@@ -47,7 +66,15 @@ const ArticleDetail: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', updateScrollProgress);
     };
-  }, [id, hasTrackedRead]);
+  }, [id, hasTrackedRead, article]);
+
+  if (loading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center">
+        <Loader2 className="animate-spin text-slate-400" size={32} />
+      </div>
+    );
+  }
 
   if (!article) {
     return (
