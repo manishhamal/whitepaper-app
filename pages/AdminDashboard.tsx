@@ -98,7 +98,7 @@ const AdminDashboard: React.FC = () => {
             const articleData = {
                 ...currentArticle,
                 featuredImage: imageUrl,
-            } as Article; // Type assertion for simplicity, validation recommended
+            } as Article;
 
             if (currentArticle.id) {
                 await articleService.updateArticle(currentArticle.id, articleData);

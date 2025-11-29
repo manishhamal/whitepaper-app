@@ -147,7 +147,7 @@ function mapToDbPartial(updates: Partial<Article>): any {
     if (updates.tags !== undefined) mapped.tags = updates.tags;
     if (updates.featuredImage !== undefined) mapped.featured_image = updates.featuredImage;
     if (updates.titleNe !== undefined) mapped.title_ne = updates.titleNe;
-    if (updates.excerptNe !== undefined) mapped.excerptNe = updates.excerptNe;
+    if (updates.excerptNe !== undefined) mapped.excerpt_ne = updates.excerptNe;
     if (updates.contentNe !== undefined) mapped.content_ne = updates.contentNe;
     if (updates.tagsNe !== undefined) mapped.tags_ne = updates.tagsNe;
     return mapped;
