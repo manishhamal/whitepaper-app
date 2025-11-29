@@ -27,7 +27,7 @@ export interface Article {
   category: Category;
   readTime: string;
   tags: string[];
-  featuredImage?: string;
+  featuredImage?: string | null;
   views?: number;
   // Nepali translations
   titleNe?: string;

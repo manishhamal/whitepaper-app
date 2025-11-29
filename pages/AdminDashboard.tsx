@@ -247,17 +247,45 @@ const AdminDashboard: React.FC = () => {
                                 <div className="space-y-4">
                                     <div>
                                         <label className="block text-sm font-medium mb-1">Featured Image</label>
-                                        <div className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-4 text-center">
-                                            {currentArticle.featuredImage && (
-                                                <img src={currentArticle.featuredImage} alt="Preview" className="h-32 mx-auto mb-2 object-cover rounded" />
+                                        <div className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-4 text-center relative">
+                                            {currentArticle.featuredImage || imageFile ? (
+                                                <div className="relative inline-block group">
+                                                    <img
+                                                        src={imageFile ? URL.createObjectURL(imageFile) : currentArticle.featuredImage || ''}
+                                                        alt="Preview"
+                                                        className="h-32 mx-auto mb-2 object-cover rounded"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setCurrentArticle({ ...currentArticle, featuredImage: null });
+                                                            setImageFile(null);
+                                                        }}
+                                                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                                                        title="Remove Image"
+                                                    >
+                                                        <X size={14} />
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <div className="text-slate-400 mb-2 flex flex-col items-center">
+                                                    <Upload className="mb-2" size={24} />
+                                                    <span className="text-xs">Click to upload image</span>
+                                                </div>
                                             )}
                                             <input
                                                 type="file"
                                                 accept="image/*"
                                                 onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-                                                className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                                key={imageFile ? 'has-file' : 'no-file'} // Reset input when file is cleared
                                             />
                                         </div>
+                                        {(currentArticle.featuredImage || imageFile) && (
+                                            <p className="text-xs text-center text-slate-500 mt-1">
+                                                Click "Save Article" to apply changes.
+                                            </p>
+                                        )}
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium mb-1">Excerpt</label>
