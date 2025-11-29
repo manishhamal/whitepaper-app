@@ -283,11 +283,6 @@ const AdminDashboard: React.FC = () => {
                                                 key={imageFile ? 'has-file' : 'no-file'}
                                             />
                                         </div>
-                                        {(currentArticle.featuredImage || imageFile) && (
-                                            <p className="text-xs text-center text-slate-500 mt-1">
-                                                Click "Save Article" to apply changes.
-                                            </p>
-                                        )}
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium mb-1">Excerpt</label>
