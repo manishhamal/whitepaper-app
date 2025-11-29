@@ -8,11 +8,12 @@ interface TranslationResponse {
         translatedText: string;
     };
     responseStatus: number;
+    responseDetails?: string;
 }
 
 export const translationService = {
     /**
-     * Translate text from source language to target language
+     * Translate text from source language to target language with retry logic
      * @param text - Text to translate
      * @param sourceLang - Source language code (e.g., 'en')
      * @param targetLang - Target language code (e.g., 'ne')
@@ -27,34 +28,78 @@ export const translationService = {
             return '';
         }
 
-        try {
-            // MyMemory API endpoint
-            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-                text
-            )}&langpair=${sourceLang}|${targetLang}`;
+        // Limit text length to avoid API issues
+        const maxLength = 500;
+        if (text.length > maxLength) {
+            // Split into chunks and translate separately
+            const chunks = text.match(new RegExp(`.{1,${maxLength}}`, 'g')) || [];
+            const translatedChunks: string[] = [];
 
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error(`Translation API error: ${response.status}`);
+            for (const chunk of chunks) {
+                const translated = await this.translateTextChunk(chunk, sourceLang, targetLang);
+                translatedChunks.push(translated);
+                // Small delay between chunks
+                await new Promise(resolve => setTimeout(resolve, 200));
             }
 
-            const data: TranslationResponse = await response.json();
-
-            if (data.responseStatus !== 200) {
-                throw new Error('Translation failed');
-            }
-
-            return data.responseData.translatedText;
-        } catch (error) {
-            console.error('Translation error:', error);
-            throw new Error('Failed to translate text. Please try again.');
+            return translatedChunks.join('');
         }
+
+        return await this.translateTextChunk(text, sourceLang, targetLang);
+    },
+
+    async translateTextChunk(
+        text: string,
+        sourceLang: string,
+        targetLang: string,
+        retries: number = 2
+    ): Promise<string> {
+        for (let attempt = 0; attempt <= retries; attempt++) {
+            try {
+                // MyMemory API endpoint
+                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+                    text
+                )}&langpair=${sourceLang}|${targetLang}`;
+
+                console.log(`Translation attempt ${attempt + 1} for text:`, text.substring(0, 50));
+
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error(`API returned status ${response.status}`);
+                }
+
+                const data: TranslationResponse = await response.json();
+
+                console.log('Translation response:', data);
+
+                if (data.responseStatus !== 200) {
+                    throw new Error(data.responseDetails || 'Translation API error');
+                }
+
+                if (!data.responseData?.translatedText) {
+                    throw new Error('No translation returned');
+                }
+
+                return data.responseData.translatedText;
+            } catch (error) {
+                console.error(`Translation attempt ${attempt + 1} failed:`, error);
+
+                if (attempt < retries) {
+                    // Wait before retry
+                    await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+                } else {
+                    throw error;
+                }
+            }
+        }
+
+        return text; // Fallback to original text
     },
 
     /**
      * Translate HTML content while preserving tags
-     * Splits HTML into chunks and translates text content only
+     * Extracts text from HTML and translates it
      */
     async translateHTML(html: string): Promise<string> {
         if (!html || html.trim() === '') {
@@ -62,29 +107,12 @@ export const translationService = {
         }
 
         try {
-            // For HTML content, we'll translate in chunks to avoid issues with long text
-            // Split by paragraphs and translate each separately
-            const paragraphs = html.split(/(<p>|<\/p>|<h[1-6]>|<\/h[1-6]>|<li>|<\/li>)/);
-            const translatedParagraphs: string[] = [];
-
-            for (const paragraph of paragraphs) {
-                // If it's a tag or empty, keep as is
-                if (paragraph.match(/^<\/?[a-z0-9]+>$/i) || paragraph.trim() === '') {
-                    translatedParagraphs.push(paragraph);
-                } else {
-                    // Translate the text content
-                    const translated = await this.translateText(paragraph);
-                    translatedParagraphs.push(translated);
-                    // Small delay to avoid rate limiting
-                    await new Promise(resolve => setTimeout(resolve, 100));
-                }
-            }
-
-            return translatedParagraphs.join('');
+            // Simple approach: translate the whole HTML as text
+            // The API should preserve most HTML tags
+            return await this.translateText(html);
         } catch (error) {
             console.error('HTML translation error:', error);
-            // Fallback to simple translation
-            return await this.translateText(html);
+            throw error;
         }
     },
 
@@ -101,20 +129,30 @@ export const translationService = {
         contentNe: string;
     }> {
         try {
-            const [titleNe, excerptNe, contentNe] = await Promise.all([
-                this.translateText(article.title),
-                this.translateText(article.excerpt),
-                this.translateHTML(article.content),
-            ]);
+            console.log('Starting article translation...');
+
+            // Translate one at a time to avoid rate limiting
+            const titleNe = await this.translateText(article.title);
+            console.log('Title translated');
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            const excerptNe = await this.translateText(article.excerpt);
+            console.log('Excerpt translated');
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            const contentNe = await this.translateHTML(article.content);
+            console.log('Content translated');
 
             return {
                 titleNe,
                 excerptNe,
                 contentNe,
             };
-        } catch (error) {
+        } catch (error: any) {
             console.error('Article translation error:', error);
-            throw error;
+            throw new Error(`Translation failed: ${error.message}. Please check your internet connection and try again.`);
         }
     },
 };
