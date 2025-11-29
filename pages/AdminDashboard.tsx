@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../src/lib/supabase';
 import { articleService } from '../src/services/articleService';
+import { translationService } from '../src/services/translationService';
 import { Article, Category } from '../types';
 import { Loader2, Plus, Pencil, Trash2, Upload, LogOut, Save, X } from 'lucide-react';
 
@@ -17,6 +18,7 @@ const AdminDashboard: React.FC = () => {
     const [currentArticle, setCurrentArticle] = useState<Partial<Article>>({});
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [formLoading, setFormLoading] = useState(false);
+    const [translating, setTranslating] = useState(false);
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -116,6 +118,36 @@ const AdminDashboard: React.FC = () => {
         }
     };
 
+    const handleAutoTranslate = async () => {
+        if (!currentArticle.title || !currentArticle.excerpt || !currentArticle.content) {
+            alert('Please fill in Title, Excerpt, and Content before translating.');
+            return;
+        }
+
+        setTranslating(true);
+        try {
+            const translations = await translationService.translateArticle({
+                title: currentArticle.title,
+                excerpt: currentArticle.excerpt,
+                content: currentArticle.content,
+            });
+
+            setCurrentArticle({
+                ...currentArticle,
+                titleNe: translations.titleNe,
+                excerptNe: translations.excerptNe,
+                contentNe: translations.contentNe,
+            });
+
+            alert('Translation completed! Click "Save Article" to save the changes.');
+        } catch (error: any) {
+            console.error('Translation error:', error);
+            alert(error.message || 'Failed to translate article. Please try again.');
+        } finally {
+            setTranslating(false);
+        }
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
@@ -197,6 +229,15 @@ const AdminDashboard: React.FC = () => {
                         <div className="flex justify-between items-center mb-6 sticky top-0 bg-white dark:bg-slate-800 z-40 py-2 border-b border-slate-100 dark:border-slate-700">
                             <h2 className="text-xl font-bold">{currentArticle.id ? 'Edit Article' : 'New Article'}</h2>
                             <div className="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    onClick={handleAutoTranslate}
+                                    disabled={translating || formLoading}
+                                    className="px-4 py-1.5 rounded bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 flex items-center gap-2 text-sm font-medium"
+                                >
+                                    {translating && <Loader2 className="animate-spin" size={14} />}
+                                    {translating ? 'Translating...' : 'Translate to Nepali'}
+                                </button>
                                 <button
                                     onClick={handleSave}
                                     disabled={formLoading}
@@ -316,6 +357,16 @@ const AdminDashboard: React.FC = () => {
                                 <textarea
                                     value={currentArticle.content || ''}
                                     onChange={(e) => setCurrentArticle({ ...currentArticle, content: e.target.value })}
+                                    className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-64 font-mono text-sm"
+                                    required
+                                />
+                            </div>
+
+                            <div className="flex justify-end gap-4 pt-4 border-t">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsEditing(false)}
+                                    className="px-6 py-2 rounded border hover:bg-slate-50 dark:hover:bg-slate-700"
                                 >
                                     Cancel
                                 </button>
