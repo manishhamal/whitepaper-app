@@ -261,10 +261,10 @@ const AdminDashboard: React.FC = () => {
                                                             setCurrentArticle({ ...currentArticle, featuredImage: null });
                                                             setImageFile(null);
                                                         }}
-                                                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                                                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1.5 hover:bg-red-600 shadow-md z-10"
                                                         title="Remove Image"
                                                     >
-                                                        <X size={14} />
+                                                        <X size={16} />
                                                     </button>
                                                 </div>
                                             ) : (
