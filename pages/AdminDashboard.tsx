@@ -3,8 +3,13 @@ import { supabase } from '../src/lib/supabase';
 import { articleService } from '../src/services/articleService';
 import { Article, Category } from '../types';
 import { Loader2, Plus, Pencil, Trash2, Upload, LogOut, Save, X } from 'lucide-react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+
+// Dynamically import ReactQuill to avoid SSR issues
+let ReactQuill: any = null;
+if (typeof window !== 'undefined') {
+    ReactQuill = require('react-quill');
+    require('react-quill/dist/quill.snow.css');
+}
 
 const AdminDashboard: React.FC = () => {
     const [session, setSession] = useState<any>(null);
@@ -19,6 +24,7 @@ const AdminDashboard: React.FC = () => {
     const [currentArticle, setCurrentArticle] = useState<Partial<Article>>({});
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [formLoading, setFormLoading] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     // Quill editor configuration
     const quillModules = {
@@ -39,6 +45,10 @@ const AdminDashboard: React.FC = () => {
         'blockquote', 'code-block',
         'link'
     ];
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -335,15 +345,24 @@ const AdminDashboard: React.FC = () => {
 
                             <div>
                                 <label className="block text-sm font-medium mb-1">Content</label>
-                                <ReactQuill
-                                    theme="snow"
-                                    value={currentArticle.content || ''}
-                                    onChange={(value) => setCurrentArticle({ ...currentArticle, content: value })}
-                                    modules={quillModules}
-                                    formats={quillFormats}
-                                    className="bg-white dark:bg-slate-700 rounded"
-                                    style={{ height: '300px', marginBottom: '50px' }}
-                                />
+                                {isMounted && ReactQuill ? (
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={currentArticle.content || ''}
+                                        onChange={(value) => setCurrentArticle({ ...currentArticle, content: value })}
+                                        modules={quillModules}
+                                        formats={quillFormats}
+                                        className="bg-white dark:bg-slate-700 rounded"
+                                        style={{ height: '300px', marginBottom: '50px' }}
+                                    />
+                                ) : (
+                                    <textarea
+                                        value={currentArticle.content || ''}
+                                        onChange={(e) => setCurrentArticle({ ...currentArticle, content: e.target.value })}
+                                        className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-64 font-mono text-sm"
+                                        placeholder="Loading editor..."
+                                    />
+                                )}
                             </div>
 
                             {/* Nepali Translation Fields */}
@@ -370,15 +389,24 @@ const AdminDashboard: React.FC = () => {
                                 </div>
                                 <div className="mt-4">
                                     <label className="block text-sm font-medium mb-1">Content (NE)</label>
-                                    <ReactQuill
-                                        theme="snow"
-                                        value={currentArticle.contentNe || ''}
-                                        onChange={(value) => setCurrentArticle({ ...currentArticle, contentNe: value })}
-                                        modules={quillModules}
-                                        formats={quillFormats}
-                                        className="bg-white dark:bg-slate-700 rounded"
-                                        style={{ height: '300px', marginBottom: '50px' }}
-                                    />
+                                    {isMounted && ReactQuill ? (
+                                        <ReactQuill
+                                            theme="snow"
+                                            value={currentArticle.contentNe || ''}
+                                            onChange={(value) => setCurrentArticle({ ...currentArticle, contentNe: value })}
+                                            modules={quillModules}
+                                            formats={quillFormats}
+                                            className="bg-white dark:bg-slate-700 rounded"
+                                            style={{ height: '300px', marginBottom: '50px' }}
+                                        />
+                                    ) : (
+                                        <textarea
+                                            value={currentArticle.contentNe || ''}
+                                            onChange={(e) => setCurrentArticle({ ...currentArticle, contentNe: e.target.value })}
+                                            className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-64 font-mono text-sm"
+                                            placeholder="Loading editor..."
+                                        />
+                                    )}
                                 </div>
                             </div>
 
