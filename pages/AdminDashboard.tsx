@@ -190,11 +190,21 @@ const AdminDashboard: React.FC = () => {
 
                 {isEditing ? (
                     <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
-                        <div className="flex justify-between items-center mb-6">
+                        <div className="flex justify-between items-center mb-6 sticky top-0 bg-white dark:bg-slate-800 z-40 py-2 border-b border-slate-100 dark:border-slate-700">
                             <h2 className="text-xl font-bold">{currentArticle.id ? 'Edit Article' : 'New Article'}</h2>
-                            <button onClick={() => setIsEditing(false)} className="text-slate-500 hover:text-slate-700">
-                                <X size={24} />
-                            </button>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={handleSave}
+                                    disabled={formLoading}
+                                    className="px-4 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2 text-sm font-medium"
+                                >
+                                    {formLoading && <Loader2 className="animate-spin" size={14} />}
+                                    Save
+                                </button>
+                                <button onClick={() => setIsEditing(false)} className="text-slate-500 hover:text-slate-700 p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors">
+                                    <X size={24} />
+                                </button>
+                            </div>
                         </div>
 
                         <form onSubmit={handleSave} className="space-y-6">
