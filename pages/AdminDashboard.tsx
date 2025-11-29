@@ -316,48 +316,6 @@ const AdminDashboard: React.FC = () => {
                                 <textarea
                                     value={currentArticle.content || ''}
                                     onChange={(e) => setCurrentArticle({ ...currentArticle, content: e.target.value })}
-                                    className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-64 font-mono text-sm"
-                                    required
-                                />
-                            </div>
-
-                            {/* Nepali Fields (Optional) */}
-                            <div className="border-t pt-6 mt-6">
-                                <h3 className="text-lg font-semibold mb-4">Nepali Translation (Optional)</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-medium mb-1">Title (NE)</label>
-                                        <input
-                                            type="text"
-                                            value={currentArticle.titleNe || ''}
-                                            onChange={(e) => setCurrentArticle({ ...currentArticle, titleNe: e.target.value })}
-                                            className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium mb-1">Excerpt (NE)</label>
-                                        <textarea
-                                            value={currentArticle.excerptNe || ''}
-                                            onChange={(e) => setCurrentArticle({ ...currentArticle, excerptNe: e.target.value })}
-                                            className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-20"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="mt-4">
-                                    <label className="block text-sm font-medium mb-1">Content (NE - HTML)</label>
-                                    <textarea
-                                        value={currentArticle.contentNe || ''}
-                                        onChange={(e) => setCurrentArticle({ ...currentArticle, contentNe: e.target.value })}
-                                        className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-40 font-mono text-sm"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="flex justify-end gap-4 pt-4 border-t">
-                                <button
-                                    type="button"
-                                    onClick={() => setIsEditing(false)}
-                                    className="px-6 py-2 rounded border hover:bg-slate-50 dark:hover:bg-slate-700"
                                 >
                                     Cancel
                                 </button>
