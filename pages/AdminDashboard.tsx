@@ -3,6 +3,8 @@ import { supabase } from '../src/lib/supabase';
 import { articleService } from '../src/services/articleService';
 import { Article, Category } from '../types';
 import { Loader2, Plus, Pencil, Trash2, Upload, LogOut, Save, X } from 'lucide-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const AdminDashboard: React.FC = () => {
     const [session, setSession] = useState<any>(null);
@@ -17,6 +19,26 @@ const AdminDashboard: React.FC = () => {
     const [currentArticle, setCurrentArticle] = useState<Partial<Article>>({});
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [formLoading, setFormLoading] = useState(false);
+
+    // Quill editor configuration
+    const quillModules = {
+        toolbar: [
+            [{ 'header': [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            ['blockquote', 'code-block'],
+            ['link'],
+            ['clean']
+        ],
+    };
+
+    const quillFormats = [
+        'header',
+        'bold', 'italic', 'underline', 'strike',
+        'list', 'bullet',
+        'blockquote', 'code-block',
+        'link'
+    ];
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -312,12 +334,15 @@ const AdminDashboard: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium mb-1">Content (HTML)</label>
-                                <textarea
+                                <label className="block text-sm font-medium mb-1">Content</label>
+                                <ReactQuill
+                                    theme="snow"
                                     value={currentArticle.content || ''}
-                                    onChange={(e) => setCurrentArticle({ ...currentArticle, content: e.target.value })}
-                                    className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-64 font-mono text-sm"
-                                    required
+                                    onChange={(value) => setCurrentArticle({ ...currentArticle, content: value })}
+                                    modules={quillModules}
+                                    formats={quillFormats}
+                                    className="bg-white dark:bg-slate-700 rounded"
+                                    style={{ height: '300px', marginBottom: '50px' }}
                                 />
                             </div>
 
@@ -344,11 +369,15 @@ const AdminDashboard: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="mt-4">
-                                    <label className="block text-sm font-medium mb-1">Content (NE) - HTML</label>
-                                    <textarea
+                                    <label className="block text-sm font-medium mb-1">Content (NE)</label>
+                                    <ReactQuill
+                                        theme="snow"
                                         value={currentArticle.contentNe || ''}
-                                        onChange={(e) => setCurrentArticle({ ...currentArticle, contentNe: e.target.value })}
-                                        className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-40 font-mono text-sm"
+                                        onChange={(value) => setCurrentArticle({ ...currentArticle, contentNe: value })}
+                                        modules={quillModules}
+                                        formats={quillFormats}
+                                        className="bg-white dark:bg-slate-700 rounded"
+                                        style={{ height: '300px', marginBottom: '50px' }}
                                     />
                                 </div>
                             </div>
