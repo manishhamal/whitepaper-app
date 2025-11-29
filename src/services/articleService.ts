@@ -79,7 +79,8 @@ export const articleService = {
     },
 
     async uploadImage(file: File): Promise<string | null> {
-        const fileName = `${Date.now()}-${file.name}`;
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
         const { data, error } = await supabase.storage
             .from('article-images')
             .upload(fileName, file);

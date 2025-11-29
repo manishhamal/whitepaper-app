@@ -88,7 +88,11 @@ const AdminDashboard: React.FC = () => {
 
             if (imageFile) {
                 const url = await articleService.uploadImage(imageFile);
-                if (url) imageUrl = url;
+                if (url) {
+                    imageUrl = url;
+                } else {
+                    throw new Error("Image upload failed. Please check your internet connection or try a smaller image.");
+                }
             }
 
             const articleData = {
@@ -104,9 +108,9 @@ const AdminDashboard: React.FC = () => {
 
             setIsEditing(false);
             fetchArticles();
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error saving article:', error);
-            alert('Failed to save article');
+            alert(error.message || 'Failed to save article');
         } finally {
             setFormLoading(false);
         }
