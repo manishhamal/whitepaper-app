@@ -256,7 +256,8 @@ const AdminDashboard: React.FC = () => {
 
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block text-sm font-medium mb-1">Featured Image</label>
+                                        <label className="block text-sm font-medium mb-1">Featured Image (Optional)</label>
+                                        <p className="text-xs text-slate-500 mb-2">You can leave this empty to post without an image.</p>
                                         <div className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-4 text-center relative group/container">
                                             {currentArticle.featuredImage || imageFile ? (
                                                 <div className="relative inline-block z-20">
