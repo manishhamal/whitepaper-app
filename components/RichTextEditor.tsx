@@ -1,13 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import TextStyle from '@tiptap/extension-text-style';
-import { Color } from '@tiptap/extension-color';
-import TextAlign from '@tiptap/extension-text-align';
-import Link from '@tiptap/extension-link';
-import Image from '@tiptap/extension-image';
-import Underline from '@tiptap/extension-underline';
-import { Bold, Italic, Underline, Strikethrough, List, ListOrdered, AlignLeft, AlignCenter, AlignRight, Link as LinkIcon, Image as ImageIcon, Heading1, Heading2, Heading3, Quote, Undo, Redo } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
+import { Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, List, ListOrdered } from 'lucide-react';
 
 interface RichTextEditorProps {
     value: string;
@@ -16,248 +8,246 @@ interface RichTextEditorProps {
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeholder }) => {
-    const editor = useEditor({
-        extensions: [
-            StarterKit.configure({
-                heading: {
-                    levels: [1, 2, 3, 4, 5, 6],
-                },
-            }),
-            TextStyle,
-            Color,
-            TextAlign.configure({
-                types: ['heading', 'paragraph'],
-            }),
-            Link.configure({
-                openOnClick: false,
-                HTMLAttributes: {
-                    class: 'text-blue-600 underline',
-                },
-            }),
-            Image.configure({
-                inline: true,
-                allowBase64: true,
-            }),
-            Underline,
-        ],
-        content: value,
-        onUpdate: ({ editor }) => {
-            onChange(editor.getHTML());
-        },
-        editorProps: {
-            attributes: {
-                class: 'prose prose-slate dark:prose-invert max-w-none focus:outline-none min-h-[300px] p-4',
-            },
-        },
-    });
+    const editorRef = useRef<HTMLDivElement>(null);
+    const [isFocused, setIsFocused] = useState(false);
 
-    const setLink = useCallback(() => {
-        if (!editor) return;
-        
-        const previousUrl = editor.getAttributes('link').href;
-        const url = window.prompt('URL', previousUrl);
-
-        if (url === null) {
-            return;
-        }
-
-        if (url === '') {
-            editor.chain().focus().extendMarkRange('link').unsetLink().run();
-            return;
-        }
-
-        editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-    }, [editor]);
-
-    const addImage = useCallback(() => {
-        if (!editor) return;
-        
-        const url = window.prompt('Image URL');
-
-        if (url) {
-            editor.chain().focus().setImage({ src: url }).run();
-        }
-    }, [editor]);
-
-    // Update editor content when value prop changes
     useEffect(() => {
-        if (editor && value !== editor.getHTML()) {
-            editor.commands.setContent(value);
+        if (editorRef.current && editorRef.current.innerHTML !== value) {
+            editorRef.current.innerHTML = value || '';
         }
-    }, [value, editor]);
+    }, [value]);
 
-    if (!editor) {
-        return (
-            <div className="border rounded dark:border-slate-600 p-4 min-h-[300px] bg-white dark:bg-slate-700">
-                <div className="text-slate-500">Loading editor...</div>
-            </div>
-        );
-    }
+    const execCommand = (command: string, value?: string) => {
+        document.execCommand(command, false, value);
+        updateContent();
+        editorRef.current?.focus();
+    };
+
+    const updateContent = () => {
+        if (editorRef.current) {
+            onChange(editorRef.current.innerHTML);
+        }
+    };
+
+    const handleInput = () => {
+        updateContent();
+    };
+
+    const handlePaste = (e: React.ClipboardEvent) => {
+        e.preventDefault();
+        const html = e.clipboardData.getData('text/html');
+        const text = e.clipboardData.getData('text/plain');
+        
+        if (html) {
+            // Paste HTML content preserving formatting
+            const selection = window.getSelection();
+            if (selection && selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                const fragment = document.createDocumentFragment();
+                while (tempDiv.firstChild) {
+                    fragment.appendChild(tempDiv.firstChild);
+                }
+                range.insertNode(fragment);
+                range.collapse(false);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        } else {
+            // Fallback to plain text
+            document.execCommand('insertText', false, text);
+        }
+        updateContent();
+    };
+
+    const setFontSize = (size: string) => {
+        execCommand('fontSize', '7'); // This sets a base size, we'll use CSS
+        if (editorRef.current) {
+            const selection = window.getSelection();
+            if (selection && selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const selectedText = range.extractContents();
+                const span = document.createElement('span');
+                span.style.fontSize = size;
+                span.appendChild(selectedText);
+                range.insertNode(span);
+                updateContent();
+            }
+        }
+    };
+
+    const setTextColor = (color: string) => {
+        execCommand('foreColor', color);
+    };
+
+    const setBackgroundColor = (color: string) => {
+        execCommand('backColor', color);
+    };
 
     return (
         <div className="border rounded dark:border-slate-600 bg-white dark:bg-slate-800">
             {/* Toolbar */}
             <div className="flex flex-wrap gap-1 p-2 border-b dark:border-slate-600 bg-slate-50 dark:bg-slate-800">
-                {/* Headings */}
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive('heading', { level: 1 }) ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
-                    title="Heading 1"
-                >
-                    <Heading1 size={18} />
-                </button>
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive('heading', { level: 2 }) ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
-                    title="Heading 2"
-                >
-                    <Heading2 size={18} />
-                </button>
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive('heading', { level: 3 }) ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
-                    title="Heading 3"
-                >
-                    <Heading3 size={18} />
-                </button>
-                <div className="w-px bg-slate-300 dark:bg-slate-600 mx-1"></div>
-                
                 {/* Text Formatting */}
                 <button
                     type="button"
-                    onClick={() => editor.chain().focus().toggleBold().run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded font-bold ${editor.isActive('bold') ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
+                    onClick={() => execCommand('bold')}
+                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded font-bold"
                     title="Bold"
+                    onMouseDown={(e) => e.preventDefault()}
                 >
                     <Bold size={18} />
                 </button>
                 <button
                     type="button"
-                    onClick={() => editor.chain().focus().toggleItalic().run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded italic ${editor.isActive('italic') ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
+                    onClick={() => execCommand('italic')}
+                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded italic"
                     title="Italic"
+                    onMouseDown={(e) => e.preventDefault()}
                 >
                     <Italic size={18} />
                 </button>
                 <button
                     type="button"
-                    onClick={() => editor.chain().focus().toggleUnderline().run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded underline ${editor.isActive('underline') ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
+                    onClick={() => execCommand('underline')}
+                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded underline"
                     title="Underline"
+                    onMouseDown={(e) => e.preventDefault()}
                 >
                     <Underline size={18} />
                 </button>
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleStrike().run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive('strike') ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
-                    title="Strikethrough"
-                >
-                    <Strikethrough size={18} />
-                </button>
                 <div className="w-px bg-slate-300 dark:bg-slate-600 mx-1"></div>
-                
-                {/* Lists */}
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleBulletList().run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive('bulletList') ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
-                    title="Bullet List"
+
+                {/* Font Size */}
+                <select
+                    onChange={(e) => {
+                        const size = e.target.value;
+                        if (size) {
+                            setFontSize(size);
+                            e.target.value = '';
+                        }
+                    }}
+                    className="p-2 border rounded dark:bg-slate-700 dark:border-slate-600 text-sm"
+                    title="Font Size"
+                    onMouseDown={(e) => e.preventDefault()}
                 >
-                    <List size={18} />
-                </button>
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive('orderedList') ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
-                    title="Numbered List"
-                >
-                    <ListOrdered size={18} />
-                </button>
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive('blockquote') ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
-                    title="Blockquote"
-                >
-                    <Quote size={18} />
-                </button>
+                    <option value="">Size</option>
+                    <option value="12px">12px</option>
+                    <option value="14px">14px</option>
+                    <option value="16px">16px</option>
+                    <option value="18px">18px</option>
+                    <option value="20px">20px</option>
+                    <option value="24px">24px</option>
+                    <option value="28px">28px</option>
+                    <option value="32px">32px</option>
+                </select>
+
+                {/* Text Color */}
+                <div className="relative">
+                    <input
+                        type="color"
+                        onChange={(e) => setTextColor(e.target.value)}
+                        className="w-10 h-10 p-1 border rounded cursor-pointer"
+                        title="Text Color"
+                        onMouseDown={(e) => e.preventDefault()}
+                    />
+                </div>
+
+                {/* Background Color */}
+                <div className="relative">
+                    <input
+                        type="color"
+                        onChange={(e) => setBackgroundColor(e.target.value)}
+                        className="w-10 h-10 p-1 border rounded cursor-pointer"
+                        title="Background Color"
+                        onMouseDown={(e) => e.preventDefault()}
+                    />
+                </div>
                 <div className="w-px bg-slate-300 dark:bg-slate-600 mx-1"></div>
-                
+
                 {/* Alignment */}
                 <button
                     type="button"
-                    onClick={() => editor.chain().focus().setTextAlign('left').run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive({ textAlign: 'left' }) ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
+                    onClick={() => execCommand('justifyLeft')}
+                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
                     title="Align Left"
+                    onMouseDown={(e) => e.preventDefault()}
                 >
                     <AlignLeft size={18} />
                 </button>
                 <button
                     type="button"
-                    onClick={() => editor.chain().focus().setTextAlign('center').run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive({ textAlign: 'center' }) ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
+                    onClick={() => execCommand('justifyCenter')}
+                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
                     title="Align Center"
+                    onMouseDown={(e) => e.preventDefault()}
                 >
                     <AlignCenter size={18} />
                 </button>
                 <button
                     type="button"
-                    onClick={() => editor.chain().focus().setTextAlign('right').run()}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive({ textAlign: 'right' }) ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
+                    onClick={() => execCommand('justifyRight')}
+                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
                     title="Align Right"
+                    onMouseDown={(e) => e.preventDefault()}
                 >
                     <AlignRight size={18} />
                 </button>
                 <div className="w-px bg-slate-300 dark:bg-slate-600 mx-1"></div>
-                
-                {/* Links and Images */}
+
+                {/* Lists */}
                 <button
                     type="button"
-                    onClick={setLink}
-                    className={`p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded ${editor.isActive('link') ? 'bg-slate-200 dark:bg-slate-700' : ''}`}
-                    title="Insert Link"
-                >
-                    <LinkIcon size={18} />
-                </button>
-                <button
-                    type="button"
-                    onClick={addImage}
+                    onClick={() => execCommand('insertUnorderedList')}
                     className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
-                    title="Insert Image"
+                    title="Bullet List"
+                    onMouseDown={(e) => e.preventDefault()}
                 >
-                    <ImageIcon size={18} />
-                </button>
-                <div className="w-px bg-slate-300 dark:bg-slate-600 mx-1"></div>
-                
-                {/* Undo/Redo */}
-                <button
-                    type="button"
-                    onClick={() => editor.chain().focus().undo().run()}
-                    disabled={!editor.can().undo()}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                    title="Undo"
-                >
-                    <Undo size={18} />
+                    <List size={18} />
                 </button>
                 <button
                     type="button"
-                    onClick={() => editor.chain().focus().redo().run()}
-                    disabled={!editor.can().redo()}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                    title="Redo"
+                    onClick={() => execCommand('insertOrderedList')}
+                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
+                    title="Numbered List"
+                    onMouseDown={(e) => e.preventDefault()}
                 >
-                    <Redo size={18} />
+                    <ListOrdered size={18} />
                 </button>
             </div>
 
             {/* Editor */}
-            <div className="min-h-[300px] max-h-[500px] overflow-y-auto">
-                <EditorContent editor={editor} />
-            </div>
+            <div
+                ref={editorRef}
+                contentEditable
+                onInput={handleInput}
+                onBlur={() => {
+                    setIsFocused(false);
+                    updateContent();
+                }}
+                onFocus={() => setIsFocused(true)}
+                onPaste={handlePaste}
+                className={`p-4 min-h-[300px] max-h-[500px] overflow-y-auto focus:outline-none bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 ${
+                    !value && !isFocused ? 'text-slate-400' : ''
+                }`}
+                style={{
+                    wordWrap: 'break-word',
+                    overflowWrap: 'break-word',
+                }}
+                data-placeholder={placeholder || "Write your article content here..."}
+            />
+            <style>{`
+                [contenteditable][data-placeholder]:empty:before {
+                    content: attr(data-placeholder);
+                    color: #94a3b8;
+                    pointer-events: none;
+                }
+                [contenteditable][data-placeholder]:empty:focus:before {
+                    content: '';
+                }
+            `}</style>
         </div>
     );
 };
