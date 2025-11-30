@@ -142,7 +142,17 @@ const ArticleDetail: React.FC = () => {
               <img
                 src={article.featuredImage}
                 alt={article.title}
-                className="w-full h-auto object-cover max-h-[500px] grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
+                className="w-full h-auto object-cover max-h-[500px] article-image-hover"
+                style={{
+                  filter: 'grayscale(100%)',
+                  transition: 'filter 0.7s ease-out',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.filter = 'grayscale(0%)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.filter = 'grayscale(100%)';
+                }}
               />
             </div>
           </FadeIn>
@@ -152,10 +162,19 @@ const ArticleDetail: React.FC = () => {
         <FadeIn delay={300}>
           <style>{`
             .article-content img {
-              filter: grayscale(100%);
-              transition: filter 0.7s ease-out;
+              filter: grayscale(100%) !important;
+              transition: filter 0.7s ease-out !important;
+              cursor: pointer;
             }
             .article-content img:hover {
+              filter: grayscale(0%) !important;
+            }
+            .article-image-hover {
+              filter: grayscale(100%);
+              transition: filter 0.7s ease-out;
+              cursor: pointer;
+            }
+            .article-image-hover:hover {
               filter: grayscale(0%);
             }
           `}</style>
