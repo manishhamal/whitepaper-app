@@ -138,11 +138,11 @@ const ArticleDetail: React.FC = () => {
         {/* Featured Image */}
         {article.featuredImage && (
           <FadeIn delay={200}>
-            <div className="mb-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900">
+            <div className="mb-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 group">
               <img
                 src={article.featuredImage}
                 alt={article.title}
-                className="w-full h-auto object-cover max-h-[500px]"
+                className="w-full h-auto object-cover max-h-[500px] grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
               />
             </div>
           </FadeIn>
@@ -150,12 +150,21 @@ const ArticleDetail: React.FC = () => {
 
         {/* Content Body */}
         <FadeIn delay={300}>
+          <style>{`
+            .article-content img {
+              filter: grayscale(100%);
+              transition: filter 0.7s ease-out;
+            }
+            .article-content img:hover {
+              filter: grayscale(0%);
+            }
+          `}</style>
           <div
-            className="prose prose-lg dark:prose-invert prose-slate max-w-none
+            className="article-content prose prose-lg dark:prose-invert prose-slate max-w-none
             prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight
             prose-p:font-serif prose-p:leading-loose
             prose-a:font-medium prose-a:text-slate-900 dark:prose-a:text-white prose-a:no-underline prose-a:border-b prose-a:border-slate-300 dark:prose-a:border-slate-600 hover:prose-a:border-slate-900 dark:hover:prose-a:border-white prose-a:transition-colors
-            prose-img:rounded-xl prose-img:grayscale hover:prose-img:grayscale-0 prose-img:transition-all
+            prose-img:rounded-xl
             lead:text-xl lead:font-sans lead:text-slate-600 dark:lead:text-slate-300"
             dangerouslySetInnerHTML={{ __html: content }}
           />
