@@ -39,7 +39,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
         const text = e.clipboardData.getData('text/plain');
         
         if (html) {
-            // Paste HTML content preserving formatting
             const selection = window.getSelection();
             if (selection && selection.rangeCount > 0) {
                 const range = selection.getRangeAt(0);
@@ -56,24 +55,35 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
                 selection.addRange(range);
             }
         } else {
-            // Fallback to plain text
             document.execCommand('insertText', false, text);
         }
         updateContent();
     };
 
     const setFontSize = (size: string) => {
-        execCommand('fontSize', '7'); // This sets a base size, we'll use CSS
         if (editorRef.current) {
             const selection = window.getSelection();
             if (selection && selection.rangeCount > 0) {
                 const range = selection.getRangeAt(0);
-                const selectedText = range.extractContents();
-                const span = document.createElement('span');
-                span.style.fontSize = size;
-                span.appendChild(selectedText);
-                range.insertNode(span);
-                updateContent();
+                if (!range.collapsed) {
+                    const span = document.createElement('span');
+                    span.style.fontSize = size;
+                    try {
+                        const contents = range.extractContents();
+                        span.appendChild(contents);
+                        range.insertNode(span);
+                    } catch (e) {
+                        // Fallback
+                        document.execCommand('fontSize', false, '7');
+                        const selected = editorRef.current.querySelector('font[size="7"]');
+                        if (selected) {
+                            (selected as HTMLElement).style.fontSize = size;
+                            selected.removeAttribute('size');
+                        }
+                    }
+                    updateContent();
+                    editorRef.current.focus();
+                }
             }
         }
     };
@@ -87,38 +97,58 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
     };
 
     return (
-        <div className="border rounded dark:border-slate-600 bg-white dark:bg-slate-800">
-            {/* Toolbar */}
-            <div className="flex flex-wrap gap-1 p-2 border-b dark:border-slate-600 bg-slate-50 dark:bg-slate-800">
-                {/* Text Formatting */}
+        <div style={{ border: '1px solid #e2e8f0', borderRadius: '0.375rem', backgroundColor: 'white' }} className="dark:border-slate-600 dark:bg-slate-800">
+            {/* TOOLBAR - This should be visible at the top */}
+            <div 
+                style={{ 
+                    display: 'flex', 
+                    flexWrap: 'wrap', 
+                    gap: '4px', 
+                    padding: '8px', 
+                    borderBottom: '1px solid #e2e8f0',
+                    backgroundColor: '#f8fafc',
+                    minHeight: '48px',
+                    alignItems: 'center'
+                }} 
+                className="dark:border-slate-600 dark:bg-slate-800"
+            >
+                {/* Bold */}
                 <button
                     type="button"
                     onClick={() => execCommand('bold')}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded font-bold"
+                    style={{ padding: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: 'transparent' }}
+                    className="hover:bg-slate-200 dark:hover:bg-slate-700 font-bold"
                     title="Bold"
                     onMouseDown={(e) => e.preventDefault()}
                 >
                     <Bold size={18} />
                 </button>
+                
+                {/* Italic */}
                 <button
                     type="button"
                     onClick={() => execCommand('italic')}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded italic"
+                    style={{ padding: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: 'transparent' }}
+                    className="hover:bg-slate-200 dark:hover:bg-slate-700 italic"
                     title="Italic"
                     onMouseDown={(e) => e.preventDefault()}
                 >
                     <Italic size={18} />
                 </button>
+                
+                {/* Underline */}
                 <button
                     type="button"
                     onClick={() => execCommand('underline')}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded underline"
+                    style={{ padding: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: 'transparent' }}
+                    className="hover:bg-slate-200 dark:hover:bg-slate-700 underline"
                     title="Underline"
                     onMouseDown={(e) => e.preventDefault()}
                 >
                     <Underline size={18} />
                 </button>
-                <div className="w-px bg-slate-300 dark:bg-slate-600 mx-1"></div>
+                
+                <div style={{ width: '1px', backgroundColor: '#cbd5e1', margin: '0 4px', height: '24px' }} className="dark:bg-slate-600"></div>
 
                 {/* Font Size */}
                 <select
@@ -129,7 +159,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
                             e.target.value = '';
                         }
                     }}
-                    className="p-2 border rounded dark:bg-slate-700 dark:border-slate-600 text-sm"
+                    style={{ padding: '6px 8px', borderRadius: '4px', border: '1px solid #cbd5e1', fontSize: '14px', cursor: 'pointer' }}
+                    className="dark:bg-slate-700 dark:border-slate-600"
                     title="Font Size"
                     onMouseDown={(e) => e.preventDefault()}
                 >
@@ -145,33 +176,31 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
                 </select>
 
                 {/* Text Color */}
-                <div className="relative">
-                    <input
-                        type="color"
-                        onChange={(e) => setTextColor(e.target.value)}
-                        className="w-10 h-10 p-1 border rounded cursor-pointer"
-                        title="Text Color"
-                        onMouseDown={(e) => e.preventDefault()}
-                    />
-                </div>
+                <input
+                    type="color"
+                    onChange={(e) => setTextColor(e.target.value)}
+                    style={{ width: '40px', height: '40px', padding: '4px', border: '1px solid #cbd5e1', borderRadius: '4px', cursor: 'pointer' }}
+                    title="Text Color"
+                    onMouseDown={(e) => e.preventDefault()}
+                />
 
                 {/* Background Color */}
-                <div className="relative">
-                    <input
-                        type="color"
-                        onChange={(e) => setBackgroundColor(e.target.value)}
-                        className="w-10 h-10 p-1 border rounded cursor-pointer"
-                        title="Background Color"
-                        onMouseDown={(e) => e.preventDefault()}
-                    />
-                </div>
-                <div className="w-px bg-slate-300 dark:bg-slate-600 mx-1"></div>
+                <input
+                    type="color"
+                    onChange={(e) => setBackgroundColor(e.target.value)}
+                    style={{ width: '40px', height: '40px', padding: '4px', border: '1px solid #cbd5e1', borderRadius: '4px', cursor: 'pointer' }}
+                    title="Background Color"
+                    onMouseDown={(e) => e.preventDefault()}
+                />
+                
+                <div style={{ width: '1px', backgroundColor: '#cbd5e1', margin: '0 4px', height: '24px' }} className="dark:bg-slate-600"></div>
 
                 {/* Alignment */}
                 <button
                     type="button"
                     onClick={() => execCommand('justifyLeft')}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
+                    style={{ padding: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: 'transparent' }}
+                    className="hover:bg-slate-200 dark:hover:bg-slate-700"
                     title="Align Left"
                     onMouseDown={(e) => e.preventDefault()}
                 >
@@ -180,7 +209,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
                 <button
                     type="button"
                     onClick={() => execCommand('justifyCenter')}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
+                    style={{ padding: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: 'transparent' }}
+                    className="hover:bg-slate-200 dark:hover:bg-slate-700"
                     title="Align Center"
                     onMouseDown={(e) => e.preventDefault()}
                 >
@@ -189,19 +219,22 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
                 <button
                     type="button"
                     onClick={() => execCommand('justifyRight')}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
+                    style={{ padding: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: 'transparent' }}
+                    className="hover:bg-slate-200 dark:hover:bg-slate-700"
                     title="Align Right"
                     onMouseDown={(e) => e.preventDefault()}
                 >
                     <AlignRight size={18} />
                 </button>
-                <div className="w-px bg-slate-300 dark:bg-slate-600 mx-1"></div>
+                
+                <div style={{ width: '1px', backgroundColor: '#cbd5e1', margin: '0 4px', height: '24px' }} className="dark:bg-slate-600"></div>
 
                 {/* Lists */}
                 <button
                     type="button"
                     onClick={() => execCommand('insertUnorderedList')}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
+                    style={{ padding: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: 'transparent' }}
+                    className="hover:bg-slate-200 dark:hover:bg-slate-700"
                     title="Bullet List"
                     onMouseDown={(e) => e.preventDefault()}
                 >
@@ -210,7 +243,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
                 <button
                     type="button"
                     onClick={() => execCommand('insertOrderedList')}
-                    className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded"
+                    style={{ padding: '8px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: 'transparent' }}
+                    className="hover:bg-slate-200 dark:hover:bg-slate-700"
                     title="Numbered List"
                     onMouseDown={(e) => e.preventDefault()}
                 >
@@ -218,7 +252,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
                 </button>
             </div>
 
-            {/* Editor */}
+            {/* Editor Area */}
             <div
                 ref={editorRef}
                 contentEditable
@@ -229,13 +263,18 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
                 }}
                 onFocus={() => setIsFocused(true)}
                 onPaste={handlePaste}
-                className={`p-4 min-h-[300px] max-h-[500px] overflow-y-auto focus:outline-none bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 ${
-                    !value && !isFocused ? 'text-slate-400' : ''
-                }`}
                 style={{
+                    padding: '16px',
+                    minHeight: '300px',
+                    maxHeight: '500px',
+                    overflowY: 'auto',
+                    outline: 'none',
+                    backgroundColor: 'white',
+                    color: '#0f172a',
                     wordWrap: 'break-word',
                     overflowWrap: 'break-word',
                 }}
+                className="dark:bg-slate-700 dark:text-slate-100"
                 data-placeholder={placeholder || "Write your article content here..."}
             />
             <style>{`
