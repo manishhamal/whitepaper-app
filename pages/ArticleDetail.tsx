@@ -149,11 +149,11 @@ const ArticleDetail: React.FC = () => {
       </div>
 
       {/* Grid Background Wrapper */}
-      <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F9F3] dark:to-[#171717] pointer-events-none" />
+      <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative transition-colors duration-300">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#33333312_1px,transparent_1px),linear-gradient(to_bottom,#33333312_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none transition-all duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F9F3] dark:to-[#171717] pointer-events-none transition-all duration-300" />
 
-        <article className="max-w-3xl mx-auto pb-20 relative z-10 pt-12 px-6">
+        <article className="max-w-3xl mx-auto pb-20 relative z-10 pt-12 px-6 transition-colors duration-300">
           {/* Back Link */}
           <FadeIn>
             <Link to="/articles" className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 mb-12 transition-colors">
@@ -255,24 +255,28 @@ const ArticleDetail: React.FC = () => {
 
           {/* Footer - Author Info and Date */}
           <FadeIn delay={400}>
-            <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800 flex justify-end">
-              <div className="flex items-center gap-6">
-                <div className="flex flex-col items-end gap-1.5">
-                  <span className="font-bold text-slate-900 dark:text-slate-100 leading-none text-xl">
-                    {article.authorName || AUTHOR.name}
-                  </span>
-                  <span className="text-slate-500 dark:text-slate-400 leading-none text-sm">
-                    {article.authorRole || AUTHOR.role}
-                  </span>
-                  <span className="text-slate-400 dark:text-slate-500 leading-none text-xs mt-1">
-                    {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                  </span>
+            <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex justify-end">
+                <div className="flex items-center gap-6">
+                  <div className="text-right">
+                    <div className="font-bold text-slate-900 dark:text-slate-100 text-2xl">
+                      {article.authorName || AUTHOR.name}
+                    </div>
+                    <div className="text-slate-500 dark:text-slate-400 text-base">
+                      {article.authorRole || AUTHOR.role}
+                    </div>
+                    <div className="text-slate-400 dark:text-slate-500 text-sm mt-1">
+                      {new Date(article.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </div>
+                  </div>
+                  <div className="overflow-hidden rounded-2xl">
+                    <img
+                      src={article.authorAvatar || AUTHOR.avatar}
+                      alt={article.authorName || AUTHOR.name}
+                      className="w-36 h-36 object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+                    />
+                  </div>
                 </div>
-                <img
-                  src={article.authorAvatar || AUTHOR.avatar}
-                  alt={article.authorName || AUTHOR.name}
-                  className="w-36 h-36 rounded-2xl object-cover"
-                />
               </div>
             </div>
           </FadeIn>
