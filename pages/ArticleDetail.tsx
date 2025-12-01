@@ -4,6 +4,7 @@ import { ArrowLeft, Eye, BookOpen, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import FadeIn from '../components/FadeIn';
 import { Article } from '../types';
+import { AUTHOR } from '../constants';
 import { articleService } from '../src/services/articleService';
 import {
   getArticleAnalytics,
@@ -135,6 +136,7 @@ const ArticleDetail: React.FC = () => {
 
   const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
   const content = i18n.language === 'ne' && article.contentNe ? article.contentNe : article.content;
+  const tags = i18n.language === 'ne' && article.tagsNe ? article.tagsNe : article.tags;
 
   return (
     <>
@@ -146,104 +148,136 @@ const ArticleDetail: React.FC = () => {
         />
       </div>
 
-      <article className="max-w-3xl mx-auto pb-20">
-        {/* Back Link */}
-        <FadeIn>
-          <Link to="/articles" className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 mb-12 transition-colors">
-            <ArrowLeft size={16} className="mr-2" /> {t('articleDetail.backToArticles')}
-          </Link>
-        </FadeIn>
+      {/* Grid Background Wrapper */}
+      <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F9F3] dark:to-[#171717] pointer-events-none" />
 
-        {/* Header */}
-        <FadeIn delay={100}>
-          <header className="mb-12">
-            <div className="mb-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                {article.category}
-              </span>
-            </div>
+        <article className="max-w-3xl mx-auto pb-20 relative z-10 pt-12 px-6">
+          {/* Back Link */}
+          <FadeIn>
+            <Link to="/articles" className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 mb-12 transition-colors">
+              <ArrowLeft size={16} className="mr-2" /> {t('articleDetail.backToArticles')}
+            </Link>
+          </FadeIn>
 
-            <h1 className="text-4xl md:text-6xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-6 leading-tighter tracking-tight">
-              {title}
-            </h1>
+          {/* Header */}
+          <FadeIn delay={100}>
+            <header className="mb-12 border-b border-slate-100 dark:border-slate-800 pb-12">
 
-            {/* View and Read Stats */}
-            <div className="flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
-              <div className="flex items-center gap-2">
-                <Eye size={16} />
-                <span>{stats.views} views</span>
+              {/* Title */}
+              <h1 className="text-2xl md:text-4xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-8 leading-tight tracking-tight">
+                {title}
+              </h1>
+
+              {/* Author and Tags Row */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                {/* Author Info */}
+                <div className="flex items-center gap-6">
+                  <img
+                    src={AUTHOR.avatar}
+                    alt={AUTHOR.name}
+                    className="w-36 h-36 rounded-2xl object-cover"
+                  />
+                  <div className="flex flex-col">
+                    <span className="font-bold text-slate-900 dark:text-slate-100 leading-none mb-2 text-xl">
+                      {AUTHOR.name}
+                    </span>
+                    <span className="text-base text-slate-500 dark:text-slate-400 leading-none">
+                      {AUTHOR.role}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs font-mono rounded-md"
+                    >
+                      {tag.toLowerCase()}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <BookOpen size={16} />
-                <span>{stats.reads} reads</span>
-              </div>
-            </div>
-          </header>
-        </FadeIn>
+            </header>
+          </FadeIn>
 
-        {/* Featured Image */}
-        {article.featuredImage && (
-          <FadeIn delay={200}>
-            <div className="mb-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 group">
-              <img
-                src={article.featuredImage}
-                alt={article.title}
-                className="w-full h-auto object-cover max-h-[500px] article-image-hover"
-                style={{
-                  filter: 'grayscale(100%)',
-                  transition: 'filter 0.7s ease-out',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.filter = 'grayscale(0%)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.filter = 'grayscale(100%)';
-                }}
-              />
+          {/* Featured Image */}
+          {article.featuredImage && (
+            <FadeIn delay={200}>
+              <div className="mb-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 group">
+                <img
+                  src={article.featuredImage}
+                  alt={article.title}
+                  className="w-full h-auto object-cover max-h-[500px] article-image-hover"
+                  style={{
+                    filter: 'grayscale(100%)',
+                    transition: 'filter 0.7s ease-out',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.filter = 'grayscale(0%)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.filter = 'grayscale(100%)';
+                  }}
+                />
+              </div>
+            </FadeIn>
+          )}
+
+          {/* Content Body */}
+          <FadeIn delay={300}>
+            <style>{`
+              .article-content img {
+                filter: grayscale(100%) !important;
+                transition: filter 0.7s ease-out !important;
+                cursor: pointer;
+              }
+              .article-content img:hover {
+                filter: grayscale(0%) !important;
+              }
+              .article-image-hover {
+                filter: grayscale(100%);
+                transition: filter 0.7s ease-out;
+                cursor: pointer;
+              }
+              .article-image-hover:hover {
+                filter: grayscale(0%);
+              }
+            `}</style>
+            <div
+              className="article-content prose prose-lg dark:prose-invert prose-slate max-w-none
+              prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight
+              prose-p:font-serif prose-p:leading-loose
+              prose-a:font-medium prose-a:text-slate-900 dark:prose-a:text-white prose-a:no-underline prose-a:border-b prose-a:border-slate-300 dark:prose-a:border-slate-600 hover:prose-a:border-slate-900 dark:hover:prose-a:border-white prose-a:transition-colors
+              prose-img:rounded-xl
+              lead:text-xl lead:font-sans lead:text-slate-600 dark:lead:text-slate-300"
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
+          </FadeIn>
+
+          {/* Footer Stats */}
+          <FadeIn delay={400}>
+            <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-sm">
+              <div className="flex items-center gap-6 text-slate-400 dark:text-slate-500">
+                <div className="flex items-center gap-2">
+                  <Eye size={16} />
+                  <span>{stats.views} views</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <BookOpen size={16} />
+                  <span>{stats.reads} reads</span>
+                </div>
+              </div>
+              <div className="text-slate-500 dark:text-slate-400">
+                {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </div>
             </div>
           </FadeIn>
-        )}
-
-        {/* Content Body */}
-        <FadeIn delay={300}>
-          <style>{`
-            .article-content img {
-              filter: grayscale(100%) !important;
-              transition: filter 0.7s ease-out !important;
-              cursor: pointer;
-            }
-            .article-content img:hover {
-              filter: grayscale(0%) !important;
-            }
-            .article-image-hover {
-              filter: grayscale(100%);
-              transition: filter 0.7s ease-out;
-              cursor: pointer;
-            }
-            .article-image-hover:hover {
-              filter: grayscale(0%);
-            }
-          `}</style>
-          <div
-            className="article-content prose prose-lg dark:prose-invert prose-slate max-w-none
-            prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight
-            prose-p:font-serif prose-p:leading-loose
-            prose-a:font-medium prose-a:text-slate-900 dark:prose-a:text-white prose-a:no-underline prose-a:border-b prose-a:border-slate-300 dark:prose-a:border-slate-600 hover:prose-a:border-slate-900 dark:hover:prose-a:border-white prose-a:transition-colors
-            prose-img:rounded-xl
-            lead:text-xl lead:font-sans lead:text-slate-600 dark:lead:text-slate-300"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
-        </FadeIn>
-
-        {/* Date at the end */}
-        <FadeIn delay={400}>
-          <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800">
-            <p className="text-sm font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wide">
-              Published on {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </p>
-          </div>
-        </FadeIn>
-      </article>
+        </article>
+      </div>
     </>
   );
 };
