@@ -150,8 +150,8 @@ const ArticleDetail: React.FC = () => {
 
       {/* Grid Background Wrapper */}
       <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative transition-colors duration-300">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#33333312_1px,transparent_1px),linear-gradient(to_bottom,#33333312_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none transition-all duration-300" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F9F3] dark:to-[#171717] pointer-events-none transition-all duration-300" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808024_1px,transparent_1px),linear-gradient(to_bottom,#80808024_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4B556324_1px,transparent_1px),linear-gradient(to_bottom,#4B556324_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F9F3] dark:to-[#171717] pointer-events-none" />
 
         <article className="max-w-3xl mx-auto pb-20 relative z-10 pt-12 px-6 transition-colors duration-300">
           {/* Back Link */}
@@ -273,7 +273,7 @@ const ArticleDetail: React.FC = () => {
                     <img
                       src={article.authorAvatar || AUTHOR.avatar}
                       alt={article.authorName || AUTHOR.name}
-                      className="w-36 h-36 object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+                      className="w-28 h-28 object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
                     />
                   </div>
                 </div>
