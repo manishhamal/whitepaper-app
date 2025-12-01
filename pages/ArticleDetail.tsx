@@ -19,8 +19,7 @@ const ArticleDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [readingProgress, setReadingProgress] = useState(0);
   const [stats, setStats] = useState({ views: 0, reads: 0 });
-  const [hasTrackedRead, setHasTrackedRead] = useState(false);
-  const [hasTrackedView, setHasTrackedView] = useState(false);
+
 
   // Fetch article
   useEffect(() => {
@@ -41,7 +40,15 @@ const ArticleDetail: React.FC = () => {
 
   // Fetch analytics and track view on mount
   useEffect(() => {
-    if (!id || !article || hasTrackedView) return;
+    if (!id || !article) return;
+
+    // Prevent multiple view increments in the same session
+    const sessionKey = `viewed_${id}`;
+    if (sessionStorage.getItem(sessionKey)) {
+      // Already tracked view this session, just fetch current stats
+      getArticleAnalytics(id).then((analytics) => setStats({ views: analytics.views, reads: analytics.reads }));
+      return;
+    }
 
     const initAnalytics = async () => {
       try {
@@ -51,7 +58,7 @@ const ArticleDetail: React.FC = () => {
 
         // Track view
         await trackView(id);
-        setHasTrackedView(true);
+        sessionStorage.setItem(sessionKey, "true");
 
         // Refresh stats after tracking
         const updatedAnalytics = await getArticleAnalytics(id);
@@ -62,7 +69,7 @@ const ArticleDetail: React.FC = () => {
     };
 
     initAnalytics();
-  }, [id, article, hasTrackedView]);
+  }, [id, article]);
 
   // Subscribe to real-time analytics updates
   useEffect(() => {
@@ -88,10 +95,13 @@ const ArticleDetail: React.FC = () => {
         setReadingProgress(progress);
 
         // Track as "read" when user scrolls to 80% or more
-        if (progress >= 80 && !hasTrackedRead && id && article) {
-          await trackRead(id);
-          setHasTrackedRead(true);
-          // Stats will be updated via real-time subscription
+        if (progress >= 80 && id && article) {
+          const readKey = `read_${id}`;
+          if (!sessionStorage.getItem(readKey)) {
+            sessionStorage.setItem(readKey, "true");
+            await trackRead(id);
+            // Stats will be updated via real-time subscription
+          }
         }
       }
     };
@@ -102,7 +112,7 @@ const ArticleDetail: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', updateScrollProgress);
     };
-  }, [id, hasTrackedRead, article]);
+  }, [id, article]);
 
   if (loading) {
     return (
