@@ -35,3 +35,12 @@ export interface Article {
   contentNe?: string;
   tagsNe?: string[];
 }
+
+export interface ArticleAnalytics {
+  id: string;
+  article_id: string;
+  views: number;
+  reads: number;
+  created_at: string;
+  updated_at: string;
+}

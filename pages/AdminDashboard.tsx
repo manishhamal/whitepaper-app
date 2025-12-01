@@ -335,62 +335,79 @@ const AdminDashboard: React.FC = () => {
                                         <textarea
                                             value={currentArticle.excerptNe || ''}
                                             onChange={(e) => setCurrentArticle({ ...currentArticle, excerptNe: e.target.value })}
-                                            type="button"
-                                            onClick={() => setIsEditing(false)}
-                                            className="px-6 py-2 rounded border hover:bg-slate-50 dark:hover:bg-slate-700"
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            disabled={formLoading}
-                                            className="px-6 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
-                                        >
-                                            {formLoading && <Loader2 className="animate-spin" size={16} />}
-                                            Save Article
-                                        </button>
+                                            className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-32"
+                                        />
                                     </div>
-                                </form>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium mb-1">Content (NE)</label>
+                                    <RichTextEditor
+                                        value={currentArticle.contentNe || ''}
+                                        onChange={(value) => setCurrentArticle({ ...currentArticle, contentNe: value })}
+                                        placeholder="Write your Nepali article content here..."
+                                    />
+                                </div>
                             </div>
-                            ) : (
-                            <div className="grid gap-4">
-                                {articles.map((article) => (
-                                    <div key={article.id} className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow flex justify-between items-center group">
-                                        <div>
-                                            <h3 className="font-bold text-lg">{article.title}</h3>
-                                            <div className="text-sm text-slate-500 flex gap-4">
-                                                <span>{article.date}</span>
-                                                <span className="bg-slate-100 dark:bg-slate-700 px-2 rounded text-xs flex items-center">{article.category}</span>
-                                            </div>
-                                        </div>
-                                        <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button
-                                                onClick={() => handleEdit(article)}
-                                                className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-700 rounded"
-                                                title="Edit"
-                                            >
-                                                <Pencil size={20} />
-                                            </button>
-                                            <button
-                                                onClick={() => handleDelete(article.id)}
-                                                className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-slate-700 rounded"
-                                                title="Delete"
-                                            >
-                                                <Trash2 size={20} />
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                                {articles.length === 0 && (
-                                    <div className="text-center py-12 text-slate-500">
-                                        No articles found. Create one to get started.
-                                    </div>
-                                )}
+
+                            <div className="flex justify-end gap-4 pt-6 border-t">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsEditing(false)}
+                                    className="px-6 py-2 rounded border hover:bg-slate-50 dark:hover:bg-slate-700"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={formLoading}
+                                    className="px-6 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+                                >
+                                    {formLoading && <Loader2 className="animate-spin" size={16} />}
+                                    Save Article
+                                </button>
                             </div>
-                )}
+                        </form>
                     </div>
+                ) : (
+                    <div className="grid gap-4">
+                        {articles.map((article) => (
+                            <div key={article.id} className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow flex justify-between items-center group">
+                                <div>
+                                    <h3 className="font-bold text-lg">{article.title}</h3>
+                                    <div className="text-sm text-slate-500 flex gap-4">
+                                        <span>{article.date}</span>
+                                        <span className="bg-slate-100 dark:bg-slate-700 px-2 rounded text-xs flex items-center">{article.category}</span>
+                                    </div>
+                                </div>
+                                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button
+                                        onClick={() => handleEdit(article)}
+                                        className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-700 rounded"
+                                        title="Edit"
+                                    >
+                                        <Pencil size={20} />
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(article.id)}
+                                        className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-slate-700 rounded"
+                                        title="Delete"
+                                    >
+                                        <Trash2 size={20} />
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                        {articles.length === 0 && (
+                            <div className="text-center py-12 text-slate-500">
+                                No articles found. Create one to get started.
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
-            );
+    );
 };
 
-            export default AdminDashboard;
+export default AdminDashboard;

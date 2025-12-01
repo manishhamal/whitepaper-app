@@ -5,7 +5,12 @@ import { useTranslation } from 'react-i18next';
 import FadeIn from '../components/FadeIn';
 import { Article } from '../types';
 import { articleService } from '../src/services/articleService';
-import { trackView, trackRead, getArticleStats } from '../utils/analytics';
+import {
+  getArticleAnalytics,
+  trackView,
+  trackRead,
+  subscribeToAnalytics
+} from '../src/services/analyticsService';
 
 const ArticleDetail: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -15,6 +20,7 @@ const ArticleDetail: React.FC = () => {
   const [readingProgress, setReadingProgress] = useState(0);
   const [stats, setStats] = useState({ views: 0, reads: 0 });
   const [hasTrackedRead, setHasTrackedRead] = useState(false);
+  const [hasTrackedView, setHasTrackedView] = useState(false);
 
   // Fetch article
   useEffect(() => {
@@ -33,17 +39,47 @@ const ArticleDetail: React.FC = () => {
     fetchArticle();
   }, [id]);
 
-  // Track view on mount (only if article loaded)
+  // Fetch analytics and track view on mount
   useEffect(() => {
-    if (id && article) {
-      trackView(id);
-      setStats(getArticleStats(id));
-    }
-  }, [id, article]);
+    if (!id || !article || hasTrackedView) return;
+
+    const initAnalytics = async () => {
+      try {
+        // Fetch current analytics
+        const analytics = await getArticleAnalytics(id);
+        setStats({ views: analytics.views, reads: analytics.reads });
+
+        // Track view
+        await trackView(id);
+        setHasTrackedView(true);
+
+        // Refresh stats after tracking
+        const updatedAnalytics = await getArticleAnalytics(id);
+        setStats({ views: updatedAnalytics.views, reads: updatedAnalytics.reads });
+      } catch (error) {
+        console.error('Failed to initialize analytics:', error);
+      }
+    };
+
+    initAnalytics();
+  }, [id, article, hasTrackedView]);
+
+  // Subscribe to real-time analytics updates
+  useEffect(() => {
+    if (!id) return;
+
+    const unsubscribe = subscribeToAnalytics(id, (analytics) => {
+      setStats({ views: analytics.views, reads: analytics.reads });
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [id]);
 
   // Track scroll progress and reads
   useEffect(() => {
-    const updateScrollProgress = () => {
+    const updateScrollProgress = async () => {
       const currentScroll = window.scrollY;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
 
@@ -53,9 +89,9 @@ const ArticleDetail: React.FC = () => {
 
         // Track as "read" when user scrolls to 80% or more
         if (progress >= 80 && !hasTrackedRead && id && article) {
-          trackRead(id);
+          await trackRead(id);
           setHasTrackedRead(true);
-          setStats(getArticleStats(id));
+          // Stats will be updated via real-time subscription
         }
       }
     };
