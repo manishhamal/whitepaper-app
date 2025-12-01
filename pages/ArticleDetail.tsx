@@ -170,22 +170,17 @@ const ArticleDetail: React.FC = () => {
                 {title}
               </h1>
 
-              {/* Author and Tags Row */}
+              {/* Stats and Tags Row */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                {/* Author Info */}
-                <div className="flex items-center gap-6">
-                  <img
-                    src={AUTHOR.avatar}
-                    alt={AUTHOR.name}
-                    className="w-36 h-36 rounded-2xl object-cover"
-                  />
-                  <div className="flex flex-col">
-                    <span className="font-bold text-slate-900 dark:text-slate-100 leading-none mb-2 text-xl">
-                      {AUTHOR.name}
-                    </span>
-                    <span className="text-base text-slate-500 dark:text-slate-400 leading-none">
-                      {AUTHOR.role}
-                    </span>
+                {/* Views and Reads Stats */}
+                <div className="flex items-center gap-6 text-slate-400 dark:text-slate-500 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Eye size={16} />
+                    <span>{stats.views} views</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <BookOpen size={16} />
+                    <span>{stats.reads} reads</span>
                   </div>
                 </div>
 
@@ -258,21 +253,26 @@ const ArticleDetail: React.FC = () => {
             />
           </FadeIn>
 
-          {/* Footer Stats */}
+          {/* Footer - Author Info and Date */}
           <FadeIn delay={400}>
-            <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-sm">
-              <div className="flex items-center gap-6 text-slate-400 dark:text-slate-500">
-                <div className="flex items-center gap-2">
-                  <Eye size={16} />
-                  <span>{stats.views} views</span>
+            <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+              <div className="flex items-center gap-6">
+                <div className="flex flex-col items-end gap-1.5">
+                  <span className="font-bold text-slate-900 dark:text-slate-100 leading-none text-xl">
+                    {article.authorName || AUTHOR.name}
+                  </span>
+                  <span className="text-slate-500 dark:text-slate-400 leading-none text-sm">
+                    {article.authorRole || AUTHOR.role}
+                  </span>
+                  <span className="text-slate-400 dark:text-slate-500 leading-none text-xs mt-1">
+                    {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <BookOpen size={16} />
-                  <span>{stats.reads} reads</span>
-                </div>
-              </div>
-              <div className="text-slate-500 dark:text-slate-400">
-                {new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                <img
+                  src={article.authorAvatar || AUTHOR.avatar}
+                  alt={article.authorName || AUTHOR.name}
+                  className="w-36 h-36 rounded-2xl object-cover"
+                />
               </div>
             </div>
           </FadeIn>

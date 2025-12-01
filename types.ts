@@ -29,6 +29,10 @@ export interface Article {
   tags: string[];
   featuredImage?: string | null;
   views?: number;
+  // Author information
+  authorName?: string;
+  authorRole?: string;
+  authorAvatar?: string;
   // Nepali translations
   titleNe?: string;
   excerptNe?: string;

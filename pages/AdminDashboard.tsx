@@ -17,6 +17,7 @@ const AdminDashboard: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [currentArticle, setCurrentArticle] = useState<Partial<Article>>({});
     const [imageFile, setImageFile] = useState<File | null>(null);
+    const [authorAvatarFile, setAuthorAvatarFile] = useState<File | null>(null);
     const [formLoading, setFormLoading] = useState(false);
 
     useEffect(() => {
@@ -65,12 +66,14 @@ const AdminDashboard: React.FC = () => {
             tags: [],
         });
         setImageFile(null);
+        setAuthorAvatarFile(null);
         setIsEditing(true);
     };
 
     const handleEdit = (article: Article) => {
         setCurrentArticle(article);
         setImageFile(null);
+        setAuthorAvatarFile(null);
         setIsEditing(true);
     };
 
@@ -86,15 +89,22 @@ const AdminDashboard: React.FC = () => {
 
         try {
             let imageUrl = currentArticle.featuredImage;
+            let authorAvatarUrl = currentArticle.authorAvatar;
 
             if (imageFile) {
                 const url = await articleService.uploadImage(imageFile);
                 if (url) imageUrl = url;
             }
 
+            if (authorAvatarFile) {
+                const url = await articleService.uploadImage(authorAvatarFile);
+                if (url) authorAvatarUrl = url;
+            }
+
             const articleData = {
                 ...currentArticle,
                 featuredImage: imageUrl,
+                authorAvatar: authorAvatarUrl,
             } as Article; // Type assertion for simplicity, validation recommended
 
             if (currentArticle.id) {
@@ -304,6 +314,75 @@ const AdminDashboard: React.FC = () => {
                                             className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-32"
                                             required
                                         />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Author Information Section */}
+                            <div className="border-t pt-6 mt-6">
+                                <h3 className="text-lg font-semibold mb-4">Author Information (Optional)</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1">Author Avatar</label>
+                                        <p className="text-xs text-slate-500 mb-2">Upload author profile image</p>
+                                        <div className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-4 text-center relative group/container">
+                                            {currentArticle.authorAvatar || authorAvatarFile ? (
+                                                <div className="relative inline-block z-20">
+                                                    <img
+                                                        src={authorAvatarFile ? URL.createObjectURL(authorAvatarFile) : currentArticle.authorAvatar || ''}
+                                                        alt="Author Avatar Preview"
+                                                        className="h-32 w-32 mx-auto mb-2 object-cover rounded-full shadow-sm"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            e.preventDefault();
+                                                            setCurrentArticle({ ...currentArticle, authorAvatar: undefined });
+                                                            setAuthorAvatarFile(null);
+                                                        }}
+                                                        className="absolute top-2 right-2 bg-white text-red-600 rounded-full p-1.5 hover:bg-red-50 shadow-md transition-transform hover:scale-110 z-30"
+                                                        title="Remove Avatar"
+                                                    >
+                                                        <X size={16} />
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <div className="text-slate-400 mb-2 flex flex-col items-center">
+                                                    <Upload className="mb-2" size={24} />
+                                                    <span className="text-xs">Click to upload avatar</span>
+                                                </div>
+                                            )}
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => setAuthorAvatarFile(e.target.files?.[0] || null)}
+                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                                key={authorAvatarFile ? 'has-avatar' : 'no-avatar'}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-sm font-medium mb-1">Author Name</label>
+                                            <input
+                                                type="text"
+                                                value={currentArticle.authorName || ''}
+                                                onChange={(e) => setCurrentArticle({ ...currentArticle, authorName: e.target.value })}
+                                                className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600"
+                                                placeholder="e.g. John Doe"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium mb-1">Author Role</label>
+                                            <input
+                                                type="text"
+                                                value={currentArticle.authorRole || ''}
+                                                onChange={(e) => setCurrentArticle({ ...currentArticle, authorRole: e.target.value })}
+                                                className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600"
+                                                placeholder="e.g. Writer, Researcher"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
