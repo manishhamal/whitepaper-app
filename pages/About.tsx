@@ -14,7 +14,7 @@ const About: React.FC = () => {
           <div className="space-y-6">
             <div>
               <h1 className="text-4xl font-serif font-bold text-slate-900 dark:text-slate-50 mb-2">
-                About Us
+                {t("about.title")}
               </h1>
             </div>
             <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">

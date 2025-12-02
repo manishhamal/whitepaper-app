@@ -19,7 +19,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative -mt-32 pt-32 transition-colors duration-500">
+    <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative -mt-32 pt-32 transition-colors duration-300">
       {/* Grid Pattern with CSS Mask for Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -47,7 +47,7 @@ const Home: React.FC = () => {
       <div className="max-w-4xl mx-auto pb-12 relative z-10">
         {/* Intro Hero */}
         <FadeIn>
-          <section className="py-12 md:py-20 mb-8 border-b border-slate-200/60 dark:border-slate-700/60 transition-colors duration-500">
+          <section className="py-12 md:py-20 mb-8 border-b border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">
             <h1 className="text-5xl md:text-7xl font-sans font-bold text-slate-900 dark:text-white leading-[0.9] tracking-tighter mb-8 animate-float">
               {t("hero.title")}
             </h1>
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
 
           <div className="relative">
             {/* Continuous Vertical Line */}
-            <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200/60 dark:bg-slate-700/60 transition-colors duration-500"></div>
+            <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200/60 dark:bg-slate-700/60 transition-colors duration-300"></div>
 
             <div className="space-y-12">
               {recentArticles.map((article, index) => (

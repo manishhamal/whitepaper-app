@@ -65,9 +65,9 @@ const Layout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F9F9F3] dark:bg-[#171717] text-slate-900 dark:text-slate-100 font-sans selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-slate-900 transition-colors duration-500">
+    <div className="min-h-screen flex flex-col bg-[#F9F9F3] dark:bg-[#171717] text-slate-900 dark:text-slate-100 font-sans selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-slate-900 transition-colors duration-300">
       {/* Modern Fixed Header */}
-      <header className="fixed top-0 w-full z-50 bg-[#F9F9F3]/80 dark:bg-[#171717]/80 backdrop-blur-md border-b border-slate-100/50 dark:border-slate-800/50 transition-colors duration-500">
+      <header className="fixed top-0 w-full z-50 bg-[#F9F9F3]/80 dark:bg-[#171717]/80 backdrop-blur-md border-b border-slate-100/50 dark:border-slate-800/50 transition-colors duration-300">
         <div className="max-w-6xl mx-auto px-6 md:px-12 h-16 md:h-20 flex items-center justify-between">
           {/* Logo */}
           <NavLink to="/" className="z-50 group">
@@ -83,10 +83,9 @@ const Layout: React.FC = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `text-sm font-medium transition-colors duration-200 ${
-                    isActive
-                      ? "text-slate-900 dark:text-white"
-                      : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  `text-sm font-medium transition-colors duration-200 ${isActive
+                    ? "text-slate-900 dark:text-white"
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   }`
                 }
               >
@@ -149,17 +148,16 @@ const Layout: React.FC = () => {
 
       {/* Mobile Nav Dropdown - Placed outside Header to fix stacking context */}
       {isMenuOpen && (
-        <div className="fixed inset-0 top-16 z-40 bg-[#F9F9F3] dark:bg-[#171717] animate-in slide-in-from-right duration-200 border-t border-slate-100 dark:border-slate-800 md:hidden overflow-y-auto transition-colors duration-500">
+        <div className="fixed inset-0 top-16 z-40 bg-[#F9F9F3] dark:bg-[#171717] animate-in slide-in-from-right duration-200 border-t border-slate-100 dark:border-slate-800 md:hidden overflow-y-auto transition-colors duration-300">
           <div className="p-6 flex flex-col space-y-6 mt-4">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `text-2xl font-sans font-bold tracking-tight ${
-                    isActive
-                      ? "text-slate-900 dark:text-white"
-                      : "text-slate-400 dark:text-slate-500"
+                  `text-2xl font-sans font-bold tracking-tight ${isActive
+                    ? "text-slate-900 dark:text-white"
+                    : "text-slate-400 dark:text-slate-500"
                   }`
                 }
                 onClick={() => setIsMenuOpen(false)}
@@ -172,12 +170,12 @@ const Layout: React.FC = () => {
       )}
 
       {/* Main Content */}
-      <main className="flex-grow w-full max-w-6xl mx-auto px-6 md:px-12 pt-32 pb-16 transition-colors duration-500">
+      <main className="flex-grow w-full max-w-6xl mx-auto px-6 md:px-12 pt-32 pb-16 transition-colors duration-300">
         <Outlet />
       </main>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-slate-100 dark:border-slate-900 mt-auto bg-slate-50/50 dark:bg-slate-950/50 transition-colors duration-500">
+      <footer className="py-12 px-6 border-t border-slate-100 dark:border-slate-900 mt-auto bg-slate-50/50 dark:bg-slate-950/50 transition-colors duration-300">
         <div className="max-w-6xl mx-auto flex justify-center items-center text-sm text-slate-500 dark:text-slate-400">
           <div className="font-medium">
             &copy; {new Date().getFullYear()} {BLOG_NAME}.
