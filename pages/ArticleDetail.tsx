@@ -150,8 +150,27 @@ const ArticleDetail: React.FC = () => {
 
       {/* Grid Background Wrapper */}
       <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative transition-colors duration-300">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808024_1px,transparent_1px),linear-gradient(to_bottom,#80808024_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4B556324_1px,transparent_1px),linear-gradient(to_bottom,#4B556324_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F9F3] dark:to-[#171717] pointer-events-none" />
+        {/* Grid Pattern with CSS Mask for Vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)'
+          }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+            }}
+          >
+            {/* Light Grid */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808024_1px,transparent_1px),linear-gradient(to_bottom,#80808024_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300 opacity-100 dark:opacity-0" />
+            {/* Dark Grid */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#4B556324_1px,transparent_1px),linear-gradient(to_bottom,#4B556324_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300 opacity-0 dark:opacity-100" />
+          </div>
+        </div>
 
         <article className="max-w-3xl mx-auto pb-20 relative z-10 pt-12 px-6 transition-colors duration-300">
           {/* Back Link */}
@@ -163,7 +182,7 @@ const ArticleDetail: React.FC = () => {
 
           {/* Header */}
           <FadeIn delay={100}>
-            <header className="mb-12 border-b border-slate-100 dark:border-slate-800 pb-12">
+            <header className="mb-12 border-b border-slate-100 dark:border-slate-800 pb-12 transition-colors duration-300">
 
               {/* Title */}
               <h1 className="text-2xl md:text-4xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-8 leading-tight tracking-tight">
@@ -189,7 +208,7 @@ const ArticleDetail: React.FC = () => {
                   {tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs font-mono rounded-md"
+                      className="px-3 py-1 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs font-mono rounded-md transition-colors duration-300"
                     >
                       {tag.toLowerCase()}
                     </span>
@@ -202,7 +221,7 @@ const ArticleDetail: React.FC = () => {
           {/* Featured Image */}
           {article.featuredImage && (
             <FadeIn delay={200}>
-              <div className="mb-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 group">
+              <div className="mb-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 group transition-colors duration-300">
                 <img
                   src={article.featuredImage}
                   alt={article.title}
@@ -255,7 +274,7 @@ const ArticleDetail: React.FC = () => {
 
           {/* Footer - Author Info and Date */}
           <FadeIn delay={400}>
-            <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800">
+            <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800 transition-colors duration-300">
               <div className="flex justify-end">
                 <div className="flex items-center gap-6">
                   <div className="text-right">
@@ -273,7 +292,7 @@ const ArticleDetail: React.FC = () => {
                     <img
                       src={article.authorAvatar || AUTHOR.avatar}
                       alt={article.authorName || AUTHOR.name}
-                      className="w-28 h-28 object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+                      className="w-20 h-20 md:w-28 md:h-28 object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
                     />
                   </div>
                 </div>

@@ -19,15 +19,34 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative -mt-32 pt-32">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F9F3] dark:to-[#171717] pointer-events-none" />
+    <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative -mt-32 pt-32 transition-colors duration-300">
+      {/* Grid Pattern with CSS Mask for Vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)'
+        }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+          }}
+        >
+          {/* Light Grid */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300 opacity-100 dark:opacity-0" />
+          {/* Dark Grid */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#4B556312_1px,transparent_1px),linear-gradient(to_bottom,#4B556312_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300 opacity-0 dark:opacity-100" />
+        </div>
+      </div>
 
       <div className="max-w-4xl mx-auto pb-12 relative z-10">
 
         {/* Intro Hero */}
         <FadeIn>
-          <section className="py-12 md:py-20 mb-8 border-b border-slate-100 dark:border-slate-800">
+          <section className="py-12 md:py-20 mb-8 border-b border-slate-100 dark:border-slate-800 transition-colors duration-300">
             <h1 className="text-5xl md:text-7xl font-sans font-bold text-slate-900 dark:text-white leading-[0.9] tracking-tighter mb-8 animate-float">
               {t('hero.title')}
             </h1>
