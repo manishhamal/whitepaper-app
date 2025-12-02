@@ -117,7 +117,7 @@ const Articles: React.FC = () => {
       ) : filteredArticles.length > 0 ? (
         <div className="relative">
           {/* Continuous Vertical Line */}
-          <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200 dark:bg-slate-800"></div>
+          <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200 dark:bg-slate-800 transition-colors duration-300"></div>
 
           <div className="space-y-12">
             {filteredArticles.map((article, index) => (

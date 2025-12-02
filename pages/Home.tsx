@@ -35,10 +35,8 @@ const Home: React.FC = () => {
             WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
           }}
         >
-          {/* Light Grid */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300 opacity-100 dark:opacity-0" />
-          {/* Dark Grid */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#4B556312_1px,transparent_1px),linear-gradient(to_bottom,#4B556312_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300 opacity-0 dark:opacity-100" />
+          {/* Single Grid - neutral color works on both backgrounds */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808018_1px,transparent_1px),linear-gradient(to_bottom,#80808018_1px,transparent_1px)] bg-[size:48px_48px]" />
         </div>
       </div>
 
@@ -70,7 +68,7 @@ const Home: React.FC = () => {
 
           <div className="relative">
             {/* Continuous Vertical Line */}
-            <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200 dark:bg-slate-800"></div>
+            <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200 dark:bg-slate-800 transition-colors duration-300"></div>
 
             <div className="space-y-12">
               {recentArticles.map((article, index) => (

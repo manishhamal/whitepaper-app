@@ -165,10 +165,8 @@ const ArticleDetail: React.FC = () => {
               WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
             }}
           >
-            {/* Light Grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808024_1px,transparent_1px),linear-gradient(to_bottom,#80808024_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300 opacity-100 dark:opacity-0" />
-            {/* Dark Grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#4B556324_1px,transparent_1px),linear-gradient(to_bottom,#4B556324_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300 opacity-0 dark:opacity-100" />
+            {/* Single Grid - neutral color works on both backgrounds */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808020_1px,transparent_1px),linear-gradient(to_bottom,#80808020_1px,transparent_1px)] bg-[size:48px_48px]" />
           </div>
         </div>
 
