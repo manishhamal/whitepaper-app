@@ -38,25 +38,12 @@
       scroll-behavior: smooth;
       /* Offset for sticky header when scrolling to anchors */
       scroll-padding-top: 7rem;
-      /* Smooth dark mode transition */
-      transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Global smooth transitions for dark mode */
-    *,
-    *::before,
-    *::after {
-      transition-property: background-color, border-color, color, fill, stroke;
-      transition-duration: 300ms;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Preserve existing animations and transforms */
-    .animate-float,
-    .hero-gradient,
-    .text-shimmer,
-    .fade-in-up {
-      transition-property: background-color, border-color, color, fill, stroke, opacity;
+    /* Smooth dark mode transition for html and body only */
+    html,
+    body {
+      transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
     }
 
     /* Hide scrollbar for clean aesthetic but allow scrolling */

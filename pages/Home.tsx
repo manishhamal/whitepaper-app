@@ -22,7 +22,7 @@ const Home: React.FC = () => {
     <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative -mt-32 pt-32 transition-colors duration-300">
       {/* Grid Pattern with CSS Mask for Vignette */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none transition-opacity duration-300"
         style={{
           maskImage:
             "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
         }}
       >
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 transition-opacity duration-300"
           style={{
             maskImage:
               "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
           }}
         >
           {/* Single Grid - neutral color works on both backgrounds */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808018_1px,transparent_1px),linear-gradient(to_bottom,#80808018_1px,transparent_1px)] bg-[size:48px_48px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808018_1px,transparent_1px),linear-gradient(to_bottom,#80808018_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300" />
         </div>
       </div>
 
