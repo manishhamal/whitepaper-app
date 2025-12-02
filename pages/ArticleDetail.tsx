@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Eye, BookOpen, Loader2 } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import FadeIn from '../components/FadeIn';
-import { Article } from '../types';
-import { AUTHOR } from '../constants';
-import { articleService } from '../src/services/articleService';
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { ArrowLeft, Eye, BookOpen, Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import FadeIn from "../components/FadeIn";
+import { Article } from "../types";
+import { AUTHOR } from "../constants";
+import { articleService } from "../src/services/articleService";
 import {
   getArticleAnalytics,
   trackView,
   trackRead,
-  subscribeToAnalytics
-} from '../src/services/analyticsService';
+  subscribeToAnalytics,
+} from "../src/services/analyticsService";
 
 const ArticleDetail: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -20,7 +20,6 @@ const ArticleDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [readingProgress, setReadingProgress] = useState(0);
   const [stats, setStats] = useState({ views: 0, reads: 0 });
-
 
   // Fetch article
   useEffect(() => {
@@ -47,7 +46,9 @@ const ArticleDetail: React.FC = () => {
     const sessionKey = `viewed_${id}`;
     if (sessionStorage.getItem(sessionKey)) {
       // Already tracked view this session, just fetch current stats
-      getArticleAnalytics(id).then((analytics) => setStats({ views: analytics.views, reads: analytics.reads }));
+      getArticleAnalytics(id).then((analytics) =>
+        setStats({ views: analytics.views, reads: analytics.reads })
+      );
       return;
     }
 
@@ -63,9 +64,12 @@ const ArticleDetail: React.FC = () => {
 
         // Refresh stats after tracking
         const updatedAnalytics = await getArticleAnalytics(id);
-        setStats({ views: updatedAnalytics.views, reads: updatedAnalytics.reads });
+        setStats({
+          views: updatedAnalytics.views,
+          reads: updatedAnalytics.reads,
+        });
       } catch (error) {
-        console.error('Failed to initialize analytics:', error);
+        console.error("Failed to initialize analytics:", error);
       }
     };
 
@@ -89,10 +93,12 @@ const ArticleDetail: React.FC = () => {
   useEffect(() => {
     const updateScrollProgress = async () => {
       const currentScroll = window.scrollY;
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
 
       if (scrollHeight) {
-        const progress = Number((currentScroll / scrollHeight).toFixed(2)) * 100;
+        const progress =
+          Number((currentScroll / scrollHeight).toFixed(2)) * 100;
         setReadingProgress(progress);
 
         // Track as "read" when user scrolls to 80% or more
@@ -107,11 +113,11 @@ const ArticleDetail: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', updateScrollProgress);
+    window.addEventListener("scroll", updateScrollProgress);
     updateScrollProgress();
 
     return () => {
-      window.removeEventListener('scroll', updateScrollProgress);
+      window.removeEventListener("scroll", updateScrollProgress);
     };
   }, [id, article]);
 
@@ -126,17 +132,28 @@ const ArticleDetail: React.FC = () => {
   if (!article) {
     return (
       <div className="min-h-[50vh] flex flex-col items-center justify-center text-center">
-        <h2 className="text-3xl font-bold mb-4 font-sans">{t('common.error')}</h2>
-        <Link to="/articles" className="text-slate-900 hover:underline flex items-center">
-          <ArrowLeft size={16} className="mr-2" /> {t('articleDetail.backToArticles')}
+        <h2 className="text-3xl font-bold mb-4 font-sans">
+          {t("common.error")}
+        </h2>
+        <Link
+          to="/articles"
+          className="text-slate-900 hover:underline flex items-center"
+        >
+          <ArrowLeft size={16} className="mr-2" />{" "}
+          {t("articleDetail.backToArticles")}
         </Link>
       </div>
     );
   }
 
-  const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
-  const content = i18n.language === 'ne' && article.contentNe ? article.contentNe : article.content;
-  const tags = i18n.language === 'ne' && article.tagsNe ? article.tagsNe : article.tags;
+  const title =
+    i18n.language === "ne" && article.titleNe ? article.titleNe : article.title;
+  const content =
+    i18n.language === "ne" && article.contentNe
+      ? article.contentNe
+      : article.content;
+  const tags =
+    i18n.language === "ne" && article.tagsNe ? article.tagsNe : article.tags;
 
   return (
     <>
@@ -154,34 +171,41 @@ const ArticleDetail: React.FC = () => {
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)'
+            maskImage:
+              "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
           }}
         >
           <div
             className="absolute inset-0"
             style={{
-              maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+              maskImage:
+                "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
             }}
           >
             {/* Single Grid - neutral color works on both backgrounds */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808020_1px,transparent_1px),linear-gradient(to_bottom,#80808020_1px,transparent_1px)] bg-[size:48px_48px]" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:48px_48px]" />
           </div>
         </div>
 
         <article className="max-w-3xl mx-auto pb-20 relative z-10 pt-12 px-6 transition-colors duration-300">
           {/* Back Link */}
           <FadeIn>
-            <Link to="/articles" className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 mb-12 transition-colors">
-              <ArrowLeft size={16} className="mr-2" /> {t('articleDetail.backToArticles')}
+            <Link
+              to="/articles"
+              className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 mb-12 transition-colors"
+            >
+              <ArrowLeft size={16} className="mr-2" />{" "}
+              {t("articleDetail.backToArticles")}
             </Link>
           </FadeIn>
 
           {/* Header */}
           <FadeIn delay={100}>
             <header className="mb-12 border-b border-slate-100 dark:border-slate-800 pb-12 transition-colors duration-300">
-
               {/* Title */}
               <h1 className="text-2xl md:text-4xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-8 leading-tight tracking-tight">
                 {title}
@@ -225,14 +249,14 @@ const ArticleDetail: React.FC = () => {
                   alt={article.title}
                   className="w-full h-auto object-cover max-h-[500px] article-image-hover"
                   style={{
-                    filter: 'grayscale(100%)',
-                    transition: 'filter 0.7s ease-out',
+                    filter: "grayscale(100%)",
+                    transition: "filter 0.7s ease-out",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.filter = 'grayscale(0%)';
+                    e.currentTarget.style.filter = "grayscale(0%)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.filter = 'grayscale(100%)';
+                    e.currentTarget.style.filter = "grayscale(100%)";
                   }}
                 />
               </div>
@@ -283,7 +307,11 @@ const ArticleDetail: React.FC = () => {
                       {article.authorRole || AUTHOR.role}
                     </div>
                     <div className="text-slate-400 dark:text-slate-500 text-xs md:text-sm mt-1">
-                      {new Date(article.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+                      {new Date(article.date).toLocaleDateString("en-US", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
                     </div>
                   </div>
                   <div className="overflow-hidden rounded-2xl">

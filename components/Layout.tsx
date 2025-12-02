@@ -64,10 +64,10 @@ const Layout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F9F9F3] dark:bg-[#171717] text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-slate-900">
+    <div className="min-h-screen flex flex-col bg-[#F9F9F3] dark:bg-[#171717] text-slate-900 dark:text-slate-100 font-sans selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-slate-900">
 
       {/* Modern Fixed Header */}
-      <header className="fixed top-0 w-full z-50 bg-[#F9F9F3]/80 dark:bg-[#171717]/80 backdrop-blur-md border-b border-slate-100/50 dark:border-slate-800/50 transition-all duration-300">
+      <header className="fixed top-0 w-full z-50 bg-[#F9F9F3]/80 dark:bg-[#171717]/80 backdrop-blur-md border-b border-slate-100/50 dark:border-slate-800/50">
         <div className="max-w-6xl mx-auto px-6 md:px-12 h-16 md:h-20 flex items-center justify-between">
 
           {/* Logo */}
@@ -166,7 +166,7 @@ const Layout: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-slate-100 dark:border-slate-900 mt-auto bg-slate-50/50 dark:bg-slate-950/50 transition-colors duration-300">
+      <footer className="py-12 px-6 border-t border-slate-100 dark:border-slate-900 mt-auto bg-slate-50/50 dark:bg-slate-950/50">
         <div className="max-w-6xl mx-auto flex justify-center items-center text-sm text-slate-500 dark:text-slate-400">
           <div className="font-medium">
             &copy; {new Date().getFullYear()} {BLOG_NAME}.
