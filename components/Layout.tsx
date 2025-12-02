@@ -149,7 +149,7 @@ const Layout: React.FC = () => {
 
       {/* Mobile Nav Dropdown - Placed outside Header to fix stacking context */}
       {isMenuOpen && (
-        <div className="fixed inset-0 top-16 z-40 bg-[#F9F9F3] dark:bg-[#171717] animate-in slide-in-from-right duration-200 border-t border-slate-100 dark:border-slate-800 md:hidden overflow-y-auto transition-colors">
+        <div className="fixed inset-0 top-16 z-40 bg-[#F9F9F3] dark:bg-[#171717] animate-in slide-in-from-right duration-200 border-t border-slate-100 dark:border-slate-800 md:hidden overflow-y-auto transition-colors duration-500">
           <div className="p-6 flex flex-col space-y-6 mt-4">
             {navLinks.map((link) => (
               <NavLink
