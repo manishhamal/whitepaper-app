@@ -158,7 +158,7 @@ const ArticleDetail: React.FC = () => {
   return (
     <>
       {/* Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-[3px] z-[60] bg-transparent pointer-events-none">
+      <div className="fixed top-0 left-0 w-full h-[3px] z-[60] bg-transparent pointer-events-none transition-colors duration-500">
         <div
           className="h-full bg-slate-900 dark:bg-white transition-all duration-150 ease-out"
           style={{ width: `${readingProgress}%` }}
@@ -166,7 +166,7 @@ const ArticleDetail: React.FC = () => {
       </div>
 
       {/* Grid Background Wrapper */}
-      <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative transition-colors duration-300">
+      <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative transition-colors duration-500">
         {/* Grid Pattern with CSS Mask for Vignette */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -191,7 +191,7 @@ const ArticleDetail: React.FC = () => {
           </div>
         </div>
 
-        <article className="max-w-3xl mx-auto pb-20 relative z-10 pt-12 px-6 transition-colors duration-300">
+        <article className="max-w-3xl mx-auto pb-20 relative z-10 pt-12 px-6 transition-colors duration-500">
           {/* Back Link */}
           <FadeIn>
             <Link
@@ -205,7 +205,7 @@ const ArticleDetail: React.FC = () => {
 
           {/* Header */}
           <FadeIn delay={100}>
-            <header className="mb-12 border-b border-slate-100 dark:border-slate-800 pb-12 transition-colors duration-300">
+            <header className="mb-12 border-b border-slate-200/60 dark:border-slate-700/60 pb-12 transition-colors duration-500">
               {/* Title */}
               <h1 className="text-2xl md:text-4xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-8 leading-tight tracking-tight">
                 {title}
@@ -289,6 +289,7 @@ const ArticleDetail: React.FC = () => {
               prose-p:font-serif prose-p:leading-loose
               prose-a:font-medium prose-a:text-slate-900 dark:prose-a:text-white prose-a:no-underline prose-a:border-b prose-a:border-slate-300 dark:prose-a:border-slate-600 hover:prose-a:border-slate-900 dark:hover:prose-a:border-white prose-a:transition-colors
               prose-img:rounded-xl
+              prose-hr:border-slate-200/40 dark:prose-hr:border-slate-700/40 prose-hr:transition-colors prose-hr:duration-500
               lead:text-xl lead:font-sans lead:text-slate-600 dark:lead:text-slate-300"
               dangerouslySetInnerHTML={{ __html: content }}
             />
@@ -296,7 +297,7 @@ const ArticleDetail: React.FC = () => {
 
           {/* Footer - Author Info and Date */}
           <FadeIn delay={400}>
-            <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800 transition-colors duration-300">
+            <div className="mt-16 pt-8 border-t border-slate-200/60 dark:border-slate-700/60 transition-colors duration-500">
               <div className="flex justify-end">
                 <div className="flex items-center gap-6">
                   <div className="text-right">

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import ArticleCard from '../components/ArticleCard';
-import FadeIn from '../components/FadeIn';
-import { Article } from '../types';
-import { articleService } from '../src/services/articleService';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import ArticleCard from "../components/ArticleCard";
+import FadeIn from "../components/FadeIn";
+import { Article } from "../types";
+import { articleService } from "../src/services/articleService";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
@@ -19,20 +19,24 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative -mt-32 pt-32 transition-colors duration-300">
+    <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative -mt-32 pt-32 transition-colors duration-500">
       {/* Grid Pattern with CSS Mask for Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)'
+          maskImage:
+            "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
         }}
       >
         <div
           className="absolute inset-0"
           style={{
-            maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-            WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+            maskImage:
+              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
           }}
         >
           {/* Single Grid - neutral color works on both backgrounds */}
@@ -41,34 +45,25 @@ const Home: React.FC = () => {
       </div>
 
       <div className="max-w-4xl mx-auto pb-12 relative z-10">
-
         {/* Intro Hero */}
         <FadeIn>
-          <section className="py-12 md:py-20 mb-8 border-b border-slate-100 dark:border-slate-800 transition-colors duration-300">
+          <section className="py-12 md:py-20 mb-8 border-b border-slate-200/60 dark:border-slate-700/60 transition-colors duration-500">
             <h1 className="text-5xl md:text-7xl font-sans font-bold text-slate-900 dark:text-white leading-[0.9] tracking-tighter mb-8 animate-float">
-              {t('hero.title')}
+              {t("hero.title")}
             </h1>
-            <div className="pt-8">
-
-            </div>
+            <div className="pt-8"></div>
           </section>
         </FadeIn>
-
-
-
 
         {/* Recent Writings Timeline */}
         <section className="relative">
           <FadeIn delay={300}>
-            <div className="flex items-center justify-between mb-12">
-
-
-            </div>
+            <div className="flex items-center justify-between mb-12"></div>
           </FadeIn>
 
           <div className="relative">
             {/* Continuous Vertical Line */}
-            <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200 dark:bg-slate-800 transition-colors duration-300"></div>
+            <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200/60 dark:bg-slate-700/60 transition-colors duration-500"></div>
 
             <div className="space-y-12">
               {recentArticles.map((article, index) => (
@@ -89,7 +84,6 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
-
       </div>
     </div>
   );
