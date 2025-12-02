@@ -278,13 +278,13 @@ const ArticleDetail: React.FC = () => {
               <div className="flex justify-end">
                 <div className="flex items-center gap-6">
                   <div className="text-right">
-                    <div className="font-bold text-slate-900 dark:text-slate-100 text-2xl">
+                    <div className="font-bold text-slate-900 dark:text-slate-100 text-lg md:text-2xl">
                       {article.authorName || AUTHOR.name}
                     </div>
-                    <div className="text-slate-500 dark:text-slate-400 text-base">
+                    <div className="text-slate-500 dark:text-slate-400 text-sm md:text-base">
                       {article.authorRole || AUTHOR.role}
                     </div>
-                    <div className="text-slate-400 dark:text-slate-500 text-sm mt-1">
+                    <div className="text-slate-400 dark:text-slate-500 text-xs md:text-sm mt-1">
                       {new Date(article.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
                     </div>
                   </div>
