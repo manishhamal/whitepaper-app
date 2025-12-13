@@ -5,7 +5,7 @@ import { Article } from '../types';
 
 interface ArticleCardProps {
   article: Article;
-  variant?: 'standard' | 'featured' | 'minimal';
+  variant?: 'standard' | 'featured' | 'minimal' | 'card';
 }
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard' }) => {
@@ -66,6 +66,45 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
           </Link>
         </div>
       </article>
+    );
+  }
+
+  // Card Style (New Horizontal Layout)
+  if (variant === 'card') {
+    const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
+    const excerpt = i18n.language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt;
+
+    return (
+      <Link to={`/article/${article.id}`} className="group block h-full">
+        <article className="flex flex-col h-full p-6 bg-white dark:bg-[#111] border border-slate-200 dark:border-zinc-800 rounded-3xl hover:border-slate-300 dark:hover:border-zinc-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
+          <div className="flex justify-between items-start mb-4 gap-4">
+            <h3 className="text-lg md:text-xl font-sans font-bold text-slate-900 dark:text-white leading-tight group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">
+              {title}
+            </h3>
+            {article.featuredImage ? (
+              <img
+                src={article.featuredImage}
+                alt={title}
+                className="w-12 h-12 rounded-xl object-cover flex-shrink-0 bg-slate-100 dark:bg-zinc-800 shadow-sm"
+              />
+            ) : (
+              <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-zinc-800 flex items-center justify-center flex-shrink-0">
+                <span className="text-xl">📄</span>
+              </div>
+            )}
+          </div>
+
+          <div className="mb-3">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 block mb-1">
+              {article.category}
+            </span>
+          </div>
+
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 md:line-clamp-4">
+            {excerpt}
+          </p>
+        </article>
+      </Link>
     );
   }
 

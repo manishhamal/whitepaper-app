@@ -133,7 +133,7 @@ const AdminDashboard: React.FC = () => {
 
     if (!session) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 px-4">
+            <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-4">
                 <div className="w-full max-w-md bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg">
                     <h1 className="text-2xl font-bold mb-6 text-center">Admin Login</h1>
                     {authError && (
@@ -179,7 +179,7 @@ const AdminDashboard: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-6">
+        <div className="min-h-screen bg-white dark:bg-slate-900 p-6">
             <div className="max-w-6xl mx-auto">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold">Content Manager</h1>

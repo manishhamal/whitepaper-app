@@ -166,7 +166,7 @@ const ArticleDetail: React.FC = () => {
       </div>
 
       {/* Grid Background Wrapper */}
-      <div className="min-h-screen w-full bg-[#F9F9F3] dark:bg-[#171717] relative transition-colors duration-300">
+      <div className="min-h-screen w-full bg-white dark:bg-[#171717] relative transition-colors duration-300">
         {/* Grid Pattern with CSS Mask for Vignette */}
         <div
           className="absolute inset-0 pointer-events-none transition-opacity duration-300"
