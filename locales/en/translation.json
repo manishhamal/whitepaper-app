@@ -5,7 +5,8 @@
     "about": "About"
   },
   "hero": {
-    "title": "History hides its truths and lies. But events happen. People witness them.",
+    "title_line1": "History hides its truths and lies. But events happen.",
+    "title_line2": "People witness them.",
     "cta": "Explore Articles"
   },
   "home": {

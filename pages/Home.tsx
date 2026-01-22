@@ -21,35 +21,16 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-white dark:bg-[#171717] relative -mt-32 pt-32 transition-colors duration-300">
       {/* Grid Pattern with CSS Mask for Vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none transition-opacity duration-300"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
-        }}
-      >
-        <div
-          className="absolute inset-0 transition-opacity duration-300"
-          style={{
-            maskImage:
-              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-          }}
-        >
-          {/* Single Grid - neutral color works on both backgrounds */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808018_1px,transparent_1px),linear-gradient(to_bottom,#80808018_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300" />
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto pb-12 px-4 relative z-10">
         {/* Intro Hero */}
         <FadeIn>
           <section className="py-12 mb-8 border-b border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">
-            <h1 className="text-4xl md:text-5xl font-sans font-bold text-slate-900 dark:text-white leading-[0.9] tracking-tighter mb-4 animate-float">
-              {t("hero.title")}
+            <h1 className="text-4xl md:text-5xl font-sans font-bold leading-[0.9] tracking-tighter mb-4 animate-float text-center max-w-4xl mx-auto">
+              <span className="text-slate-900 dark:text-white">{t("hero.title_line1")}</span>
+              <br className="hidden md:block" />{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+                {t("hero.title_line2")}
+              </span>
             </h1>
           </section>
         </FadeIn>
