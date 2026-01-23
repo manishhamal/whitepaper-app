@@ -1,19 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Article } from '../types';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Article } from "../types";
 
 interface ArticleCardProps {
   article: Article;
-  variant?: 'standard' | 'featured' | 'minimal' | 'card';
+  variant?: "standard" | "featured" | "minimal" | "card" | "timeline";
 }
 
-const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard' }) => {
+const ArticleCard: React.FC<ArticleCardProps> = ({
+  article,
+  variant = "standard",
+}) => {
   const { t, i18n } = useTranslation();
 
   // Minimal List Style (Timeline View)
-  if (variant === 'minimal') {
-    const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
+  if (variant === "minimal") {
+    const title =
+      i18n.language === "ne" && article.titleNe
+        ? article.titleNe
+        : article.title;
     return (
       <Link to={`/article/${article.id}`} className="group block w-full">
         <article className="flex flex-col justify-center min-h-[3rem]">
@@ -22,7 +28,11 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
           </h3>
           {/* Date - Fades out on hover to reveal only title */}
           <span className="text-xs font-mono text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-2 opacity-100 group-hover:opacity-0 transform group-hover:translate-x-2 transition-all duration-300">
-            {new Date(article.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+            {new Date(article.date).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}
           </span>
         </article>
       </Link>
@@ -30,13 +40,22 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
   }
 
   // Featured Style (Hero)
-  if (variant === 'featured') {
-    const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
-    const excerpt = i18n.language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt;
+  if (variant === "featured") {
+    const title =
+      i18n.language === "ne" && article.titleNe
+        ? article.titleNe
+        : article.title;
+    const excerpt =
+      i18n.language === "ne" && article.excerptNe
+        ? article.excerptNe
+        : article.excerpt;
     return (
       <article className="group relative flex flex-col">
         {article.featuredImage && (
-          <Link to={`/article/${article.id}`} className="block overflow-hidden mb-8 rounded-2xl">
+          <Link
+            to={`/article/${article.id}`}
+            className="block overflow-hidden mb-8 rounded-2xl"
+          >
             <img
               src={article.featuredImage}
               alt={title}
@@ -62,17 +81,54 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
             to={`/article/${article.id}`}
             className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white border-b-2 border-slate-200 dark:border-slate-700 pb-1 hover:border-slate-900 dark:hover:border-white transition-colors w-max"
           >
-            {t('articles.readMore')}
+            {t("articles.readMore")}
           </Link>
         </div>
       </article>
     );
   }
 
+  // Timeline Style (Maxime Heckel-inspired)
+  if (variant === "timeline") {
+    const title =
+      i18n.language === "ne" && article.titleNe
+        ? article.titleNe
+        : article.title;
+
+    const dateStr = new Date(article.date)
+      .toLocaleDateString("en-US", {
+        month: "short",
+        day: "2-digit",
+      })
+      .toUpperCase();
+
+    return (
+      <Link
+        to={`/article/${article.id}`}
+        className="group block w-full py-4 border-b border-slate-200 dark:border-slate-800 transition-colors hover:border-slate-300 dark:hover:border-slate-700"
+      >
+        <article className="flex justify-between items-center gap-4">
+          <h3 className="text-lg md:text-xl font-sans font-medium text-slate-900 dark:text-slate-200 group-hover:text-slate-700 dark:group-hover:text-slate-100 transition-colors flex-1">
+            {title}
+          </h3>
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider flex-shrink-0">
+            {dateStr}
+          </span>
+        </article>
+      </Link>
+    );
+  }
+
   // Card Style (New Horizontal Layout)
-  if (variant === 'card') {
-    const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
-    const excerpt = i18n.language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt;
+  if (variant === "card") {
+    const title =
+      i18n.language === "ne" && article.titleNe
+        ? article.titleNe
+        : article.title;
+    const excerpt =
+      i18n.language === "ne" && article.excerptNe
+        ? article.excerptNe
+        : article.excerpt;
 
     return (
       <Link to={`/article/${article.id}`} className="group block h-full">
@@ -109,8 +165,12 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
   }
 
   // Standard Style (Grid/Archive)
-  const title = i18n.language === 'ne' && article.titleNe ? article.titleNe : article.title;
-  const excerpt = i18n.language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt;
+  const title =
+    i18n.language === "ne" && article.titleNe ? article.titleNe : article.title;
+  const excerpt =
+    i18n.language === "ne" && article.excerptNe
+      ? article.excerptNe
+      : article.excerpt;
   return (
     <article className="group flex flex-col h-full p-6 bg-slate-50 dark:bg-slate-900/50 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors duration-300">
       <div className="mb-4">
@@ -130,7 +190,13 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, variant = 'standard'
       </p>
 
       <div className="mt-auto flex items-center justify-between text-xs font-mono text-slate-400">
-        <span>{new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+        <span>
+          {new Date(article.date).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </span>
       </div>
     </article>
   );

@@ -25,22 +25,20 @@ const Home: React.FC = () => {
         {/* Intro Hero */}
         <FadeIn>
           <section className="py-12 mb-8 border-b border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">
-            <h1 className="text-4xl md:text-5xl font-sans font-bold leading-[0.9] tracking-tighter mb-4 animate-float text-center max-w-4xl mx-auto">
-              <span className="text-slate-900 dark:text-white">{t("hero.title_line1")}</span>
+            <h1 className="text-4xl md:text-5xl font-sans font-bold leading-[0.9] tracking-tighter mb-4 animate-float text-center max-w-4xl mx-auto bg-gradient-to-br from-slate-800 via-slate-700 to-blue-700 dark:from-slate-100 dark:via-slate-200 dark:to-blue-400 bg-clip-text text-transparent">
+              {t("hero.title_line1")}
               <br className="hidden md:block" />{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                {t("hero.title_line2")}
-              </span>
+              {t("hero.title_line2")}
             </h1>
           </section>
         </FadeIn>
 
-        {/* Recent Writings Grid */}
+        {/* Recent Writings Timeline */}
         <section className="relative">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="max-w-3xl mx-auto space-y-0">
             {recentArticles.map((article, index) => (
-              <FadeIn key={article.id} delay={index * 100}>
-                <ArticleCard article={article} variant="card" />
+              <FadeIn key={article.id} delay={index * 50}>
+                <ArticleCard article={article} variant="timeline" />
               </FadeIn>
             ))}
           </div>

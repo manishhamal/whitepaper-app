@@ -115,25 +115,12 @@ const Articles: React.FC = () => {
           <Loader2 className="animate-spin text-slate-400" size={32} />
         </div>
       ) : filteredArticles.length > 0 ? (
-        <div className="relative">
-          {/* Continuous Vertical Line */}
-          <div className="absolute left-[9px] top-2 bottom-6 w-px bg-slate-200 dark:bg-slate-800 transition-colors duration-300"></div>
-
-          <div className="space-y-12">
-            {filteredArticles.map((article, index) => (
-              <FadeIn key={article.id} delay={index * 50}>
-                <div className="relative pl-12 group">
-                  {/* Timeline Node */}
-                  <span className="absolute left-[3px] top-3 w-3.5 h-3.5 rounded-full border-[3px] border-white dark:border-slate-950 bg-slate-300 dark:bg-slate-700 group-hover:bg-slate-900 dark:group-hover:bg-white group-hover:scale-125 transition-all duration-300 z-10 shadow-sm"></span>
-
-                  {/* Connecting Line Highlight */}
-                  <span className="absolute left-[9px] top-3 bottom-[-48px] w-px bg-slate-900 dark:bg-white origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-in-out z-0"></span>
-
-                  <ArticleCard article={article} variant="minimal" />
-                </div>
-              </FadeIn>
-            ))}
-          </div>
+        <div className="space-y-0">
+          {filteredArticles.map((article, index) => (
+            <FadeIn key={article.id} delay={index * 50}>
+              <ArticleCard article={article} variant="timeline" />
+            </FadeIn>
+          ))}
         </div>
       ) : (
         <div className="py-20 text-center text-slate-500 font-mono text-sm">
