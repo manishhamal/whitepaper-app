@@ -207,7 +207,7 @@ const ArticleDetail: React.FC = () => {
           <FadeIn delay={100}>
             <header className="mb-6 border-b border-slate-200/60 dark:border-slate-700/60 pb-6 transition-colors duration-300">
               {/* Title */}
-              <h1 className="text-2xl md:text-4xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-4 leading-tight tracking-tight">
+              <h1 className="text-3xl md:text-4xl font-sans font-bold text-black dark:text-white mb-4 leading-tight" style={{ fontSize: 'clamp(32px, 4vw, 36px)', lineHeight: '1.2' }}>
                 {title}
               </h1>
 
@@ -270,12 +270,16 @@ const ArticleDetail: React.FC = () => {
             `}</style>
             <div
               className="article-content prose prose-lg dark:prose-invert prose-slate max-w-none
-              prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight
-              prose-p:font-serif prose-p:leading-loose
+              prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-black dark:prose-headings:text-white
+              prose-p:font-sans prose-p:font-normal prose-p:leading-relaxed prose-p:text-black dark:prose-p:text-white
               prose-a:font-medium prose-a:text-slate-900 dark:prose-a:text-white prose-a:no-underline prose-a:border-b prose-a:border-slate-300 dark:prose-a:border-slate-600 hover:prose-a:border-slate-900 dark:hover:prose-a:border-white prose-a:transition-colors
               prose-img:rounded-xl
               prose-hr:border-slate-200/40 dark:prose-hr:border-slate-700/40 prose-hr:transition-colors prose-hr:duration-500
               lead:text-xl lead:font-sans lead:text-slate-600 dark:lead:text-slate-300"
+              style={{ 
+                fontSize: '18px',
+                lineHeight: '1.5'
+              }}
               dangerouslySetInnerHTML={{ __html: content }}
             />
           </FadeIn>
