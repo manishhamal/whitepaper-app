@@ -422,14 +422,60 @@ const AdminDashboard: React.FC = () => {
                                 <div>
                                     <div className="flex justify-between items-center mb-1">
                                         <label className="block text-sm font-medium">Content (NE)</label>
-                                        <button
-                                            type="button"
-                                            onClick={() => setCurrentArticle({ ...currentArticle, contentNe: currentArticle.content })}
-                                            className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1"
-                                            title="Copy formatting and content from English editor"
-                                        >
-                                            <span className="underline">Copy from English</span>
-                                        </button>
+                                        <div className="flex gap-4">
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const text = currentArticle.content || '';
+                                                    if (!text) return;
+                                                    // Create a hidden form to POST data to Google Translate (bypasses URL length limits)
+                                                    const form = document.createElement('form');
+                                                    form.method = 'POST';
+                                                    form.action = 'https://translate.google.com/';
+                                                    form.target = '_blank';
+
+                                                    const slInput = document.createElement('input');
+                                                    slInput.type = 'hidden';
+                                                    slInput.name = 'sl';
+                                                    slInput.value = 'en';
+                                                    form.appendChild(slInput);
+
+                                                    const tlInput = document.createElement('input');
+                                                    tlInput.type = 'hidden';
+                                                    tlInput.name = 'tl';
+                                                    tlInput.value = 'ne';
+                                                    form.appendChild(tlInput);
+
+                                                    const textInput = document.createElement('input');
+                                                    textInput.type = 'hidden';
+                                                    textInput.name = 'text';
+                                                    textInput.value = text;
+                                                    form.appendChild(textInput);
+
+                                                    const opInput = document.createElement('input');
+                                                    opInput.type = 'hidden';
+                                                    opInput.name = 'op';
+                                                    opInput.value = 'translate';
+                                                    form.appendChild(opInput);
+
+                                                    document.body.appendChild(form);
+                                                    form.submit();
+                                                    document.body.removeChild(form);
+                                                }}
+                                                className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1"
+                                                title="Open in Google Translate (New Tab)"
+                                            >
+                                                <span className="underline">Translate in Google</span>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => setCurrentArticle({ ...currentArticle, contentNe: currentArticle.content })}
+                                                className="text-xs text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-300 flex items-center gap-1"
+                                                title="Copy formatting and content from English editor"
+                                            >
+                                                <span className="underline">Copy from English</span>
+                                            </button>
+                                        </div>
                                     </div>
                                     <RichTextEditor
                                         value={currentArticle.contentNe || ''}
