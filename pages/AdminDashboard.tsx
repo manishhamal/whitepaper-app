@@ -429,16 +429,44 @@ const AdminDashboard: React.FC = () => {
                                                     const text = currentArticle.content || '';
                                                     if (!text) return;
 
-                                                    // Use URL parameters instead of POST (POST is blocked by Google)
-                                                    // Note: URL length limits may apply for very long articles
-                                                    const encodedText = encodeURIComponent(text);
-                                                    const url = `https://translate.google.com/?sl=en&tl=ne&text=${encodedText}&op=translate`;
-                                                    window.open(url, '_blank');
+                                                    // Open a new window for browser-native translation
+                                                    const win = window.open('', '_blank');
+                                                    if (!win) return;
+
+                                                    win.document.write(`
+                                                        <html>
+                                                            <head>
+                                                                <title>Translation Helper</title>
+                                                                <style>
+                                                                    body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+                                                                    .instruction { background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bae6fd; color: #0c4a6e; }
+                                                                    .instruction h3 { margin-top: 0; margin-bottom: 10px; }
+                                                                    .content-preview { padding: 20px; border: 1px dashed #cbd5e1; border-radius: 8px; }
+                                                                </style>
+                                                            </head>
+                                                            <body>
+                                                                <div class="instruction">
+                                                                    <h3>How to Translate and Keep Formatting:</h3>
+                                                                    <ol>
+                                                                        <li><strong>Right-click</strong> anywhere on this page and select <strong>"Translate to Nepali"</strong> (or use the Translate icon in your browser's address bar).</li>
+                                                                        <li>Once the text changes to Nepali, <strong>Select the Article Text below</strong> (exclude these instructions).</li>
+                                                                        <li><strong>Copy</strong> the translated text.</li>
+                                                                        <li>Go back to the Admin Dashboard and <strong>Paste</strong> it into the Nepali content box.</li>
+                                                                    </ol>
+                                                                    <p style="font-size: 0.9em; margin-bottom: 0;"><em>Note: This method uses your browser's built-in translator, which understands formatting (Bold, Lists, etc.) much better than the standard copy-paste website.</em></p>
+                                                                </div>
+                                                                <div class="content-preview">
+                                                                    ${text}
+                                                                </div>
+                                                            </body>
+                                                        </html>
+                                                    `);
+                                                    win.document.close();
                                                 }}
                                                 className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1"
-                                                title="Open in Google Translate (New Tab)"
+                                                title="Open Translation Helper Window"
                                             >
-                                                <span className="underline">Translate in Google</span>
+                                                <span className="underline">Translation Helper</span>
                                             </button>
                                             <button
                                                 type="button"
