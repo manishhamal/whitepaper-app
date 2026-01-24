@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Whitepaper | Insights on History, Tech, & Politics</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -137,44 +137,40 @@
       right: 0;
       bottom: 0;
       height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent 0%,
-        transparent calc(50% - 24rem),
-        rgba(148, 163, 184, 0.3) calc(50% - 24rem),
-        rgba(148, 163, 184, 0.5) calc(50% - 20rem),
-        rgba(148, 163, 184, 0.7) calc(50% - 16rem),
-        rgba(148, 163, 184, 0.9) calc(50% - 12rem),
-        rgba(148, 163, 184, 1) calc(50% - 8rem),
-        rgba(148, 163, 184, 1) calc(50% + 8rem),
-        rgba(148, 163, 184, 0.9) calc(50% + 12rem),
-        rgba(148, 163, 184, 0.7) calc(50% + 16rem),
-        rgba(148, 163, 184, 0.5) calc(50% + 20rem),
-        rgba(148, 163, 184, 0.3) calc(50% + 24rem),
-        transparent calc(50% + 24rem),
-        transparent 100%
-      );
+      background: linear-gradient(to right,
+          transparent 0%,
+          transparent calc(50% - 24rem),
+          rgba(148, 163, 184, 0.3) calc(50% - 24rem),
+          rgba(148, 163, 184, 0.5) calc(50% - 20rem),
+          rgba(148, 163, 184, 0.7) calc(50% - 16rem),
+          rgba(148, 163, 184, 0.9) calc(50% - 12rem),
+          rgba(148, 163, 184, 1) calc(50% - 8rem),
+          rgba(148, 163, 184, 1) calc(50% + 8rem),
+          rgba(148, 163, 184, 0.9) calc(50% + 12rem),
+          rgba(148, 163, 184, 0.7) calc(50% + 16rem),
+          rgba(148, 163, 184, 0.5) calc(50% + 20rem),
+          rgba(148, 163, 184, 0.3) calc(50% + 24rem),
+          transparent calc(50% + 24rem),
+          transparent 100%);
       pointer-events: none;
     }
 
     .dark .timeline-gridline::before {
-      background: linear-gradient(
-        to right,
-        transparent 0%,
-        transparent calc(50% - 24rem),
-        rgba(51, 65, 85, 0.3) calc(50% - 24rem),
-        rgba(51, 65, 85, 0.5) calc(50% - 20rem),
-        rgba(51, 65, 85, 0.7) calc(50% - 16rem),
-        rgba(51, 65, 85, 0.9) calc(50% - 12rem),
-        rgba(51, 65, 85, 1) calc(50% - 8rem),
-        rgba(51, 65, 85, 1) calc(50% + 8rem),
-        rgba(51, 65, 85, 0.9) calc(50% + 12rem),
-        rgba(51, 65, 85, 0.7) calc(50% + 16rem),
-        rgba(51, 65, 85, 0.5) calc(50% + 20rem),
-        rgba(51, 65, 85, 0.3) calc(50% + 24rem),
-        transparent calc(50% + 24rem),
-        transparent 100%
-      );
+      background: linear-gradient(to right,
+          transparent 0%,
+          transparent calc(50% - 24rem),
+          rgba(51, 65, 85, 0.3) calc(50% - 24rem),
+          rgba(51, 65, 85, 0.5) calc(50% - 20rem),
+          rgba(51, 65, 85, 0.7) calc(50% - 16rem),
+          rgba(51, 65, 85, 0.9) calc(50% - 12rem),
+          rgba(51, 65, 85, 1) calc(50% - 8rem),
+          rgba(51, 65, 85, 1) calc(50% + 8rem),
+          rgba(51, 65, 85, 0.9) calc(50% + 12rem),
+          rgba(51, 65, 85, 0.7) calc(50% + 16rem),
+          rgba(51, 65, 85, 0.5) calc(50% + 20rem),
+          rgba(51, 65, 85, 0.3) calc(50% + 24rem),
+          transparent calc(50% + 24rem),
+          transparent 100%);
     }
 
     /* Radial fade from content center - lines fade inside, visible outside */
