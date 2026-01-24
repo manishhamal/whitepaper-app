@@ -420,7 +420,17 @@ const AdminDashboard: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium mb-1">Content (NE)</label>
+                                    <div className="flex justify-between items-center mb-1">
+                                        <label className="block text-sm font-medium">Content (NE)</label>
+                                        <button
+                                            type="button"
+                                            onClick={() => setCurrentArticle({ ...currentArticle, contentNe: currentArticle.content })}
+                                            className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1"
+                                            title="Copy formatting and content from English editor"
+                                        >
+                                            <span className="underline">Copy from English</span>
+                                        </button>
+                                    </div>
                                     <RichTextEditor
                                         value={currentArticle.contentNe || ''}
                                         onChange={(value) => setCurrentArticle({ ...currentArticle, contentNe: value })}
