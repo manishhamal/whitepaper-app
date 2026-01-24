@@ -205,14 +205,14 @@ const ArticleDetail: React.FC = () => {
 
           {/* Header */}
           <FadeIn delay={100}>
-            <header className="mb-6 border-b border-slate-200/60 dark:border-slate-700/60 pb-6 transition-colors duration-300">
+            <header className="mb-6 border-b border-slate-200/60 dark:border-slate-700/60 pb-6 transition-colors duration-300 flex flex-col items-center">
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl font-sans font-bold text-black dark:text-white mb-4 leading-tight" style={{ fontSize: 'clamp(32px, 4vw, 36px)', lineHeight: '1.2' }}>
+              <h1 className="text-3xl md:text-4xl font-sans font-bold text-black dark:text-white mb-4 leading-tight text-center" style={{ fontSize: 'clamp(32px, 4vw, 36px)', lineHeight: '1.2' }}>
                 {title}
               </h1>
 
               {/* Tags */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 justify-center">
                 {tags.map((tag, index) => (
                   <span
                     key={index}
@@ -276,7 +276,7 @@ const ArticleDetail: React.FC = () => {
               prose-img:rounded-xl
               prose-hr:border-slate-200/40 dark:prose-hr:border-slate-700/40 prose-hr:transition-colors prose-hr:duration-500
               lead:text-xl lead:font-sans lead:text-slate-600 dark:lead:text-slate-300"
-              style={{ 
+              style={{
                 fontSize: '18px',
                 lineHeight: '1.5'
               }}
