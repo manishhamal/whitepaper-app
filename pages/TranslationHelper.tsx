@@ -36,6 +36,29 @@ const TranslationHelper: React.FC = () => {
                     >
                         <ArrowLeft size={16} className="mr-2" /> Close Helper
                     </button>
+
+                    <button
+                        onClick={() => {
+                            const contentDiv = document.getElementById('content-to-translate');
+                            if (contentDiv) {
+                                // Get the inner HTML which should now be translated by the browser
+                                const translatedHtml = contentDiv.innerHTML;
+
+                                // Copy to clipboard
+                                navigator.clipboard.writeText(translatedHtml).then(() => {
+                                    alert('Translated content copied! You can now paste it in the Admin Dashboard.');
+                                }).catch(err => {
+                                    console.error('Failed to copy:', err);
+                                    alert('Failed to copy automatically. Please select and copy manually.');
+                                });
+                            }
+                        }}
+                        className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition-colors font-medium"
+                    >
+                        <span>📋 Copy Translated Content</span>
+                    </button>
+                </div>
+                <div className="text-right mb-2 instructions-panel">
                     <span className="text-xs text-slate-400">Content loaded from Admin Dashboard</span>
                 </div>
 
@@ -50,7 +73,7 @@ const TranslationHelper: React.FC = () => {
                     dangerouslySetInnerHTML={{ __html: content }}
                 />
             </div>
-        </div>
+        </div >
     );
 };
 
