@@ -115,7 +115,7 @@ const Articles: React.FC = () => {
           <Loader2 className="animate-spin text-slate-400" size={32} />
         </div>
       ) : filteredArticles.length > 0 ? (
-        <div className="space-y-0">
+        <div className="space-y-0 w-full">
           {filteredArticles.map((article, index) => (
             <FadeIn key={article.id} delay={index * 50}>
               <ArticleCard article={article} variant="timeline" />

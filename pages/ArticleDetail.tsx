@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Eye, BookOpen, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import FadeIn from "../components/FadeIn";
 import { Article } from "../types";
@@ -191,7 +191,7 @@ const ArticleDetail: React.FC = () => {
           </div>
         </div>
 
-        <article className="max-w-3xl mx-auto pb-20 relative z-10 pt-12 px-6 transition-colors duration-300">
+        <article className="max-w-4xl mx-auto pb-20 relative z-10 pt-12 px-6 md:px-8 transition-colors duration-300">
           {/* Back Link */}
           <FadeIn>
             <Link
@@ -205,37 +205,22 @@ const ArticleDetail: React.FC = () => {
 
           {/* Header */}
           <FadeIn delay={100}>
-            <header className="mb-12 border-b border-slate-200/60 dark:border-slate-700/60 pb-12 transition-colors duration-300">
+            <header className="mb-6 border-b border-slate-200/60 dark:border-slate-700/60 pb-6 transition-colors duration-300">
               {/* Title */}
-              <h1 className="text-2xl md:text-4xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-8 leading-tight tracking-tight">
+              <h1 className="text-2xl md:text-4xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-4 leading-tight tracking-tight">
                 {title}
               </h1>
 
-              {/* Stats and Tags Row */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                {/* Views and Reads Stats */}
-                <div className="flex items-center gap-6 text-slate-400 dark:text-slate-500 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Eye size={16} />
-                    <span>{stats.views} views</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <BookOpen size={16} />
-                    <span>{stats.reads} reads</span>
-                  </div>
-                </div>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs font-mono rounded-md transition-colors duration-300"
-                    >
-                      {tag.toLowerCase()}
-                    </span>
-                  ))}
-                </div>
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs font-mono rounded-md transition-colors duration-300"
+                  >
+                    {tag.toLowerCase()}
+                  </span>
+                ))}
               </div>
             </header>
           </FadeIn>

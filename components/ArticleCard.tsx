@@ -103,19 +103,21 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
       .toUpperCase();
 
     return (
-      <Link
-        to={`/article/${article.id}`}
-        className="group block w-full py-4 border-b border-slate-200 dark:border-slate-800 transition-colors hover:border-slate-300 dark:hover:border-slate-700"
-      >
-        <article className="flex justify-between items-center gap-4">
-          <h3 className="text-lg md:text-xl font-sans font-medium text-slate-900 dark:text-slate-200 group-hover:text-slate-700 dark:group-hover:text-slate-100 transition-colors flex-1">
-            {title}
-          </h3>
-          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider flex-shrink-0">
-            {dateStr}
-          </span>
-        </article>
-      </Link>
+      <div className="timeline-gridline-radial relative w-full">
+        <Link
+          to={`/article/${article.id}`}
+          className="group block w-full py-4 relative z-10"
+        >
+          <article className="flex justify-between items-center gap-4 max-w-3xl mx-auto px-4">
+            <h3 className="text-lg md:text-xl font-sans font-medium text-slate-900 dark:text-slate-200 group-hover:text-slate-700 dark:group-hover:text-slate-100 transition-colors flex-1">
+              {title}
+            </h3>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider flex-shrink-0">
+              {dateStr}
+            </span>
+          </article>
+        </Link>
+      </div>
     );
   }
 

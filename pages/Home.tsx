@@ -34,8 +34,8 @@ const Home: React.FC = () => {
         </FadeIn>
 
         {/* Recent Writings Timeline */}
-        <section className="relative">
-          <div className="max-w-3xl mx-auto space-y-0">
+        <section className="relative w-full">
+          <div className="space-y-0">
             {recentArticles.map((article, index) => (
               <FadeIn key={article.id} delay={index * 50}>
                 <ArticleCard article={article} variant="timeline" />
