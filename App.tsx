@@ -7,6 +7,7 @@ import ArticleDetail from './pages/ArticleDetail';
 import About from './pages/About';
 
 import AdminDashboard from './pages/AdminDashboard';
+import TranslationHelper from './pages/TranslationHelper';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="article/:id" element={<ArticleDetail />} />
           <Route path="about" element={<About />} />
         </Route>
+        <Route path="/translation-helper" element={<TranslationHelper />} />
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </Router>
