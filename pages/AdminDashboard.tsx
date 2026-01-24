@@ -428,39 +428,12 @@ const AdminDashboard: React.FC = () => {
                                                 onClick={() => {
                                                     const text = currentArticle.content || '';
                                                     if (!text) return;
-                                                    // Create a hidden form to POST data to Google Translate (bypasses URL length limits)
-                                                    const form = document.createElement('form');
-                                                    form.method = 'POST';
-                                                    form.action = 'https://translate.google.com/';
-                                                    form.target = '_blank';
 
-                                                    const slInput = document.createElement('input');
-                                                    slInput.type = 'hidden';
-                                                    slInput.name = 'sl';
-                                                    slInput.value = 'en';
-                                                    form.appendChild(slInput);
-
-                                                    const tlInput = document.createElement('input');
-                                                    tlInput.type = 'hidden';
-                                                    tlInput.name = 'tl';
-                                                    tlInput.value = 'ne';
-                                                    form.appendChild(tlInput);
-
-                                                    const textInput = document.createElement('input');
-                                                    textInput.type = 'hidden';
-                                                    textInput.name = 'text';
-                                                    textInput.value = text;
-                                                    form.appendChild(textInput);
-
-                                                    const opInput = document.createElement('input');
-                                                    opInput.type = 'hidden';
-                                                    opInput.name = 'op';
-                                                    opInput.value = 'translate';
-                                                    form.appendChild(opInput);
-
-                                                    document.body.appendChild(form);
-                                                    form.submit();
-                                                    document.body.removeChild(form);
+                                                    // Use URL parameters instead of POST (POST is blocked by Google)
+                                                    // Note: URL length limits may apply for very long articles
+                                                    const encodedText = encodeURIComponent(text);
+                                                    const url = `https://translate.google.com/?sl=en&tl=ne&text=${encodedText}&op=translate`;
+                                                    window.open(url, '_blank');
                                                 }}
                                                 className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1"
                                                 title="Open in Google Translate (New Tab)"
