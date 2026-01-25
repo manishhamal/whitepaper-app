@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { useParams } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import FadeIn from "../components/FadeIn";
 import { Article } from "../types";
@@ -135,13 +135,7 @@ const ArticleDetail: React.FC = () => {
         <h2 className="text-3xl font-bold mb-4 font-sans">
           {t("common.error")}
         </h2>
-        <Link
-          to="/articles"
-          className="text-slate-900 hover:underline flex items-center"
-        >
-          <ArrowLeft size={16} className="mr-2" />{" "}
-          {t("articleDetail.backToArticles")}
-        </Link>
+        <p className="text-slate-500">{t("articleDetail.notFound")}</p>
       </div>
     );
   }
@@ -191,23 +185,13 @@ const ArticleDetail: React.FC = () => {
           </div>
         </div>
 
-        <article className="pb-20 relative z-10 pt-12 transition-colors duration-300">
-          {/* Back Link */}
-          <FadeIn>
-            <Link
-              to="/articles"
-              className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 mb-12 transition-colors"
-            >
-              <ArrowLeft size={16} className="mr-2" />{" "}
-              {t("articleDetail.backToArticles")}
-            </Link>
-          </FadeIn>
+        <article className="pb-20 relative z-10 pt-4 transition-colors duration-300">
 
           {/* Header */}
-          <FadeIn delay={100}>
+          <FadeIn>
             <header className="mb-6 border-b border-slate-200/60 dark:border-slate-700/60 pb-6 transition-colors duration-300 flex flex-col items-center">
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl font-sans font-bold text-black dark:text-white mb-4 leading-tight text-center" style={{ fontSize: 'clamp(32px, 4vw, 36px)', lineHeight: '1.2' }}>
+              <h1 className="text-3xl md:text-4xl font-sans font-bold text-black dark:text-white mb-4 text-center pt-3 pb-2" style={{ fontSize: 'clamp(32px, 4vw, 36px)', lineHeight: '1.4' }}>
                 {title}
               </h1>
 

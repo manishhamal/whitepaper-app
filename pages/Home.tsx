@@ -25,7 +25,7 @@ const Home: React.FC = () => {
         {/* Intro Hero */}
         <FadeIn>
           <section className="py-12 mb-8 border-b border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">
-            <h1 className="text-4xl md:text-5xl font-sans font-bold leading-[0.9] tracking-tighter mb-4 animate-float text-center max-w-4xl mx-auto bg-gradient-to-br from-slate-800 via-slate-700 to-blue-700 dark:from-slate-100 dark:via-slate-200 dark:to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-sans font-bold tracking-tighter mb-4 animate-float text-center max-w-4xl mx-auto bg-gradient-to-br from-slate-800 via-slate-700 to-blue-700 dark:from-slate-100 dark:via-slate-200 dark:to-blue-400 bg-clip-text text-transparent pt-3 pb-2" style={{ lineHeight: '1.4' }}>
               {t("hero.title_line1")}
               <br className="hidden md:block" />{" "}
               {t("hero.title_line2")}
