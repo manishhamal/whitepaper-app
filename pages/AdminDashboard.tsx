@@ -212,7 +212,7 @@ const AdminDashboard: React.FC = () => {
                                     {formLoading && <Loader2 className="animate-spin" size={14} />}
                                     Save
                                 </button>
-                                <button onClick={() => setIsEditing(false)} className="text-slate-500 hover:text-slate-700 p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors">
+                                <button onClick={() => setIsEditing(false)} className="text-slate-500 hover:text-slate-700 p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full ">
                                     <X size={24} />
                                 </button>
                             </div>

@@ -23,7 +23,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
     return (
       <Link to={`/article/${article.id}`} className="group block w-full">
         <article className="flex flex-col justify-center min-h-[3rem]">
-          <h3 className="text-2xl md:text-3xl font-sans font-bold text-slate-800 dark:text-slate-200 group-hover:text-black dark:group-hover:text-white transition-colors leading-tight">
+          <h3 className="text-2xl md:text-3xl font-sans font-bold text-slate-800 dark:text-slate-200 group-hover:text-black dark:group-hover:text-white  leading-tight">
             {title}
           </h3>
           {/* Date - Fades out on hover to reveal only title */}
@@ -70,7 +70,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
             </span>
           </div>
           <Link to={`/article/${article.id}`} className="block mb-6">
-            <h3 className="text-4xl md:text-6xl font-sans font-extrabold text-slate-900 dark:text-white leading-[1.1] tracking-tighter group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">
+            <h3 className="text-4xl md:text-6xl font-sans font-extrabold text-slate-900 dark:text-white leading-[1.1] tracking-tighter group-hover:text-slate-700 dark:group-hover:text-slate-300 ">
               {title}
             </h3>
           </Link>
@@ -79,7 +79,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
           </p>
           <Link
             to={`/article/${article.id}`}
-            className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white border-b-2 border-slate-200 dark:border-slate-700 pb-1 hover:border-slate-900 dark:hover:border-white transition-colors w-max"
+            className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white border-b-2 border-slate-200 dark:border-slate-700 pb-1 hover:border-slate-900 dark:hover:border-white  w-max"
           >
             {t("articles.readMore")}
           </Link>
@@ -109,7 +109,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
           className="group block w-full py-4 relative z-10"
         >
           <article className="flex justify-between items-center gap-4 max-w-3xl mx-auto px-4">
-            <h3 className="text-lg md:text-xl font-sans font-medium text-slate-900 dark:text-slate-200 group-hover:text-slate-700 dark:group-hover:text-slate-100 transition-colors flex-1">
+            <h3 className="text-lg md:text-xl font-sans font-medium text-slate-900 dark:text-slate-200 group-hover:text-slate-700 dark:group-hover:text-slate-100  flex-1">
               {title}
             </h3>
             <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider flex-shrink-0">
@@ -136,7 +136,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
       <Link to={`/article/${article.id}`} className="group block h-full">
         <article className="flex flex-col h-full p-6 bg-white dark:bg-[#111] border border-slate-200 dark:border-zinc-800 rounded-3xl hover:border-slate-300 dark:hover:border-zinc-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
           <div className="flex justify-between items-start mb-4 gap-4">
-            <h3 className="text-lg md:text-xl font-sans font-bold text-slate-900 dark:text-white leading-tight group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">
+            <h3 className="text-lg md:text-xl font-sans font-bold text-slate-900 dark:text-white leading-tight group-hover:text-slate-700 dark:group-hover:text-slate-300 ">
               {title}
             </h3>
             {article.featuredImage ? (
@@ -174,7 +174,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
       ? article.excerptNe
       : article.excerpt;
   return (
-    <article className="group flex flex-col h-full p-6 bg-slate-50 dark:bg-slate-900/50 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors duration-300">
+    <article className="group flex flex-col h-full p-6 bg-slate-50 dark:bg-slate-900/50 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 ">
       <div className="mb-4">
         <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">
           {article.category}

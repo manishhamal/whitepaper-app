@@ -152,7 +152,7 @@ const ArticleDetail: React.FC = () => {
   return (
     <>
       {/* Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-[3px] z-[60] bg-transparent pointer-events-none transition-colors duration-300">
+      <div className="fixed top-0 left-0 w-full h-[3px] z-[60] bg-transparent pointer-events-none ">
         <div
           className="h-full bg-slate-900 dark:bg-white transition-all duration-150 ease-out"
           style={{ width: `${readingProgress}%` }}
@@ -163,7 +163,7 @@ const ArticleDetail: React.FC = () => {
       <div className="min-h-screen w-full bg-white dark:bg-[#171717] relative">
         {/* Grid Pattern with CSS Mask for Vignette */}
         <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+          className="absolute inset-0 pointer-events-none "
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
@@ -172,7 +172,7 @@ const ArticleDetail: React.FC = () => {
           }}
         >
           <div
-            className="absolute inset-0 transition-opacity duration-300"
+            className="absolute inset-0 "
             style={{
               maskImage:
                 "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
@@ -181,7 +181,7 @@ const ArticleDetail: React.FC = () => {
             }}
           >
             {/* Single Grid - neutral color works on both backgrounds */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:48px_48px] transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:48px_48px] " />
           </div>
         </div>
 
@@ -189,7 +189,7 @@ const ArticleDetail: React.FC = () => {
 
           {/* Header */}
           <FadeIn>
-            <header className="mb-6 border-b border-slate-200/60 dark:border-slate-700/60 pb-6 transition-colors duration-300 flex flex-col items-center">
+            <header className="mb-6 border-b border-slate-200/60 dark:border-slate-700/60 pb-6  flex flex-col items-center">
               {/* Title */}
               <h1 className="text-3xl md:text-4xl font-sans font-bold text-black dark:text-white mb-4 text-center pt-3 pb-2" style={{ fontSize: 'clamp(32px, 4vw, 36px)', lineHeight: '1.4' }}>
                 {title}
@@ -200,7 +200,7 @@ const ArticleDetail: React.FC = () => {
                 {tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs font-mono rounded-md transition-colors duration-300"
+                    className="px-3 py-1 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs font-mono rounded-md "
                   >
                     {tag.toLowerCase()}
                   </span>
@@ -212,7 +212,7 @@ const ArticleDetail: React.FC = () => {
           {/* Featured Image */}
           {article.featuredImage && (
             <FadeIn delay={200}>
-              <div className="mb-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 group transition-colors duration-300">
+              <div className="mb-16 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 group ">
                 <img
                   src={article.featuredImage}
                   alt={article.title}
@@ -256,9 +256,9 @@ const ArticleDetail: React.FC = () => {
               className="article-content prose prose-lg dark:prose-invert prose-slate max-w-none
               prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-black dark:prose-headings:text-white
               prose-p:font-sans prose-p:font-normal prose-p:leading-relaxed prose-p:text-black dark:prose-p:text-white
-              prose-a:font-medium prose-a:text-slate-900 dark:prose-a:text-white prose-a:no-underline prose-a:border-b prose-a:border-slate-300 dark:prose-a:border-slate-600 hover:prose-a:border-slate-900 dark:hover:prose-a:border-white prose-a:transition-colors
+              prose-a:font-medium prose-a:text-slate-900 dark:prose-a:text-white prose-a:no-underline prose-a:border-b prose-a:border-slate-300 dark:prose-a:border-slate-600 hover:prose-a:border-slate-900 dark:hover:prose-a:border-white prose-a:
               prose-img:rounded-xl
-              prose-hr:border-slate-200/40 dark:prose-hr:border-slate-700/40 prose-hr:transition-colors prose-hr:duration-500
+              prose-hr:border-slate-200/40 dark:prose-hr:border-slate-700/40 prose-hr: prose-hr:duration-500
               lead:text-xl lead:font-sans lead:text-slate-600 dark:lead:text-slate-300"
               style={{
                 fontSize: '18px',
@@ -270,7 +270,7 @@ const ArticleDetail: React.FC = () => {
 
           {/* Footer - Author Info and Date */}
           <FadeIn delay={400}>
-            <div className="mt-16 pt-12 border-t border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">
+            <div className="mt-16 pt-12 border-t border-slate-200/60 dark:border-slate-700/60 ">
               <div className="flex justify-end">
                 <div className="flex flex-col md:flex-row items-end gap-8 max-w-2xl">
                   {/* Author Details - Left side of image, right-aligned text */}

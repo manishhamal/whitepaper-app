@@ -71,7 +71,7 @@ const Layout: React.FC = () => {
         <div className="max-w-4xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
           {/* Logo */}
           <NavLink to="/" className="z-50 group">
-            <span className="text-xl font-sans font-bold tracking-tight text-slate-900 dark:text-white group-hover:opacity-80 transition-opacity">
+            <span className="text-xl font-sans font-bold tracking-tight text-slate-900 dark:text-white group-hover:opacity-80">
               {BLOG_NAME}.
             </span>
           </NavLink>
@@ -83,7 +83,7 @@ const Layout: React.FC = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `text-sm font-medium transition-colors duration-200 ${isActive
+                  `text-sm font-medium  duration-200 ${isActive
                     ? "text-slate-900 dark:text-white"
                     : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   }`
@@ -97,7 +97,7 @@ const Layout: React.FC = () => {
 
             <button
               onClick={toggleLanguage}
-              className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white  p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
               aria-label="Toggle language"
               title={
                 i18n.language === "en"
@@ -110,10 +110,12 @@ const Layout: React.FC = () => {
 
             <button
               onClick={toggleTheme}
-              className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-90 transition-transform duration-200"
               aria-label="Toggle theme"
             >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              <div className="hover:rotate-12 transition-transform duration-300">
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </div>
             </button>
           </nav>
 
@@ -132,7 +134,7 @@ const Layout: React.FC = () => {
             </button>
             <button
               onClick={toggleTheme}
-              className="text-slate-500 dark:text-slate-400 p-2"
+              className="text-slate-500 dark:text-slate-400 p-2 active:scale-90 transition-transform"
             >
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
@@ -148,7 +150,7 @@ const Layout: React.FC = () => {
 
       {/* Mobile Nav Dropdown - Placed outside Header to fix stacking context */}
       {isMenuOpen && (
-        <div className="fixed inset-0 top-16 z-40 bg-white dark:bg-[#171717] animate-in slide-in-from-right duration-200 border-t border-slate-100 dark:border-slate-800 md:hidden overflow-y-auto transition-colors duration-300">
+        <div className="fixed inset-0 top-16 z-40 bg-white dark:bg-[#171717] animate-in slide-in-from-right duration-200 border-t border-slate-100 dark:border-slate-800 md:hidden overflow-y-auto">
           <div className="p-6 flex flex-col space-y-6 mt-4">
             {navLinks.map((link) => (
               <NavLink
@@ -175,7 +177,7 @@ const Layout: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-slate-100 dark:border-slate-900 mt-auto bg-slate-50/50 dark:bg-slate-950/50 transition-colors duration-300">
+      <footer className="py-12 px-6 border-t border-slate-100 dark:border-slate-900 mt-auto bg-slate-50/50 dark:bg-slate-950/50">
         <div className="max-w-4xl mx-auto flex justify-center items-center text-sm text-slate-500 dark:text-slate-400">
           <div className="font-medium">
             &copy; {new Date().getFullYear()} {BLOG_NAME}.

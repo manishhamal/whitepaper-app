@@ -84,7 +84,7 @@ const Articles: React.FC = () => {
                   <button
                     key={cat}
                     onClick={() => handleCategoryChange(cat)}
-                    className={`font-bold uppercase tracking-widest transition-colors ${activeCategory === cat
+                    className={`font-bold uppercase tracking-widest  ${activeCategory === cat
                       ? 'text-slate-900 dark:text-white underline underline-offset-4 decoration-2'
                       : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
                       }`}
