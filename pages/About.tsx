@@ -7,7 +7,7 @@ import FadeIn from "../components/FadeIn";
 const About: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <div className="max-w-3xl mx-auto space-y-16 pb-12">
+    <div className="space-y-16 pb-12">
       {/* Intro */}
       <FadeIn>
         <div className="space-y-6">

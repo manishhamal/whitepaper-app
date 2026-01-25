@@ -62,7 +62,7 @@ const Articles: React.FC = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto pb-12">
+    <div className="pb-12">
       <FadeIn>
         <div className="space-y-6 mb-16">
           <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-slate-50">

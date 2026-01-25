@@ -21,7 +21,7 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-white dark:bg-[#171717] relative -mt-32 pt-32 transition-colors duration-300">
       {/* Grid Pattern with CSS Mask for Vignette */}
-      <div className="max-w-7xl mx-auto pb-12 px-4 relative z-10">
+      <div className="pb-12 relative z-10">
         {/* Intro Hero */}
         <FadeIn>
           <section className="py-12 mb-8 border-b border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">

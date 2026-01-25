@@ -191,7 +191,7 @@ const ArticleDetail: React.FC = () => {
           </div>
         </div>
 
-        <article className="max-w-4xl mx-auto pb-20 relative z-10 pt-12 px-6 md:px-8 transition-colors duration-300">
+        <article className="pb-20 relative z-10 pt-12 transition-colors duration-300">
           {/* Back Link */}
           <FadeIn>
             <Link
