@@ -65,9 +65,9 @@ const Layout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-[#171717] text-slate-900 dark:text-slate-100 font-sans selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-slate-900 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-[#171717] text-slate-900 dark:text-slate-100 font-sans selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-slate-900">
       {/* Modern Fixed Header */}
-      <header className="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#171717]/80 backdrop-blur-md border-b border-slate-100/50 dark:border-slate-800/50 transition-colors duration-300">
+      <header className="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#171717]/80 backdrop-blur-md border-b border-slate-100/50 dark:border-slate-800/50">
         <div className="max-w-4xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
           {/* Logo */}
           <NavLink to="/" className="z-50 group">
@@ -170,7 +170,7 @@ const Layout: React.FC = () => {
       )}
 
       {/* Main Content */}
-      <main className="flex-grow w-full max-w-4xl mx-auto px-6 pt-32 pb-16 transition-colors duration-300">
+      <main className="flex-grow w-full max-w-4xl mx-auto px-6 pt-24 pb-16">
         <Outlet />
       </main>
 

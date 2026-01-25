@@ -33,6 +33,7 @@ export interface Article {
   authorName?: string;
   authorRole?: string;
   authorAvatar?: string;
+  authorBio?: string;
   // Nepali translations
   titleNe?: string;
   excerptNe?: string;

@@ -33,9 +33,8 @@ const FadeIn: React.FC<FadeInProps> = ({ children, delay = 0, className = '' }) 
   return (
     <div
       ref={domRef}
-      className={`transition-all duration-1000 ease-out transform ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-      } ${className}`}
+      className={`fade-in-element transition-all !duration-1000 ease-out transform ${isVisible ? '!opacity-100 translate-y-0' : '!opacity-0 translate-y-12'
+        } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}

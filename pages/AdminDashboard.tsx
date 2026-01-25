@@ -383,6 +383,15 @@ const AdminDashboard: React.FC = () => {
                                                 placeholder="e.g. Writer, Researcher"
                                             />
                                         </div>
+                                        <div>
+                                            <label className="block text-sm font-medium mb-1">Author Bio</label>
+                                            <textarea
+                                                value={currentArticle.authorBio || ''}
+                                                onChange={(e) => setCurrentArticle({ ...currentArticle, authorBio: e.target.value })}
+                                                className="w-full p-2 border rounded dark:bg-slate-700 dark:border-slate-600 h-24"
+                                                placeholder="Brief biography shown at the end of the article..."
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

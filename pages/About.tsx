@@ -8,18 +8,30 @@ const About: React.FC = () => {
   const { t } = useTranslation();
   return (
     <div className="space-y-16 pb-12">
-      {/* Intro */}
+      {/* Intro - Lex Fridman style profile */}
       <FadeIn>
-        <div className="space-y-6">
-          <div className="space-y-6">
+        <div className="flex flex-col md:flex-row items-start gap-10">
+          {/* Profile Image */}
+          <div className="flex-shrink-0">
+            <img
+              src={AUTHOR.avatar}
+              alt={AUTHOR.name}
+              className="w-40 h-40 md:w-56 md:h-56 object-cover rounded-md grayscale hover:grayscale-0 transition-all duration-700 ease-out shadow-sm"
+            />
+          </div>
+
+          {/* Intro Text */}
+          <div className="space-y-6 pt-2">
             <div>
-              <h1 className="text-4xl font-serif font-bold text-slate-900 dark:text-slate-50 mb-2">
-                {t("about.title")}
+              <h1 className="text-4xl md:text-5xl font-sans font-bold text-slate-900 dark:text-slate-50 mb-2 tracking-tight">
+                {AUTHOR.name}
               </h1>
+              <div className="text-xl text-slate-500 font-medium">{AUTHOR.role}</div>
             </div>
-            <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
-              {t("about.bio")}
-            </p>
+            <div
+              className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-sans max-w-2xl"
+              dangerouslySetInnerHTML={{ __html: t("about.bio") }}
+            />
           </div>
         </div>
       </FadeIn>

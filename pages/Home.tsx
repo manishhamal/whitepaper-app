@@ -19,12 +19,12 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-[#171717] relative -mt-32 pt-32 transition-colors duration-300">
+    <div className="min-h-screen w-full bg-white dark:bg-[#171717] relative -mt-24 pt-24">
       {/* Grid Pattern with CSS Mask for Vignette */}
       <div className="pb-12 relative z-10">
         {/* Intro Hero */}
         <FadeIn>
-          <section className="py-12 mb-8 border-b border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">
+          <section className="pt-8 pb-12 mb-8 border-b border-slate-200/60 dark:border-slate-700/60">
             <h1 className="text-4xl md:text-5xl font-sans font-bold tracking-tighter mb-4 animate-float text-center max-w-4xl mx-auto bg-gradient-to-br from-slate-800 via-slate-700 to-blue-700 dark:from-slate-100 dark:via-slate-200 dark:to-blue-400 bg-clip-text text-transparent pt-3 pb-2" style={{ lineHeight: '1.4' }}>
               {t("hero.title_line1")}
               <br className="hidden md:block" />{" "}

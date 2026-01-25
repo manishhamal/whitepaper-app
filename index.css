@@ -1,0 +1,26 @@
+/* Global Dark Mode Transition */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+
+/* Exceptions and Overrides */
+.no-transition, .progress-bar, .animate-float, .animate-spin {
+  transition: none !important;
+}
+
+/* Ensure FadeIn (which uses transition-all) maintains its timing */
+.fade-in-element {
+  transition-property: all !important;
+  transition-duration: 1000ms !important;
+}
+
+/* Root level improvements */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}

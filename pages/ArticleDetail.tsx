@@ -160,7 +160,7 @@ const ArticleDetail: React.FC = () => {
       </div>
 
       {/* Grid Background Wrapper */}
-      <div className="min-h-screen w-full bg-white dark:bg-[#171717] relative transition-colors duration-300">
+      <div className="min-h-screen w-full bg-white dark:bg-[#171717] relative">
         {/* Grid Pattern with CSS Mask for Vignette */}
         <div
           className="absolute inset-0 pointer-events-none transition-opacity duration-300"
@@ -185,7 +185,7 @@ const ArticleDetail: React.FC = () => {
           </div>
         </div>
 
-        <article className="pb-20 relative z-10 pt-4 transition-colors duration-300">
+        <article className="pb-20 relative z-10 pt-0">
 
           {/* Header */}
           <FadeIn>
@@ -270,29 +270,45 @@ const ArticleDetail: React.FC = () => {
 
           {/* Footer - Author Info and Date */}
           <FadeIn delay={400}>
-            <div className="mt-16 pt-8 border-t border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">
+            <div className="mt-16 pt-12 border-t border-slate-200/60 dark:border-slate-700/60 transition-colors duration-300">
               <div className="flex justify-end">
-                <div className="flex items-center gap-6">
-                  <div className="text-right">
-                    <div className="font-bold text-slate-900 dark:text-slate-100 text-lg md:text-2xl">
-                      {article.authorName || AUTHOR.name}
+                <div className="flex flex-col md:flex-row items-end gap-8 max-w-2xl">
+                  {/* Author Details - Left side of image, right-aligned text */}
+                  <div className="flex flex-col text-right order-2 md:order-1 flex-1">
+                    <div className="font-bold text-slate-900 dark:text-slate-100 text-2xl md:text-3xl tracking-tight mb-2">
+                      {article.authorName}
                     </div>
-                    <div className="text-slate-500 dark:text-slate-400 text-sm md:text-base">
-                      {article.authorRole || AUTHOR.role}
-                    </div>
-                    <div className="text-slate-400 dark:text-slate-500 text-xs md:text-sm mt-1">
-                      {new Date(article.date).toLocaleDateString("en-US", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      })}
+
+                    {/* Role, Date & Bio Group */}
+                    <div className="space-y-1">
+                      <div className="flex justify-end items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium">
+                        <span>{article.authorRole}</span>
+                        <span className="text-slate-300 dark:text-slate-700">•</span>
+                        <time className="text-slate-400 dark:text-slate-500">
+                          {new Date(article.date).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </time>
+                      </div>
+
+                      {/* Bio - Grouped tightly with Role for vertical consistency */}
+                      {article.authorBio && (
+                        <div
+                          className="text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed font-sans max-w-xl text-right"
+                          dangerouslySetInnerHTML={{ __html: article.authorBio }}
+                        />
+                      )}
                     </div>
                   </div>
-                  <div className="overflow-hidden rounded-2xl">
+
+                  {/* Author Avatar - Right side of text */}
+                  <div className="flex-shrink-0 order-1 md:order-2">
                     <img
                       src={article.authorAvatar || AUTHOR.avatar}
-                      alt={article.authorName || AUTHOR.name}
-                      className="w-20 h-20 md:w-28 md:h-28 object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+                      alt={article.authorName}
+                      className="w-32 h-32 md:w-36 md:h-36 object-cover rounded-md grayscale hover:grayscale-0 transition-all duration-700 ease-out shadow-sm border border-slate-100 dark:border-slate-800"
                     />
                   </div>
                 </div>

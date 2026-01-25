@@ -115,6 +115,7 @@ function mapToArticle(data: any): Article {
         authorName: data.author_name,
         authorRole: data.author_role,
         authorAvatar: data.author_avatar,
+        authorBio: data.author_bio,
         titleNe: data.title_ne,
         excerptNe: data.excerpt_ne,
         contentNe: data.content_ne,
@@ -135,6 +136,7 @@ function mapToDb(article: Omit<Article, 'id' | 'views'>): any {
         author_name: article.authorName,
         author_role: article.authorRole,
         author_avatar: article.authorAvatar,
+        author_bio: article.authorBio,
         title_ne: article.titleNe,
         excerpt_ne: article.excerptNe,
         content_ne: article.contentNe,
@@ -155,6 +157,7 @@ function mapToDbPartial(updates: Partial<Article>): any {
     if (updates.authorName !== undefined) mapped.author_name = updates.authorName;
     if (updates.authorRole !== undefined) mapped.author_role = updates.authorRole;
     if (updates.authorAvatar !== undefined) mapped.author_avatar = updates.authorAvatar;
+    if (updates.authorBio !== undefined) mapped.author_bio = updates.authorBio;
     if (updates.titleNe !== undefined) mapped.title_ne = updates.titleNe;
     if (updates.excerptNe !== undefined) mapped.excerpt_ne = updates.excerptNe;
     if (updates.contentNe !== undefined) mapped.content_ne = updates.contentNe;
